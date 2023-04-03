@@ -1,0 +1,1384 @@
+[
+    {
+        "time": [
+            "00:00:00.250",
+            "00:00:04.840"
+        ],
+        "text": [
+            "Today's",
+            "lesson",
+            "continues",
+            "on",
+            "computer",
+            "network",
+            "evolution."
+        ]
+    },
+    {
+        "time": [
+            "00:00:04.840",
+            "00:00:09.499"
+        ],
+        "text": [
+            "Internet",
+            "provides",
+            "transfer",
+            "of",
+            "packets",
+            "of",
+            "information",
+            "across",
+            "multiple"
+        ]
+    },
+    {
+        "time": [
+            "00:00:09.499",
+            "00:00:11.680"
+        ],
+        "text": [
+            "possible",
+            "dissimilar",
+            "networks."
+        ]
+    },
+    {
+        "time": [
+            "00:00:11.680",
+            "00:00:16.572"
+        ],
+        "text": [
+            "Before",
+            "discussing",
+            "internet",
+            "architecture",
+            "let's",
+            "visit",
+            "some",
+            "of",
+            "the",
+            "types"
+        ]
+    },
+    {
+        "time": [
+            "00:00:16.572",
+            "00:00:19.388"
+        ],
+        "text": [
+            "of",
+            "networks",
+            "such",
+            "as",
+            "Internet",
+            "operation."
+        ]
+    },
+    {
+        "time": [
+            "00:00:19.388",
+            "00:00:22.453"
+        ],
+        "text": [
+            "Early",
+            "computers",
+            "were",
+            "extremely",
+            "expensive,",
+            "so"
+        ]
+    },
+    {
+        "time": [
+            "00:00:22.453",
+            "00:00:27.060"
+        ],
+        "text": [
+            "network",
+            "techniques",
+            "were",
+            "developed",
+            "to",
+            "allow",
+            "them",
+            "to",
+            "be",
+            "shared",
+            "by",
+            "users."
+        ]
+    },
+    {
+        "time": [
+            "00:00:27.060",
+            "00:00:32.781"
+        ],
+        "text": [
+            "The",
+            "first",
+            "computer",
+            "network",
+            "was",
+            "the",
+            "SAGE",
+            "developed",
+            "for",
+            "air",
+            "defense",
+            "systems."
+        ]
+    },
+    {
+        "time": [
+            "00:00:32.781",
+            "00:00:37.771"
+        ],
+        "text": [
+            "The",
+            "architecture",
+            "was",
+            "often",
+            "tree",
+            "topology",
+            "terminal",
+            "oriented",
+            "networks."
+        ]
+    },
+    {
+        "time": [
+            "00:00:37.771",
+            "00:00:41.175"
+        ],
+        "text": [
+            "As",
+            "the",
+            "cost",
+            "of",
+            "computers",
+            "job",
+            "it",
+            "had",
+            "become",
+            "necessary",
+            "for"
+        ]
+    },
+    {
+        "time": [
+            "00:00:41.175",
+            "00:00:45.621"
+        ],
+        "text": [
+            "users",
+            "to",
+            "connect",
+            "to",
+            "different",
+            "computers",
+            "for",
+            "different",
+            "applications."
+        ]
+    },
+    {
+        "time": [
+            "00:00:45.621",
+            "00:00:50.496"
+        ],
+        "text": [
+            "The",
+            "ARPANET",
+            "awards",
+            "of",
+            "a",
+            "first",
+            "major",
+            "effort",
+            "at",
+            "the",
+            "developing",
+            "internet"
+        ]
+    },
+    {
+        "time": [
+            "00:00:50.496",
+            "00:00:55.047"
+        ],
+        "text": [
+            "work",
+            "to",
+            "interconnect",
+            "computers",
+            "over",
+            "a",
+            "wide",
+            "geographical",
+            "area."
+        ]
+    },
+    {
+        "time": [
+            "00:00:55.047",
+            "00:01:00.035"
+        ],
+        "text": [
+            "So",
+            "Internet",
+            "was",
+            "later",
+            "developed",
+            "to",
+            "enable",
+            "communications",
+            "between",
+            "computers"
+        ]
+    },
+    {
+        "time": [
+            "00:01:00.035",
+            "00:01:02.497"
+        ],
+        "text": [
+            "that",
+            "attached",
+            "to",
+            "different",
+            "network."
+        ]
+    },
+    {
+        "time": [
+            "00:01:02.497",
+            "00:01:06.923"
+        ],
+        "text": [
+            "In",
+            "late",
+            "1980's",
+            "to",
+            "2000's",
+            "we",
+            "have",
+            "witnessed"
+        ]
+    },
+    {
+        "time": [
+            "00:01:06.923",
+            "00:01:11.558"
+        ],
+        "text": [
+            "proliferation",
+            "of",
+            "new",
+            "applications",
+            "on",
+            "internet",
+            "gross."
+        ]
+    },
+    {
+        "time": [
+            "00:01:11.558",
+            "00:01:15.276"
+        ],
+        "text": [
+            "Terminal-Oriented",
+            "Networks",
+            "provide",
+            "a",
+            "message",
+            "transfer"
+        ]
+    },
+    {
+        "time": [
+            "00:01:15.276",
+            "00:01:19.383"
+        ],
+        "text": [
+            "service",
+            "to",
+            "allow",
+            "a",
+            "number",
+            "of",
+            "terminals",
+            "to",
+            "share",
+            "a",
+            "host",
+            "computer."
+        ]
+    },
+    {
+        "time": [
+            "00:01:19.383",
+            "00:01:24.499"
+        ],
+        "text": [
+            "Access",
+            "from",
+            "terminals",
+            "located",
+            "farther",
+            "away",
+            "from",
+            "the",
+            "host",
+            "computer",
+            "became"
+        ]
+    },
+    {
+        "time": [
+            "00:01:24.499",
+            "00:01:30.490"
+        ],
+        "text": [
+            "possible",
+            "as",
+            "telephone",
+            "communication",
+            "lines",
+            "and",
+            "a",
+            "modem",
+            "became",
+            "available."
+        ]
+    },
+    {
+        "time": [
+            "00:01:30.490",
+            "00:01:34.958"
+        ],
+        "text": [
+            "The",
+            "cost",
+            "of",
+            "providing",
+            "dedicated",
+            "communication",
+            "lines",
+            "were",
+            "expensive,"
+        ]
+    },
+    {
+        "time": [
+            "00:01:34.958",
+            "00:01:38.691"
+        ],
+        "text": [
+            "while",
+            "terminals",
+            "generated",
+            "a",
+            "message",
+            "in",
+            "a",
+            "bursting",
+            "manner."
+        ]
+    },
+    {
+        "time": [
+            "00:01:38.691",
+            "00:01:43.885"
+        ],
+        "text": [
+            "Medium",
+            "Access",
+            "Control",
+            "message",
+            "were",
+            "developed",
+            "to",
+            "allow",
+            "a",
+            "number",
+            "of",
+            "terminals"
+        ]
+    },
+    {
+        "time": [
+            "00:01:43.885",
+            "00:01:49.088"
+        ],
+        "text": [
+            "to",
+            "communicate",
+            "with",
+            "essential",
+            "computer",
+            "using",
+            "a",
+            "sheer",
+            "communication",
+            "line."
+        ]
+    },
+    {
+        "time": [
+            "00:01:49.088",
+            "00:01:53.368"
+        ],
+        "text": [
+            "In",
+            "an",
+            "arbitrated",
+            "manner",
+            "to",
+            "avoid",
+            "a",
+            "possible",
+            "conflict",
+            "due"
+        ]
+    },
+    {
+        "time": [
+            "00:01:53.368",
+            "00:01:55.649"
+        ],
+        "text": [
+            "to",
+            "simultaneous",
+            "transfers."
+        ]
+    },
+    {
+        "time": [
+            "00:01:55.649",
+            "00:02:00.387"
+        ],
+        "text": [
+            "Messages",
+            "from",
+            "a",
+            "terminal",
+            "are",
+            "encapsulated",
+            "inside",
+            "a",
+            "frame",
+            "that"
+        ]
+    },
+    {
+        "time": [
+            "00:02:00.387",
+            "00:02:04.498"
+        ],
+        "text": [
+            "consists",
+            "of",
+            "a",
+            "header",
+            "in",
+            "addition",
+            "to",
+            "the",
+            "user",
+            "message."
+        ]
+    },
+    {
+        "time": [
+            "00:02:04.498",
+            "00:02:09.749"
+        ],
+        "text": [
+            "Polling",
+            "protocol",
+            "uses",
+            "a",
+            "master-slave",
+            "arrangement",
+            "where",
+            "the",
+            "central"
+        ]
+    },
+    {
+        "time": [
+            "00:02:09.749",
+            "00:02:15.270"
+        ],
+        "text": [
+            "computer",
+            "sends",
+            "a",
+            "poll",
+            "message",
+            "to",
+            "a",
+            "specific",
+            "terminal",
+            "on",
+            "the",
+            "line."
+        ]
+    },
+    {
+        "time": [
+            "00:02:15.270",
+            "00:02:17.801"
+        ],
+        "text": [
+            "All",
+            "terminals",
+            "listen",
+            "to",
+            "the",
+            "said",
+            "outgoing]",
+            "line."
+        ]
+    },
+    {
+        "time": [
+            "00:02:17.801",
+            "00:02:21.306"
+        ],
+        "text": [
+            "But",
+            "only",
+            "the",
+            "terminal",
+            "that",
+            "is",
+            "polled",
+            "replies"
+        ]
+    },
+    {
+        "time": [
+            "00:02:21.306",
+            "00:02:25.578"
+        ],
+        "text": [
+            "by",
+            "sending",
+            "a",
+            "ready",
+            "information",
+            "on",
+            "the",
+            "incoming",
+            "line."
+        ]
+    },
+    {
+        "time": [
+            "00:02:25.578",
+            "00:02:28.394"
+        ],
+        "text": [
+            "Multiplexing",
+            "provides",
+            "another",
+            "means",
+            "for"
+        ]
+    },
+    {
+        "time": [
+            "00:02:28.394",
+            "00:02:31.697"
+        ],
+        "text": [
+            "sharing",
+            "a",
+            "communication",
+            "line",
+            "among",
+            "terminals."
+        ]
+    },
+    {
+        "time": [
+            "00:02:31.697",
+            "00:02:37.250"
+        ],
+        "text": [
+            "Frames",
+            "are",
+            "buffered",
+            "at",
+            "multiplexer",
+            "until",
+            "the",
+            "line",
+            "became",
+            "available."
+        ]
+    },
+    {
+        "time": [
+            "00:02:37.250",
+            "00:02:40.852"
+        ],
+        "text": [
+            "So",
+            "communication",
+            "line",
+            "transmits",
+            "a",
+            "sequence",
+            "of",
+            "binary",
+            "digits."
+        ]
+    },
+    {
+        "time": [
+            "00:02:40.852",
+            "00:02:46.003"
+        ],
+        "text": [
+            "So",
+            "a",
+            "framing",
+            "message",
+            "is",
+            "required",
+            "to",
+            "delineate",
+            "the",
+            "beginning",
+            "and"
+        ]
+    },
+    {
+        "time": [
+            "00:02:46.003",
+            "00:02:47.858"
+        ],
+        "text": [
+            "the",
+            "end",
+            "of",
+            "each",
+            "frame."
+        ]
+    },
+    {
+        "time": [
+            "00:02:47.858",
+            "00:02:50.850"
+        ],
+        "text": [
+            "Communication",
+            "lines",
+            "instill",
+            "errors."
+        ]
+    },
+    {
+        "time": [
+            "00:02:50.850",
+            "00:02:56.780"
+        ],
+        "text": [
+            "Error",
+            "control",
+            "techniques",
+            "were",
+            "developed",
+            "to",
+            "ensure",
+            "virtually",
+            "error-free",
+            "communication."
+        ]
+    },
+    {
+        "time": [
+            "00:02:56.780",
+            "00:02:59.272"
+        ],
+        "text": [
+            "Each",
+            "frame",
+            "could",
+            "have",
+            "a",
+            "number",
+            "of",
+            "check",
+            "bits."
+        ]
+    },
+    {
+        "time": [
+            "00:02:59.272",
+            "00:03:05.118"
+        ],
+        "text": [
+            "Usually",
+            "calculated",
+            "that",
+            "by",
+            "cyclic",
+            "redundancy",
+            "check",
+            "called",
+            "CRC."
+        ]
+    },
+    {
+        "time": [
+            "00:03:05.118",
+            "00:03:09.356"
+        ],
+        "text": [
+            "As",
+            "cost",
+            "of",
+            "computers",
+            "jumped,",
+            "there",
+            "was",
+            "a",
+            "need",
+            "to",
+            "develop",
+            "flexible"
+        ]
+    },
+    {
+        "time": [
+            "00:03:09.356",
+            "00:03:13.991"
+        ],
+        "text": [
+            "to",
+            "computer",
+            "to",
+            "computer",
+            "networks",
+            "to",
+            "support",
+            "Different",
+            "applications."
+        ]
+    },
+    {
+        "time": [
+            "00:03:13.991",
+            "00:03:18.344"
+        ],
+        "text": [
+            "The",
+            "transfer",
+            "of",
+            "message",
+            "between",
+            "networked",
+            "computers",
+            "seem",
+            "to",
+            "be",
+            "similar"
+        ]
+    },
+    {
+        "time": [
+            "00:03:18.344",
+            "00:03:21.983"
+        ],
+        "text": [
+            "to",
+            "the",
+            "message",
+            "switching",
+            "services",
+            "in",
+            "telegraph",
+            "networks."
+        ]
+    },
+    {
+        "time": [
+            "00:03:21.983",
+            "00:03:25.971"
+        ],
+        "text": [
+            "But",
+            "computer",
+            "networks",
+            "should",
+            "support",
+            "multiple",
+            "applications,"
+        ]
+    },
+    {
+        "time": [
+            "00:03:25.971",
+            "00:03:29.150"
+        ],
+        "text": [
+            "transmission",
+            "time",
+            "should",
+            "be",
+            "short",
+            "enough."
+        ]
+    },
+    {
+        "time": [
+            "00:03:29.150",
+            "00:03:35.188"
+        ],
+        "text": [
+            "For",
+            "messages",
+            "from",
+            "interactive",
+            "applications,",
+            "while",
+            "the",
+            "store-and-forward"
+        ]
+    },
+    {
+        "time": [
+            "00:03:35.188",
+            "00:03:39.431"
+        ],
+        "text": [
+            "operation",
+            "could",
+            "induce",
+            "high",
+            "delay",
+            "for",
+            "large",
+            "messages."
+        ]
+    },
+    {
+        "time": [
+            "00:03:39.431",
+            "00:03:44.740"
+        ],
+        "text": [
+            "Packet",
+            "switching",
+            "was",
+            "designed",
+            "to",
+            "provide",
+            "a",
+            "package",
+            "transfer",
+            "service,",
+            "where"
+        ]
+    },
+    {
+        "time": [
+            "00:03:44.740",
+            "00:03:50.307"
+        ],
+        "text": [
+            "a",
+            "packet",
+            "is",
+            "of",
+            "variable",
+            "length",
+            "broken",
+            "information",
+            "up",
+            "to",
+            "some",
+            "specified",
+            "maximum."
+        ]
+    },
+    {
+        "time": [
+            "00:03:50.307",
+            "00:03:55.032"
+        ],
+        "text": [
+            "Using",
+            "messages",
+            "that",
+            "do",
+            "not",
+            "fit",
+            "inside",
+            "a",
+            "single",
+            "packet",
+            "are",
+            "segmented",
+            "and"
+        ]
+    },
+    {
+        "time": [
+            "00:03:55.032",
+            "00:03:57.710"
+        ],
+        "text": [
+            "transmitted",
+            "using",
+            "multiple",
+            "packets."
+        ]
+    },
+    {
+        "time": [
+            "00:03:57.710",
+            "00:04:00.999"
+        ],
+        "text": [
+            "And",
+            "they",
+            "are",
+            "reassembled",
+            "at",
+            "their",
+            "destination."
+        ]
+    },
+    {
+        "time": [
+            "00:04:00.999",
+            "00:04:06.493"
+        ],
+        "text": [
+            "ARPANET",
+            "was",
+            "developed",
+            "to",
+            "provide",
+            "a",
+            "test",
+            "bed",
+            "for",
+            "researching",
+            "the",
+            "interconnection"
+        ]
+    },
+    {
+        "time": [
+            "00:04:06.493",
+            "00:04:11.598"
+        ],
+        "text": [
+            "of",
+            "our",
+            "host",
+            "computers",
+            "using",
+            "package",
+            "switching",
+            "across",
+            "a",
+            "wide",
+            "area",
+            "network."
+        ]
+    },
+    {
+        "time": [
+            "00:04:11.598",
+            "00:04:15.666"
+        ],
+        "text": [
+            "It",
+            "was",
+            "somewhat",
+            "a",
+            "product",
+            "of",
+            "as",
+            "a",
+            "harvest",
+            "structure",
+            "of"
+        ]
+    },
+    {
+        "time": [
+            "00:04:15.666",
+            "00:04:19.190"
+        ],
+        "text": [
+            "the",
+            "system",
+            "could",
+            "have",
+            "been",
+            "too",
+            "vulnerable."
+        ]
+    },
+    {
+        "time": [
+            "00:04:20.680",
+            "00:04:25.644"
+        ],
+        "text": [
+            "In",
+            "ARPANET,",
+            "we",
+            "see",
+            "most",
+            "of",
+            "the",
+            "elements",
+            "of",
+            "computer",
+            "network",
+            "architecture",
+            "such",
+            "as"
+        ]
+    },
+    {
+        "time": [
+            "00:04:25.644",
+            "00:04:29.148"
+        ],
+        "text": [
+            "emissions",
+            "services",
+            "was",
+            "connection-less",
+            "in",
+            "the",
+            "sense."
+        ]
+    },
+    {
+        "time": [
+            "00:04:29.148",
+            "00:04:33.655"
+        ],
+        "text": [
+            "So",
+            "the",
+            "no",
+            "connection",
+            "set-up",
+            "what",
+            "Required",
+            "prior",
+            "to",
+            "the",
+            "transmission",
+            "of",
+            "a",
+            "packet."
+        ]
+    },
+    {
+        "time": [
+            "00:04:35.045",
+            "00:04:41.356"
+        ],
+        "text": [
+            "Packets",
+            "are",
+            "encapsulated",
+            "in",
+            "frames",
+            "and",
+            "the",
+            "check",
+            "bits",
+            "are",
+            "used",
+            "for",
+            "error",
+            "control."
+        ]
+    },
+    {
+        "time": [
+            "00:04:41.356",
+            "00:04:45.070"
+        ],
+        "text": [
+            "Destinations",
+            "are",
+            "identified",
+            "by",
+            "unique",
+            "addresses."
+        ]
+    },
+    {
+        "time": [
+            "00:04:45.070",
+            "00:04:49.659"
+        ],
+        "text": [
+            "And",
+            "the",
+            "routing",
+            "tables",
+            "are",
+            "calculating",
+            "dynamically",
+            "at",
+            "the",
+            "packet",
+            "switch."
+        ]
+    },
+    {
+        "time": [
+            "00:04:49.659",
+            "00:04:55.401"
+        ],
+        "text": [
+            "It",
+            "provides",
+            "end-to-end",
+            "congestion",
+            "control",
+            "to",
+            "prevent",
+            "congestion"
+        ]
+    },
+    {
+        "time": [
+            "00:04:55.401",
+            "00:05:00.849"
+        ],
+        "text": [
+            "inside",
+            "the",
+            "network",
+            "and",
+            "flow",
+            "control",
+            "to",
+            "prevent",
+            "buffer",
+            "overflow."
+        ]
+    },
+    {
+        "time": [
+            "00:05:00.849",
+            "00:05:05.794"
+        ],
+        "text": [
+            "As",
+            "ARPANET",
+            "evolved",
+            "to",
+            "NSF-NET,",
+            "more",
+            "nodes",
+            "joined",
+            "the",
+            "network,",
+            "and"
+        ]
+    },
+    {
+        "time": [
+            "00:05:05.794",
+            "00:05:08.362"
+        ],
+        "text": [
+            "a",
+            "new",
+            "application",
+            "was",
+            "introduced."
+        ]
+    },
+    {
+        "time": [
+            "00:05:08.362",
+            "00:05:13.627"
+        ],
+        "text": [
+            "As",
+            "workstations",
+            "and",
+            "PCs",
+            "became",
+            "more",
+            "affordable",
+            "there",
+            "was",
+            "need",
+            "for"
+        ]
+    },
+    {
+        "time": [
+            "00:05:13.627",
+            "00:05:17.942"
+        ],
+        "text": [
+            "low",
+            "cost,",
+            "low",
+            "error",
+            "rate,",
+            "and",
+            "high",
+            "speed",
+            "networks."
+        ]
+    },
+    {
+        "time": [
+            "00:05:17.942",
+            "00:05:24.400"
+        ],
+        "text": [
+            "The",
+            "practice",
+            "gave",
+            "rise",
+            "to",
+            "networks",
+            "with",
+            "limited",
+            "typically",
+            "less",
+            "than",
+            "one",
+            "kilometer."
+        ]
+    },
+    {
+        "time": [
+            "00:05:24.400",
+            "00:05:28.922"
+        ],
+        "text": [
+            "Called",
+            "local",
+            "area",
+            "networks,",
+            "or",
+            "simply",
+            "LANs."
+        ]
+    },
+    {
+        "time": [
+            "00:05:28.922",
+            "00:05:33.249"
+        ],
+        "text": [
+            "LANs",
+            "use",
+            "broadcasting",
+            "for",
+            "transfer",
+            "frames",
+            "within",
+            "the",
+            "network."
+        ]
+    },
+    {
+        "time": [
+            "00:05:33.249",
+            "00:05:38.109"
+        ],
+        "text": [
+            "Media",
+            "access",
+            "control",
+            "protocol",
+            "becomes",
+            "essential",
+            "to",
+            "coordinate",
+            "access"
+        ]
+    },
+    {
+        "time": [
+            "00:05:38.109",
+            "00:05:43.850"
+        ],
+        "text": [
+            "to",
+            "transmission",
+            "media",
+            "in",
+            "order",
+            "to",
+            "prevent",
+            "a",
+            "clashings",
+            "between",
+            "friends."
+        ]
+    },
+    {
+        "time": [
+            "00:05:43.850",
+            "00:05:47.105"
+        ],
+        "text": [
+            "Each",
+            "machine",
+            "network",
+            "interface",
+            "card"
+        ]
+    },
+    {
+        "time": [
+            "00:05:47.105",
+            "00:05:51.518"
+        ],
+        "text": [
+            "has",
+            "a",
+            "global",
+            "unique",
+            "address",
+            "called",
+            "a",
+            "MAC",
+            "address."
+        ]
+    },
+    {
+        "time": [
+            "00:05:51.518",
+            "00:05:57.602"
+        ],
+        "text": [
+            "To",
+            "summarize,",
+            "minimum",
+            "architecture",
+            "design",
+            "evolution",
+            "is",
+            "driven",
+            "by",
+            "services",
+            "and"
+        ]
+    }
+]

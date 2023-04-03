@@ -1,0 +1,1992 @@
+[
+    {
+        "id": "0",
+        "layout": "0",
+        "name": "Computer Network Evolution",
+        "time": [
+            "00:00:00",
+            "00:00:17"
+        ],
+        "text": "",
+        "attribute": {
+            "importance": 16,
+            "duration": "",
+            "relevance": 16,
+            "expressions": {
+                "1": [
+                    [
+                        "00:00:00",
+                        "00:00:03"
+                    ]
+                ],
+                "2": [],
+                "3": [
+                    [
+                        "00:00:03",
+                        "00:00:17"
+                    ]
+                ]
+            }
+        },
+        "timeFatherId": "-1",
+        "timeSonId": "1",
+        "basicRel": [],
+        "similarityRel": [],
+        "son": [
+            "1",
+            "4",
+            "8"
+        ],
+        "father": [
+            "-1"
+        ],
+        "type": "0",
+        "totalDuration": 161
+    },
+    {
+        "id": "1",
+        "layout": "1",
+        "name": "1960s:Terminals access shared host computer",
+        "time": [
+            "00:00:17",
+            "00:00:33"
+        ],
+        "text": "",
+        "attribute": {
+            "importance": 20,
+            "duration": "",
+            "relevance": 12,
+            "expressions": {
+                "1": [
+                    [
+                        "00:00:18",
+                        "00:00:19"
+                    ],
+                    [
+                        "00:00:19",
+                        "00:00:33"
+                    ]
+                ],
+                "2": [
+                    [
+                        "00:00:17",
+                        "00:00:18"
+                    ]
+                ],
+                "3": []
+            }
+        },
+        "timeFatherId": "0",
+        "timeSonId": "2",
+        "basicRel": [
+            4
+        ],
+        "similarityRel": [],
+        "son": [
+            "2",
+            "3"
+        ],
+        "father": [
+            "0"
+        ],
+        "type": "0",
+        "totalDuration": 46
+    },
+    {
+        "id": "2",
+        "layout": "2",
+        "name": "SAGE:SABREairlinereservationsystem",
+        "time": [
+            "00:00:33",
+            "00:00:44"
+        ],
+        "text": "",
+        "attribute": {
+            "importance": 15,
+            "duration": "",
+            "relevance": 8,
+            "expressions": {
+                "1": [
+                    [
+                        "00:00:33",
+                        "00:00:35"
+                    ],
+                    [
+                        "00:00:35",
+                        "00:00:44"
+                    ]
+                ],
+                "2": [],
+                "3": []
+            }
+        },
+        "timeFatherId": "1",
+        "timeSonId": "3",
+        "basicRel": [],
+        "similarityRel": [],
+        "son": [],
+        "father": [
+            "1"
+        ],
+        "type": "0",
+        "totalDuration": 11
+    },
+    {
+        "id": "3",
+        "layout": "2",
+        "name": "Tree-topology terminal-oriented networks",
+        "time": [
+            "00:00:44",
+            "00:01:03"
+        ],
+        "text": "",
+        "attribute": {
+            "importance": 20,
+            "duration": "",
+            "relevance": 9,
+            "expressions": {
+                "1": [
+                    [
+                        "00:00:47",
+                        "00:00:48"
+                    ],
+                    [
+                        "00:00:48",
+                        "00:00:51"
+                    ]
+                ],
+                "2": [
+                    [
+                        "00:00:44",
+                        "00:00:47"
+                    ],
+                    [
+                        "00:00:51",
+                        "00:01:03"
+                    ]
+                ],
+                "3": []
+            }
+        },
+        "timeFatherId": "2",
+        "timeSonId": "4",
+        "basicRel": [],
+        "similarityRel": [],
+        "son": [],
+        "father": [
+            "1"
+        ],
+        "type": "0",
+        "totalDuration": 19
+    },
+    {
+        "id": "4",
+        "layout": "1",
+        "name": "1970s:Computers connect directly to each other",
+        "time": [
+            "00:01:03",
+            "00:01:21"
+        ],
+        "text": "",
+        "attribute": {
+            "importance": 14,
+            "duration": "",
+            "relevance": 8,
+            "expressions": {
+                "1": [
+                    [
+                        "00:01:03",
+                        "00:01:06"
+                    ],
+                    [
+                        "00:01:09",
+                        "00:01:10"
+                    ],
+                    [
+                        "00:01:10",
+                        "00:01:13"
+                    ]
+                ],
+                "2": [
+                    [
+                        "00:01:07",
+                        "00:01:09"
+                    ]
+                ],
+                "3": [
+                    [
+                        "00:01:06",
+                        "00:01:07"
+                    ],
+                    [
+                        "00:01:13",
+                        "00:01:21"
+                    ]
+                ]
+            }
+        },
+        "timeFatherId": "3",
+        "timeSonId": "5",
+        "basicRel": [
+            1
+        ],
+        "similarityRel": [],
+        "son": [
+            "5",
+            "6",
+            "7"
+        ],
+        "father": [
+            "0"
+        ],
+        "type": "0",
+        "totalDuration": 51
+    },
+    {
+        "id": "5",
+        "layout": "2",
+        "name": "ARPANET packet switching network",
+        "time": [
+            "00:01:21",
+            "00:01:37"
+        ],
+        "text": "",
+        "attribute": {
+            "importance": 12,
+            "duration": "",
+            "relevance": 12,
+            "expressions": {
+                "1": [],
+                "2": [
+                    [
+                        "00:01:21",
+                        "00:01:22"
+                    ],
+                    [
+                        "00:01:22",
+                        "00:01:25"
+                    ]
+                ],
+                "3": [
+                    [
+                        "00:01:25",
+                        "00:01:37"
+                    ]
+                ]
+            }
+        },
+        "timeFatherId": "4",
+        "timeSonId": "6",
+        "basicRel": [],
+        "similarityRel": [],
+        "son": [],
+        "father": [
+            "4"
+        ],
+        "type": "0",
+        "totalDuration": 16
+    },
+    {
+        "id": "6",
+        "layout": "2",
+        "name": "TCP/IP Internet protocols",
+        "time": [
+            "00:01:37",
+            "00:01:48"
+        ],
+        "text": "",
+        "attribute": {
+            "importance": 18,
+            "duration": "",
+            "relevance": 12,
+            "expressions": {
+                "1": [],
+                "2": [
+                    [
+                        "00:01:40",
+                        "00:01:41"
+                    ],
+                    [
+                        "00:01:41",
+                        "00:01:48"
+                    ]
+                ],
+                "3": [
+                    [
+                        "00:01:37",
+                        "00:01:40"
+                    ]
+                ]
+            }
+        },
+        "timeFatherId": "5",
+        "timeSonId": "7",
+        "basicRel": [],
+        "similarityRel": [],
+        "son": [],
+        "father": [
+            "4"
+        ],
+        "type": "0",
+        "totalDuration": 11
+    },
+    {
+        "id": "7",
+        "layout": "2",
+        "name": "Ethernet local area network",
+        "time": [
+            "00:01:48",
+            "00:01:54"
+        ],
+        "text": "",
+        "attribute": {
+            "importance": 15,
+            "duration": "",
+            "relevance": 18,
+            "expressions": {
+                "1": [],
+                "2": [
+                    [
+                        "00:01:48",
+                        "00:01:51"
+                    ]
+                ],
+                "3": [
+                    [
+                        "00:01:51",
+                        "00:01:54"
+                    ]
+                ]
+            }
+        },
+        "timeFatherId": "6",
+        "timeSonId": "8",
+        "basicRel": [],
+        "similarityRel": [],
+        "son": [],
+        "father": [
+            "4"
+        ],
+        "type": "0",
+        "totalDuration": 6
+    },
+    {
+        "id": "8",
+        "layout": "1",
+        "name": "1980s-2000s:Newapplicationsand Internet growth",
+        "time": [
+            "00:01:54",
+            "00:02:01"
+        ],
+        "text": "",
+        "attribute": {
+            "importance": 7,
+            "duration": "",
+            "relevance": 16,
+            "expressions": {
+                "1": [
+                    [
+                        "00:01:54",
+                        "00:01:56"
+                    ]
+                ],
+                "2": [],
+                "3": [
+                    [
+                        "00:01:56",
+                        "00:02:01"
+                    ]
+                ]
+            }
+        },
+        "timeFatherId": "7",
+        "timeSonId": "9",
+        "basicRel": [
+            28
+        ],
+        "similarityRel": [],
+        "son": [
+            "9",
+            "10",
+            "11"
+        ],
+        "father": [
+            "0"
+        ],
+        "type": "0",
+        "totalDuration": 47
+    },
+    {
+        "id": "9",
+        "layout": "2",
+        "name": "Commercialization of Internet",
+        "time": [
+            "00:02:01",
+            "00:02:10"
+        ],
+        "text": "",
+        "attribute": {
+            "importance": 7,
+            "duration": "",
+            "relevance": 19,
+            "expressions": {
+                "1": [
+                    [
+                        "00:02:02",
+                        "00:02:10"
+                    ]
+                ],
+                "2": [],
+                "3": [
+                    [
+                        "00:02:01",
+                        "00:02:02"
+                    ]
+                ]
+            }
+        },
+        "timeFatherId": "8",
+        "timeSonId": "10",
+        "basicRel": [],
+        "similarityRel": [],
+        "son": [],
+        "father": [
+            "8"
+        ],
+        "type": "0",
+        "totalDuration": 9
+    },
+    {
+        "id": "10",
+        "layout": "2",
+        "name": "E-mail, file transfer, web, P2P,",
+        "time": [
+            "00:02:10",
+            "00:02:27"
+        ],
+        "text": "",
+        "attribute": {
+            "importance": 19,
+            "duration": "",
+            "relevance": 17,
+            "expressions": {
+                "1": [
+                    [
+                        "00:02:10",
+                        "00:02:14"
+                    ]
+                ],
+                "2": [],
+                "3": [
+                    [
+                        "00:02:14",
+                        "00:02:17"
+                    ],
+                    [
+                        "00:02:17",
+                        "00:02:18"
+                    ],
+                    [
+                        "00:02:18",
+                        "00:02:27"
+                    ]
+                ]
+            }
+        },
+        "timeFatherId": "9",
+        "timeSonId": "11",
+        "basicRel": [
+            37
+        ],
+        "similarityRel": [],
+        "son": [],
+        "father": [
+            "8"
+        ],
+        "type": "0",
+        "totalDuration": 17
+    },
+    {
+        "id": "11",
+        "layout": "2",
+        "name": "Internettraffic surpasses voicetraffic",
+        "time": [
+            "00:02:27",
+            "00:02:41"
+        ],
+        "text": "",
+        "attribute": {
+            "importance": 18,
+            "duration": "",
+            "relevance": 5,
+            "expressions": {
+                "1": [
+                    [
+                        "00:02:27",
+                        "00:02:33"
+                    ],
+                    [
+                        "00:02:33",
+                        "00:02:41"
+                    ]
+                ],
+                "2": [],
+                "3": []
+            }
+        },
+        "timeFatherId": "10",
+        "timeSonId": "12",
+        "basicRel": [],
+        "similarityRel": [],
+        "son": [],
+        "father": [
+            "8"
+        ],
+        "type": "0",
+        "totalDuration": 14
+    },
+    {
+        "id": "12",
+        "layout": "0",
+        "name": "Terminal-Oriented Networks",
+        "time": [
+            "00:02:41",
+            "00:02:50"
+        ],
+        "text": "",
+        "attribute": {
+            "importance": 17,
+            "duration": "",
+            "relevance": 19,
+            "expressions": {
+                "1": [],
+                "2": [
+                    [
+                        "00:02:41",
+                        "00:02:44"
+                    ],
+                    [
+                        "00:02:45",
+                        "00:02:50"
+                    ]
+                ],
+                "3": [
+                    [
+                        "00:02:44",
+                        "00:02:45"
+                    ]
+                ]
+            }
+        },
+        "timeFatherId": "11",
+        "timeSonId": "13",
+        "basicRel": [],
+        "similarityRel": [],
+        "son": [
+            "13",
+            "14"
+        ],
+        "father": [
+            "-1"
+        ],
+        "type": "0",
+        "totalDuration": 45
+    },
+    {
+        "id": "13",
+        "layout": "1",
+        "name": "Early computer systems very expensive; Time-sharing methods allowed multiple",
+        "time": [
+            "00:02:50",
+            "00:03:07"
+        ],
+        "text": "",
+        "attribute": {
+            "importance": 5,
+            "duration": "",
+            "relevance": 7,
+            "expressions": {
+                "1": [
+                    [
+                        "00:02:50",
+                        "00:02:52"
+                    ],
+                    [
+                        "00:02:52",
+                        "00:03:07"
+                    ]
+                ],
+                "2": [],
+                "3": []
+            }
+        },
+        "timeFatherId": "12",
+        "timeSonId": "14",
+        "basicRel": [],
+        "similarityRel": [],
+        "son": [],
+        "father": [
+            "12"
+        ],
+        "type": "0",
+        "totalDuration": 17
+    },
+    {
+        "id": "14",
+        "layout": "1",
+        "name": "Remote acctive via telephone modems",
+        "time": [
+            "00:03:07",
+            "00:03:26"
+        ],
+        "text": "",
+        "attribute": {
+            "importance": 11,
+            "duration": "",
+            "relevance": 5,
+            "expressions": {
+                "1": [
+                    [
+                        "00:03:14",
+                        "00:03:17"
+                    ]
+                ],
+                "2": [
+                    [
+                        "00:03:07",
+                        "00:03:10"
+                    ],
+                    [
+                        "00:03:10",
+                        "00:03:13"
+                    ],
+                    [
+                        "00:03:13",
+                        "00:03:14"
+                    ],
+                    [
+                        "00:03:17",
+                        "00:03:26"
+                    ]
+                ],
+                "3": []
+            }
+        },
+        "timeFatherId": "13",
+        "timeSonId": "15",
+        "basicRel": [],
+        "similarityRel": [],
+        "son": [],
+        "father": [
+            "12"
+        ],
+        "type": "0",
+        "totalDuration": 19
+    },
+    {
+        "id": "15",
+        "layout": "0",
+        "name": "Medium Access Control",
+        "time": [
+            "00:03:26",
+            "00:03:40"
+        ],
+        "text": "",
+        "attribute": {
+            "importance": 5,
+            "duration": "",
+            "relevance": 16,
+            "expressions": {
+                "1": [],
+                "2": [
+                    [
+                        "00:03:26",
+                        "00:03:29"
+                    ],
+                    [
+                        "00:03:30",
+                        "00:03:31"
+                    ],
+                    [
+                        "00:03:31",
+                        "00:03:40"
+                    ]
+                ],
+                "3": [
+                    [
+                        "00:03:29",
+                        "00:03:30"
+                    ]
+                ]
+            }
+        },
+        "timeFatherId": "14",
+        "timeSonId": "16",
+        "basicRel": [],
+        "similarityRel": [],
+        "son": [
+            "16",
+            "17",
+            "18",
+            "19",
+            "20",
+            "21"
+        ],
+        "father": [
+            "-1"
+        ],
+        "type": "0",
+        "totalDuration": 77
+    },
+    {
+        "id": "16",
+        "layout": "1",
+        "name": "Dedicated communication lines were expensive",
+        "time": [
+            "00:03:40",
+            "00:03:46"
+        ],
+        "text": "",
+        "attribute": {
+            "importance": 16,
+            "duration": "",
+            "relevance": 15,
+            "expressions": {
+                "1": [],
+                "2": [],
+                "3": [
+                    [
+                        "00:03:40",
+                        "00:03:43"
+                    ],
+                    [
+                        "00:03:43",
+                        "00:03:46"
+                    ]
+                ]
+            }
+        },
+        "timeFatherId": "15",
+        "timeSonId": "17",
+        "basicRel": [
+            15,17,18,19,20,21
+        ],
+        "similarityRel": [
+            26
+        ],
+        "son": [],
+        "father": [
+            "15"
+        ],
+        "type": "1",
+        "totalDuration": 6
+    },
+    {
+        "id": "17",
+        "layout": "1",
+        "name": "Terminals generated messages sporadically",
+        "time": [
+            "00:03:46",
+            "00:03:57"
+        ],
+        "text": "",
+        "attribute": {
+            "importance": 10,
+            "duration": "",
+            "relevance": 17,
+            "expressions": {
+                "1": [],
+                "2": [
+                    [
+                        "00:03:46",
+                        "00:03:47"
+                    ],
+                    [
+                        "00:03:47",
+                        "00:03:57"
+                    ]
+                ],
+                "3": []
+            }
+        },
+        "timeFatherId": "16",
+        "timeSonId": "18",
+        "basicRel": [16],
+        "similarityRel": [],
+        "son": [],
+        "father": [
+            "15"
+        ],
+        "type": "0",
+        "totalDuration": 11
+    },
+    {
+        "id": "18",
+        "layout": "1",
+        "name": "Frames carried messagesto/from attached terminals",
+        "time": [
+            "00:03:57",
+            "00:04:09"
+        ],
+        "text": "",
+        "attribute": {
+            "importance": 7,
+            "duration": "",
+            "relevance": 16,
+            "expressions": {
+                "1": [
+                    [
+                        "00:03:58",
+                        "00:03:59"
+                    ]
+                ],
+                "2": [
+                    [
+                        "00:03:57",
+                        "00:03:58"
+                    ]
+                ],
+                "3": [
+                    [
+                        "00:03:59",
+                        "00:04:01"
+                    ],
+                    [
+                        "00:04:01",
+                        "00:04:09"
+                    ]
+                ]
+            }
+        },
+        "timeFatherId": "17",
+        "timeSonId": "19",
+        "basicRel": [16],
+        "similarityRel": [],
+        "son": [],
+        "father": [
+            "15"
+        ],
+        "type": "0",
+        "totalDuration": 12
+    },
+    {
+        "id": "19",
+        "layout": "1",
+        "name": "Address in frame header identified terminal",
+        "time": [
+            "00:04:09",
+            "00:04:17"
+        ],
+        "text": "",
+        "attribute": {
+            "importance": 16,
+            "duration": "",
+            "relevance": 14,
+            "expressions": {
+                "1": [
+                    [
+                        "00:04:09",
+                        "00:04:13"
+                    ],
+                    [
+                        "00:04:13",
+                        "00:04:17"
+                    ]
+                ],
+                "2": [],
+                "3": []
+            }
+        },
+        "timeFatherId": "18",
+        "timeSonId": "20",
+        "basicRel": [16],
+        "similarityRel": [],
+        "son": [],
+        "father": [
+            "15"
+        ],
+        "type": "0",
+        "totalDuration": 8
+    },
+    {
+        "id": "20",
+        "layout": "1",
+        "name": "Medium Access Controls for sharing aline in arbitrated manner",
+        "time": [
+            "00:04:17",
+            "00:04:27"
+        ],
+        "text": "",
+        "attribute": {
+            "importance": 12,
+            "duration": "",
+            "relevance": 9,
+            "expressions": {
+                "1": [
+                    [
+                        "00:04:20",
+                        "00:04:27"
+                    ]
+                ],
+                "2": [],
+                "3": [
+                    [
+                        "00:04:17",
+                        "00:04:20"
+                    ]
+                ]
+            }
+        },
+        "timeFatherId": "19",
+        "timeSonId": "21",
+        "basicRel": [
+            16,
+            30
+        ],
+        "similarityRel": [
+            22
+        ],
+        "son": [],
+        "father": [
+            "15"
+        ],
+        "type": "0",
+        "totalDuration": 10
+    },
+    {
+        "id": "21",
+        "layout": "1",
+        "name": "Example:Pollingprotocolonamulti-dropline",
+        "time": [
+            "00:04:27",
+            "00:04:43"
+        ],
+        "text": "",
+        "attribute": {
+            "importance": 15,
+            "duration": "",
+            "relevance": 10,
+            "expressions": {
+                "1": [
+                    [
+                        "00:04:27",
+                        "00:04:32"
+                    ]
+                ],
+                "2": [],
+                "3": [
+                    [
+                        "00:04:32",
+                        "00:04:37"
+                    ],
+                    [
+                        "00:04:37",
+                        "00:04:43"
+                    ]
+                ]
+            }
+        },
+        "timeFatherId": "20",
+        "timeSonId": "22",
+        "basicRel": [16],
+        "similarityRel": [],
+        "son": [],
+        "father": [
+            "15"
+        ],
+        "type": "0",
+        "totalDuration": 16
+    },
+    {
+        "id": "22",
+        "layout": "0",
+        "name": "Multiplexing",
+        "time": [
+            "00:04:43",
+            "00:05:00"
+        ],
+        "text": "",
+        "attribute": {
+            "importance": 11,
+            "duration": "",
+            "relevance": 10,
+            "expressions": {
+                "1": [],
+                "2": [
+                    [
+                        "00:04:43",
+                        "00:04:45"
+                    ],
+                    [
+                        "00:04:47",
+                        "00:04:49"
+                    ],
+                    [
+                        "00:04:49",
+                        "00:05:00"
+                    ]
+                ],
+                "3": [
+                    [
+                        "00:04:45",
+                        "00:04:47"
+                    ]
+                ]
+            }
+        },
+        "timeFatherId": "21",
+        "timeSonId": "23",
+        "basicRel": [
+            29,
+            38
+        ],
+        "similarityRel": [
+            20
+        ],
+        "son": [
+            "23",
+            "24",
+            "25"
+        ],
+        "father": [
+            "-1"
+        ],
+        "type": "0",
+        "totalDuration": 64
+    },
+    {
+        "id": "23",
+        "layout": "1",
+        "name": "Multiplexer allows a line to carry frames to/from multiple terminals",
+        "time": [
+            "00:05:00",
+            "00:05:11"
+        ],
+        "text": "",
+        "attribute": {
+            "importance": 10,
+            "duration": "",
+            "relevance": 12,
+            "expressions": {
+                "1": [],
+                "2": [
+                    [
+                        "00:05:00",
+                        "00:05:05"
+                    ],
+                    [
+                        "00:05:05",
+                        "00:05:11"
+                    ]
+                ],
+                "3": []
+            }
+        },
+        "timeFatherId": "22",
+        "timeSonId": "24",
+        "basicRel": [
+            16
+        ],
+        "similarityRel": [],
+        "son": [],
+        "father": [
+            "22"
+        ],
+        "type": "0",
+        "totalDuration": 11
+    },
+    {
+        "id": "24",
+        "layout": "1",
+        "name": "Frames are buffered at multiplexeruntil line becomes available,i.e.store-and-forward",
+        "time": [
+            "00:05:11",
+            "00:05:27"
+        ],
+        "text": "",
+        "attribute": {
+            "importance": 16,
+            "duration": "",
+            "relevance": 20,
+            "expressions": {
+                "1": [],
+                "2": [],
+                "3": [
+                    [
+                        "00:05:11",
+                        "00:05:19"
+                    ],
+                    [
+                        "00:05:19",
+                        "00:05:27"
+                    ]
+                ]
+            }
+        },
+        "timeFatherId": "23",
+        "timeSonId": "25",
+        "basicRel": [],
+        "similarityRel": [],
+        "son": [],
+        "father": [
+            "22"
+        ],
+        "type": "0",
+        "totalDuration": 16
+    },
+    {
+        "id": "25",
+        "layout": "1",
+        "name": "Header carries other control information for framing",
+        "time": [
+            "00:05:27",
+            "00:05:47"
+        ],
+        "text": "",
+        "attribute": {
+            "importance": 15,
+            "duration": "",
+            "relevance": 10,
+            "expressions": {
+                "1": [
+                    [
+                        "00:05:27",
+                        "00:05:29"
+                    ]
+                ],
+                "2": [],
+                "3": [
+                    [
+                        "00:05:29",
+                        "00:05:47"
+                    ]
+                ]
+            }
+        },
+        "timeFatherId": "24",
+        "timeSonId": "26",
+        "basicRel": [],
+        "similarityRel": [],
+        "son": [],
+        "father": [
+            "22"
+        ],
+        "type": "0",
+        "totalDuration": 20
+    },
+    {
+        "id": "26",
+        "layout": "0",
+        "name": "Error Control Protocol",
+        "time": [
+            "00:05:47",
+            "00:06:03"
+        ],
+        "text": "",
+        "attribute": {
+            "importance": 19,
+            "duration": "",
+            "relevance": 5,
+            "expressions": {
+                "1": [
+                    [
+                        "00:05:51",
+                        "00:05:52"
+                    ]
+                ],
+                "2": [
+                    [
+                        "00:05:50",
+                        "00:05:51"
+                    ]
+                ],
+                "3": [
+                    [
+                        "00:05:47",
+                        "00:05:50"
+                    ],
+                    [
+                        "00:05:52",
+                        "00:05:55"
+                    ],
+                    [
+                        "00:05:55",
+                        "00:06:03"
+                    ]
+                ]
+            }
+        },
+        "timeFatherId": "25",
+        "timeSonId": "27",
+        "basicRel": [],
+        "similarityRel": [
+            16
+        ],
+        "son": [
+            "27",
+            "28"
+        ],
+        "father": [
+            "-1"
+        ],
+        "type": "0",
+        "totalDuration": 71
+    },
+    {
+        "id": "27",
+        "layout": "1",
+        "name": "Communication lines introduced errors",
+        "time": [
+            "00:06:03",
+            "00:06:14"
+        ],
+        "text": "",
+        "attribute": {
+            "importance": 14,
+            "duration": "",
+            "relevance": 11,
+            "expressions": {
+                "1": [
+                    [
+                        "00:06:03",
+                        "00:06:06"
+                    ],
+                    [
+                        "00:06:09",
+                        "00:06:14"
+                    ]
+                ],
+                "2": [
+                    [
+                        "00:06:06",
+                        "00:06:09"
+                    ]
+                ],
+                "3": []
+            }
+        },
+        "timeFatherId": "26",
+        "timeSonId": "28",
+        "basicRel": [],
+        "similarityRel": [],
+        "son": [],
+        "father": [
+            "26"
+        ],
+        "type": "0",
+        "totalDuration": 11
+    },
+    {
+        "id": "28",
+        "layout": "1",
+        "name": "Error checking codes used on frames",
+        "time": [
+            "00:06:14",
+            "00:06:32"
+        ],
+        "text": "",
+        "attribute": {
+            "importance": 5,
+            "duration": "",
+            "relevance": 13,
+            "expressions": {
+                "1": [
+                    [
+                        "00:06:15",
+                        "00:06:18"
+                    ],
+                    [
+                        "00:06:18",
+                        "00:06:19"
+                    ],
+                    [
+                        "00:06:22",
+                        "00:06:32"
+                    ]
+                ],
+                "2": [
+                    [
+                        "00:06:21",
+                        "00:06:22"
+                    ]
+                ],
+                "3": [
+                    [
+                        "00:06:14",
+                        "00:06:15"
+                    ],
+                    [
+                        "00:06:19",
+                        "00:06:21"
+                    ]
+                ]
+            }
+        },
+        "timeFatherId": "27",
+        "timeSonId": "29",
+        "basicRel": [
+            8
+        ],
+        "similarityRel": [],
+        "son": [
+            "29",
+            "30"
+        ],
+        "father": [
+            "26"
+        ],
+        "type": "0",
+        "totalDuration": 44
+    },
+    {
+        "id": "29",
+        "layout": "2",
+        "name": "'CyclicRedundancvCheck'(CRC) calculated based on frame header and information payload,and appended",
+        "time": [
+            "00:06:32",
+            "00:06:48"
+        ],
+        "text": "",
+        "attribute": {
+            "importance": 11,
+            "duration": "",
+            "relevance": 7,
+            "expressions": {
+                "1": [],
+                "2": [
+                    [
+                        "00:06:32",
+                        "00:06:38"
+                    ]
+                ],
+                "3": [
+                    [
+                        "00:06:38",
+                        "00:06:48"
+                    ]
+                ]
+            }
+        },
+        "timeFatherId": "28",
+        "timeSonId": "30",
+        "basicRel": [
+            22
+        ],
+        "similarityRel": [],
+        "son": [],
+        "father": [
+            "28"
+        ],
+        "type": "0",
+        "totalDuration": 16
+    },
+    {
+        "id": "30",
+        "layout": "2",
+        "name": "Header also carries ACK/NAK control information",
+        "time": [
+            "00:06:48",
+            "00:06:58"
+        ],
+        "text": "",
+        "attribute": {
+            "importance": 13,
+            "duration": "",
+            "relevance": 9,
+            "expressions": {
+                "1": [
+                    [
+                        "00:06:50",
+                        "00:06:51"
+                    ]
+                ],
+                "2": [],
+                "3": [
+                    [
+                        "00:06:48",
+                        "00:06:50"
+                    ],
+                    [
+                        "00:06:51",
+                        "00:06:58"
+                    ]
+                ]
+            }
+        },
+        "timeFatherId": "29",
+        "timeSonId": "31",
+        "basicRel": [
+            20
+        ],
+        "similarityRel": [],
+        "son": [],
+        "father": [
+            "28"
+        ],
+        "type": "0",
+        "totalDuration": 10
+    },
+    {
+        "id": "31",
+        "layout": "0",
+        "name": "Retransmission requested when errors detected",
+        "time": [
+            "00:06:58",
+            "00:07:14"
+        ],
+        "text": "",
+        "attribute": {
+            "importance": 10,
+            "duration": "",
+            "relevance": 11,
+            "expressions": {
+                "1": [],
+                "2": [
+                    [
+                        "00:07:07",
+                        "00:07:14"
+                    ]
+                ],
+                "3": [
+                    [
+                        "00:06:58",
+                        "00:07:02"
+                    ],
+                    [
+                        "00:07:02",
+                        "00:07:03"
+                    ],
+                    [
+                        "00:07:03",
+                        "00:07:07"
+                    ]
+                ]
+            }
+        },
+        "timeFatherId": "30",
+        "timeSonId": "32",
+        "basicRel": [],
+        "similarityRel": [],
+        "son": [],
+        "father": [
+            "-1"
+        ],
+        "type": "0",
+        "totalDuration": 16
+    },
+    {
+        "id": "32",
+        "layout": "0",
+        "name": "Computer-to-Computer",
+        "time": [
+            "00:07:14",
+            "00:07:27"
+        ],
+        "text": "",
+        "attribute": {
+            "importance": 10,
+            "duration": "",
+            "relevance": 11,
+            "expressions": {
+                "1": [
+                    [
+                        "00:07:16",
+                        "00:07:20"
+                    ],
+                    [
+                        "00:07:20",
+                        "00:07:27"
+                    ]
+                ],
+                "2": [],
+                "3": [
+                    [
+                        "00:07:14",
+                        "00:07:16"
+                    ]
+                ]
+            }
+        },
+        "timeFatherId": "31",
+        "timeSonId": "33",
+        "basicRel": [
+            35
+        ],
+        "similarityRel": [
+            41
+        ],
+        "son": [
+            "33",
+            "34",
+            "37"
+        ],
+        "father": [
+            "-1"
+        ],
+        "type": "0",
+        "totalDuration": 106
+    },
+    {
+        "id": "33",
+        "layout": "1",
+        "name": "As cost of computing dropped,terminal-oriented networks viewed as too inflexible and costly",
+        "time": [
+            "00:07:27",
+            "00:07:41"
+        ],
+        "text": "",
+        "attribute": {
+            "importance": 14,
+            "duration": "",
+            "relevance": 11,
+            "expressions": {
+                "1": [
+                    [
+                        "00:07:27",
+                        "00:07:30"
+                    ],
+                    [
+                        "00:07:30",
+                        "00:07:31"
+                    ],
+                    [
+                        "00:07:34",
+                        "00:07:41"
+                    ]
+                ],
+                "2": [],
+                "3": [
+                    [
+                        "00:07:31",
+                        "00:07:34"
+                    ]
+                ]
+            }
+        },
+        "timeFatherId": "32",
+        "timeSonId": "34",
+        "basicRel": [],
+        "similarityRel": [],
+        "son": [],
+        "father": [
+            "32"
+        ],
+        "type": "0",
+        "totalDuration": 14
+    },
+    {
+        "id": "34",
+        "layout": "1",
+        "name": "Need to develop flexible computer networks",
+        "time": [
+            "00:07:41",
+            "00:07:51"
+        ],
+        "text": "",
+        "attribute": {
+            "importance": 6,
+            "duration": "",
+            "relevance": 6,
+            "expressions": {
+                "1": [
+                    [
+                        "00:07:41",
+                        "00:07:42"
+                    ],
+                    [
+                        "00:07:42",
+                        "00:07:51"
+                    ]
+                ],
+                "2": [],
+                "3": []
+            }
+        },
+        "timeFatherId": "33",
+        "timeSonId": "35",
+        "basicRel": [],
+        "similarityRel": [],
+        "son": [
+            "35",
+            "36"
+        ],
+        "father": [
+            "32"
+        ],
+        "type": "0",
+        "totalDuration": 42
+    },
+    {
+        "id": "35",
+        "layout": "2",
+        "name": "Interconnect computers as required",
+        "time": [
+            "00:07:51",
+            "00:08:05"
+        ],
+        "text": "",
+        "attribute": {
+            "importance": 16,
+            "duration": "",
+            "relevance": 5,
+            "expressions": {
+                "1": [],
+                "2": [
+                    [
+                        "00:07:51",
+                        "00:07:57"
+                    ]
+                ],
+                "3": [
+                    [
+                        "00:07:57",
+                        "00:08:05"
+                    ]
+                ]
+            }
+        },
+        "timeFatherId": "34",
+        "timeSonId": "36",
+        "basicRel": [
+            32
+        ],
+        "similarityRel": [],
+        "son": [],
+        "father": [
+            "34"
+        ],
+        "type": "0",
+        "totalDuration": 14
+    },
+    {
+        "id": "36",
+        "layout": "2",
+        "name": "Support many applications",
+        "time": [
+            "00:08:05",
+            "00:08:23"
+        ],
+        "text": "",
+        "attribute": {
+            "importance": 6,
+            "duration": "",
+            "relevance": 15,
+            "expressions": {
+                "1": [
+                    [
+                        "00:08:13",
+                        "00:08:23"
+                    ]
+                ],
+                "2": [
+                    [
+                        "00:08:05",
+                        "00:08:07"
+                    ],
+                    [
+                        "00:08:07",
+                        "00:08:09"
+                    ],
+                    [
+                        "00:08:12",
+                        "00:08:13"
+                    ]
+                ],
+                "3": [
+                    [
+                        "00:08:09",
+                        "00:08:12"
+                    ]
+                ]
+            }
+        },
+        "timeFatherId": "35",
+        "timeSonId": "37",
+        "basicRel": [],
+        "similarityRel": [],
+        "son": [],
+        "father": [
+            "34"
+        ],
+        "type": "0",
+        "totalDuration": 18
+    },
+    {
+        "id": "37",
+        "layout": "1",
+        "name": "Application Examples",
+        "time": [
+            "00:08:23",
+            "00:08:33"
+        ],
+        "text": "",
+        "attribute": {
+            "importance": 20,
+            "duration": "",
+            "relevance": 5,
+            "expressions": {
+                "1": [
+                    [
+                        "00:08:27",
+                        "00:08:33"
+                    ]
+                ],
+                "2": [
+                    [
+                        "00:08:25",
+                        "00:08:27"
+                    ]
+                ],
+                "3": [
+                    [
+                        "00:08:23",
+                        "00:08:25"
+                    ]
+                ]
+            }
+        },
+        "timeFatherId": "36",
+        "timeSonId": "38",
+        "basicRel": [
+            10
+        ],
+        "similarityRel": [],
+        "son": [
+            "38",
+            "39"
+        ],
+        "father": [
+            "32"
+        ],
+        "type": "0",
+        "totalDuration": 37
+    },
+    {
+        "id": "38",
+        "layout": "2",
+        "name": "File transfer between arbitrary computers",
+        "time": [
+            "00:08:33",
+            "00:08:41"
+        ],
+        "text": "",
+        "attribute": {
+            "importance": 13,
+            "duration": "",
+            "relevance": 14,
+            "expressions": {
+                "1": [
+                    [
+                        "00:08:35",
+                        "00:08:41"
+                    ]
+                ],
+                "2": [
+                    [
+                        "00:08:33",
+                        "00:08:35"
+                    ]
+                ],
+                "3": []
+            }
+        },
+        "timeFatherId": "37",
+        "timeSonId": "39",
+        "basicRel": [
+            22
+        ],
+        "similarityRel": [],
+        "son": [],
+        "father": [
+            "37"
+        ],
+        "type": "0",
+        "totalDuration": 8
+    },
+    {
+        "id": "39",
+        "layout": "2",
+        "name": "Execution of a program on another computer",
+        "time": [
+            "00:08:41",
+            "00:09:00"
+        ],
+        "text": "",
+        "attribute": {
+            "importance": 12,
+            "duration": "",
+            "relevance": 19,
+            "expressions": {
+                "1": [
+                    [
+                        "00:08:46",
+                        "00:08:47"
+                    ],
+                    [
+                        "00:08:47",
+                        "00:08:50"
+                    ],
+                    [
+                        "00:08:51",
+                        "00:09:00"
+                    ]
+                ],
+                "2": [
+                    [
+                        "00:08:41",
+                        "00:08:43"
+                    ]
+                ],
+                "3": [
+                    [
+                        "00:08:43",
+                        "00:08:46"
+                    ],
+                    [
+                        "00:08:50",
+                        "00:08:51"
+                    ]
+                ]
+            }
+        },
+        "timeFatherId": "38",
+        "timeSonId": "40",
+        "basicRel": [],
+        "similarityRel": [],
+        "son": [],
+        "father": [
+            "37"
+        ],
+        "type": "0",
+        "totalDuration": 19
+    },
+    {
+        "id": "40",
+        "layout": "0",
+        "name": "Packet Switching",
+        "time": [
+            "00:09:00",
+            "00:09:10"
+        ],
+        "text": "",
+        "attribute": {
+            "importance": 19,
+            "duration": "",
+            "relevance": 8,
+            "expressions": {
+                "1": [
+                    [
+                        "00:09:00",
+                        "00:09:01"
+                    ],
+                    [
+                        "00:09:02",
+                        "00:09:10"
+                    ]
+                ],
+                "2": [],
+                "3": [
+                    [
+                        "00:09:01",
+                        "00:09:02"
+                    ]
+                ]
+            }
+        },
+        "timeFatherId": "39",
+        "timeSonId": "41",
+        "basicRel": [],
+        "similarityRel": [],
+        "son": [
+            "41",
+            "42"
+        ],
+        "father": [
+            "-1"
+        ],
+        "type": "0",
+        "totalDuration": 30
+    },
+    {
+        "id": "41",
+        "layout": "2",
+        "name": "Network should support multiple applications",
+        "time": [
+            "00:09:10",
+            "00:09:24"
+        ],
+        "text": "",
+        "attribute": {
+            "importance": 16,
+            "duration": "",
+            "relevance": 7,
+            "expressions": {
+                "1": [],
+                "2": [
+                    [
+                        "00:09:10",
+                        "00:09:17"
+                    ]
+                ],
+                "3": [
+                    [
+                        "00:09:17",
+                        "00:09:24"
+                    ]
+                ]
+            }
+        },
+        "timeFatherId": "40",
+        "timeSonId": "42",
+        "basicRel": [],
+        "similarityRel": [
+            32
+        ],
+        "son": [],
+        "father": [
+            "40"
+        ],
+        "type": "0",
+        "totalDuration": 14
+    },
+    {
+        "id": "42",
+        "layout": "2",
+        "name": "Packet switching introduced",
+        "time": [
+            "00:09:24",
+            "00:09:30"
+        ],
+        "text": "",
+        "attribute": {
+            "importance": 11,
+            "duration": "",
+            "relevance": 17,
+            "expressions": {
+                "1": [],
+                "2": [
+                    [
+                        "00:09:24",
+                        "00:09:25"
+                    ]
+                ],
+                "3": [
+                    [
+                        "00:09:25",
+                        "00:09:30"
+                    ]
+                ]
+            }
+        },
+        "timeFatherId": "41",
+        "timeSonId": "43",
+        "basicRel": [],
+        "similarityRel": [],
+        "son": [],
+        "father": [
+            "40"
+        ],
+        "type": "0",
+        "totalDuration": 6
+    }
+]

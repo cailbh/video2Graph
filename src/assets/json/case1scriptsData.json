@@ -1,0 +1,2476 @@
+[
+    {
+        "time": [
+            "00:00:06.722",
+            "00:00:07.582"
+        ],
+        "text": [
+            "Welcome."
+        ]
+    },
+    {
+        "time": [
+            "00:00:07.582",
+            "00:00:10.990"
+        ],
+        "text": [
+            "In",
+            "this",
+            "lecture",
+            "you",
+            "will",
+            "learn",
+            "about",
+            "random",
+            "variables."
+        ]
+    },
+    {
+        "time": [
+            "00:00:10.990",
+            "00:00:13.830"
+        ],
+        "text": [
+            "How",
+            "are",
+            "the",
+            "mean",
+            "and",
+            "variance",
+            "defined?"
+        ]
+    },
+    {
+        "time": [
+            "00:00:13.830",
+            "00:00:16.260"
+        ],
+        "text": [
+            "How",
+            "can",
+            "you",
+            "make",
+            "calculations",
+            "with",
+            "it?"
+        ]
+    },
+    {
+        "time": [
+            "00:00:16.260",
+            "00:00:19.950"
+        ],
+        "text": [
+            "In",
+            "this",
+            "lecture",
+            "I",
+            "focus",
+            "on",
+            "continuous",
+            "random",
+            "variables"
+        ]
+    },
+    {
+        "time": [
+            "00:00:19.950",
+            "00:00:23.790"
+        ],
+        "text": [
+            "which",
+            "means",
+            "that",
+            "the",
+            "outcome",
+            "can",
+            "be",
+            "any",
+            "value",
+            "in",
+            "a",
+            "specific",
+            "domain."
+        ]
+    },
+    {
+        "time": [
+            "00:00:25.530",
+            "00:00:29.590"
+        ],
+        "text": [
+            "A",
+            "random",
+            "variable",
+            "is",
+            "a",
+            "variable",
+            "with",
+            "an",
+            "uncertain",
+            "outcome."
+        ]
+    },
+    {
+        "time": [
+            "00:00:29.590",
+            "00:00:34.575"
+        ],
+        "text": [
+            "We",
+            "calculate",
+            "the",
+            "probability",
+            "that",
+            "the",
+            "outcome",
+            "of",
+            "a",
+            "random",
+            "variable"
+        ]
+    },
+    {
+        "time": [
+            "00:00:34.575",
+            "00:00:39.203"
+        ],
+        "text": [
+            "x",
+            "falls",
+            "in",
+            "the",
+            "interval",
+            "from",
+            "a",
+            "to",
+            "b,",
+            "by",
+            "the",
+            "integral",
+            "from",
+            "a",
+            "to",
+            "b",
+            "of"
+        ]
+    },
+    {
+        "time": [
+            "00:00:39.203",
+            "00:00:44.112"
+        ],
+        "text": [
+            "the",
+            "probability",
+            "density",
+            "function",
+            "f,",
+            "often",
+            "abbreviated",
+            "to",
+            "pdf."
+        ]
+    },
+    {
+        "time": [
+            "00:00:44.112",
+            "00:00:48.430"
+        ],
+        "text": [
+            "A",
+            "pdf",
+            "is",
+            "a",
+            "function",
+            "that",
+            "is",
+            "nonnegative",
+            "everywhere",
+            "and",
+            "integrates",
+            "to",
+            "1."
+        ]
+    },
+    {
+        "time": [
+            "00:00:50.550",
+            "00:00:54.630"
+        ],
+        "text": [
+            "The",
+            "probability",
+            "that",
+            "x",
+            "falls",
+            "below",
+            "a",
+            "given",
+            "value",
+            "b"
+        ]
+    },
+    {
+        "time": [
+            "00:00:54.630",
+            "00:00:57.280"
+        ],
+        "text": [
+            "is",
+            "the",
+            "integral",
+            "from",
+            "minus",
+            "infinity",
+            "to",
+            "b."
+        ]
+    },
+    {
+        "time": [
+            "00:00:58.300",
+            "00:01:05.292"
+        ],
+        "text": [
+            "When",
+            "b",
+            "varies,",
+            "we",
+            "get",
+            "a",
+            "function",
+            "called",
+            "the",
+            "cumulative",
+            "density",
+            "function",
+            "or",
+            "cdf."
+        ]
+    },
+    {
+        "time": [
+            "00:01:05.292",
+            "00:01:07.812"
+        ],
+        "text": [
+            "We",
+            "denote",
+            "it",
+            "by",
+            "capital",
+            "F."
+        ]
+    },
+    {
+        "time": [
+            "00:01:07.812",
+            "00:01:11.246"
+        ],
+        "text": [
+            "Since",
+            "probabilities",
+            "should",
+            "be",
+            "between",
+            "0",
+            "and"
+        ]
+    },
+    {
+        "time": [
+            "00:01:11.246",
+            "00:01:15.051"
+        ],
+        "text": [
+            "1,",
+            "the",
+            "cdf",
+            "has",
+            "lowerbound",
+            "0",
+            "and",
+            "upperbound",
+            "1."
+        ]
+    },
+    {
+        "time": [
+            "00:01:17.584",
+            "00:01:21.449"
+        ],
+        "text": [
+            "Two",
+            "important",
+            "characteristics",
+            "of",
+            "a",
+            "random",
+            "variable",
+            "are",
+            "its",
+            "mean",
+            "and",
+            "variance."
+        ]
+    },
+    {
+        "time": [
+            "00:01:22.460",
+            "00:01:26.648"
+        ],
+        "text": [
+            "We",
+            "find",
+            "the",
+            "mean",
+            "mu",
+            "by",
+            "taking",
+            "the",
+            "expectation",
+            "of",
+            "x,"
+        ]
+    },
+    {
+        "time": [
+            "00:01:26.648",
+            "00:01:32.152"
+        ],
+        "text": [
+            "which",
+            "means",
+            "integrating",
+            "v",
+            "times",
+            "the",
+            "pdf",
+            "over",
+            "the",
+            "full",
+            "domain",
+            "of",
+            "x."
+        ]
+    },
+    {
+        "time": [
+            "00:01:32.152",
+            "00:01:33.563"
+        ],
+        "text": [
+            "For",
+            "ease",
+            "of",
+            "notation,"
+        ]
+    },
+    {
+        "time": [
+            "00:01:33.563",
+            "00:01:38.110"
+        ],
+        "text": [
+            "we",
+            "suppress",
+            "the",
+            "boundaries",
+            "from",
+            "minus",
+            "to",
+            "plus",
+            "infinity",
+            "in",
+            "the",
+            "integral."
+        ]
+    },
+    {
+        "time": [
+            "00:01:40.020",
+            "00:01:43.520"
+        ],
+        "text": [
+            "More",
+            "generally,",
+            "the",
+            "expectation",
+            "of",
+            "a",
+            "function",
+            "g(x)"
+        ]
+    },
+    {
+        "time": [
+            "00:01:43.520",
+            "00:01:48.420"
+        ],
+        "text": [
+            "is",
+            "defined",
+            "as",
+            "the",
+            "integral",
+            "of",
+            "g(v)*f(v)."
+        ]
+    },
+    {
+        "time": [
+            "00:01:48.420",
+            "00:01:53.920"
+        ],
+        "text": [
+            "Note",
+            "that",
+            "expectation",
+            "of",
+            "a",
+            "function",
+            "is",
+            "not",
+            "the",
+            "function",
+            "of",
+            "the",
+            "expectation."
+        ]
+    },
+    {
+        "time": [
+            "00:01:53.920",
+            "00:02:00.140"
+        ],
+        "text": [
+            "So",
+            "the",
+            "expectation",
+            "of",
+            "g(x)",
+            "is",
+            "not",
+            "equal",
+            "to",
+            "g(mu)."
+        ]
+    },
+    {
+        "time": [
+            "00:02:00.140",
+            "00:02:04.980"
+        ],
+        "text": [
+            "An",
+            "important",
+            "exception",
+            "to",
+            "this",
+            "rule",
+            "are",
+            "linear",
+            "functions,",
+            "as",
+            "we",
+            "will",
+            "see",
+            "later."
+        ]
+    },
+    {
+        "time": [
+            "00:02:07.430",
+            "00:02:12.990"
+        ],
+        "text": [
+            "The",
+            "variance",
+            "of",
+            "x",
+            "is",
+            "the",
+            "expectation",
+            "of",
+            "the",
+            "square",
+            "of",
+            "x",
+            "minus",
+            "mu."
+        ]
+    },
+    {
+        "time": [
+            "00:02:12.990",
+            "00:02:17.412"
+        ],
+        "text": [
+            "Because",
+            "both",
+            "the",
+            "square",
+            "and",
+            "the",
+            "pdf",
+            "are",
+            "non-negative,"
+        ]
+    },
+    {
+        "time": [
+            "00:02:17.412",
+            "00:02:20.432"
+        ],
+        "text": [
+            "the",
+            "variance",
+            "is",
+            "also",
+            "non-negative."
+        ]
+    },
+    {
+        "time": [
+            "00:02:20.432",
+            "00:02:25.740"
+        ],
+        "text": [
+            "The",
+            "standard",
+            "deviation",
+            "is",
+            "defined",
+            "as",
+            "the",
+            "square",
+            "root",
+            "of",
+            "the",
+            "variance."
+        ]
+    },
+    {
+        "time": [
+            "00:02:25.740",
+            "00:02:29.080"
+        ],
+        "text": [
+            "We",
+            "use",
+            "the",
+            "letter",
+            "sigma",
+            "for",
+            "the",
+            "standard",
+            "deviation",
+            "and"
+        ]
+    },
+    {
+        "time": [
+            "00:02:29.080",
+            "00:02:31.650"
+        ],
+        "text": [
+            "add",
+            "a",
+            "square",
+            "to",
+            "refer",
+            "to",
+            "the",
+            "variance."
+        ]
+    },
+    {
+        "time": [
+            "00:02:34.191",
+            "00:02:40.750"
+        ],
+        "text": [
+            "Let",
+            "y",
+            "be",
+            "a",
+            "linear",
+            "function",
+            "of",
+            "x,",
+            "so",
+            "y",
+            "=",
+            "ax",
+            "+",
+            "b."
+        ]
+    },
+    {
+        "time": [
+            "00:02:40.750",
+            "00:02:45.680"
+        ],
+        "text": [
+            "To",
+            "find",
+            "the",
+            "expectation",
+            "of",
+            "y,",
+            "we",
+            "substitute",
+            "ax",
+            "+",
+            "b",
+            "for"
+        ]
+    },
+    {
+        "time": [
+            "00:02:45.680",
+            "00:02:48.510"
+        ],
+        "text": [
+            "y",
+            "and",
+            "apply",
+            "the",
+            "definition",
+            "of",
+            "expectation."
+        ]
+    },
+    {
+        "time": [
+            "00:02:51.520",
+            "00:02:54.840"
+        ],
+        "text": [
+            "The",
+            "integral",
+            "of",
+            "a",
+            "sum",
+            "is",
+            "the",
+            "sum",
+            "of",
+            "the",
+            "integrals",
+            "so"
+        ]
+    },
+    {
+        "time": [
+            "00:02:54.840",
+            "00:02:57.090"
+        ],
+        "text": [
+            "we",
+            "split",
+            "the",
+            "integral",
+            "in",
+            "two",
+            "parts."
+        ]
+    },
+    {
+        "time": [
+            "00:02:58.290",
+            "00:03:02.632"
+        ],
+        "text": [
+            "Next,",
+            "multiplications",
+            "by",
+            "constants",
+            "are",
+            "taken",
+            "out."
+        ]
+    },
+    {
+        "time": [
+            "00:03:02.632",
+            "00:03:07.860"
+        ],
+        "text": [
+            "The",
+            "first",
+            "integral",
+            "is",
+            "equal",
+            "to",
+            "mu,",
+            "and",
+            "the",
+            "second",
+            "one",
+            "is",
+            "equal",
+            "to",
+            "1."
+        ]
+    },
+    {
+        "time": [
+            "00:03:07.860",
+            "00:03:13.937"
+        ],
+        "text": [
+            "So",
+            "we",
+            "find",
+            "that",
+            "the",
+            "expectation",
+            "of",
+            "ax",
+            "+",
+            "b",
+            "is",
+            "equal",
+            "to",
+            "a",
+            "mu",
+            "+",
+            "b."
+        ]
+    },
+    {
+        "time": [
+            "00:03:16.458",
+            "00:03:19.186"
+        ],
+        "text": [
+            "A",
+            "question",
+            "for",
+            "you",
+            "regarding",
+            "the",
+            "variance",
+            "of",
+            "a",
+            "linear",
+            "function."
+        ]
+    },
+    {
+        "time": [
+            "00:03:23.082",
+            "00:03:24.970"
+        ],
+        "text": [
+            "You",
+            "can",
+            "see",
+            "the",
+            "answer",
+            "on",
+            "the",
+            "slide."
+        ]
+    },
+    {
+        "time": [
+            "00:03:26.840",
+            "00:03:31.200"
+        ],
+        "text": [
+            "We",
+            "apply",
+            "the",
+            "definition",
+            "of",
+            "the",
+            "variance",
+            "and",
+            "substitute",
+            "the",
+            "expressions",
+            "for"
+        ]
+    },
+    {
+        "time": [
+            "00:03:31.200",
+            "00:03:32.320"
+        ],
+        "text": [
+            "y",
+            "and",
+            "mu_y."
+        ]
+    },
+    {
+        "time": [
+            "00:03:33.340",
+            "00:03:35.480"
+        ],
+        "text": [
+            "Because",
+            "a-squared",
+            "is",
+            "a",
+            "constant,"
+        ]
+    },
+    {
+        "time": [
+            "00:03:35.480",
+            "00:03:39.129"
+        ],
+        "text": [
+            "we",
+            "take",
+            "it",
+            "out",
+            "of",
+            "the",
+            "expectation",
+            "which",
+            "completes",
+            "our",
+            "derivation."
+        ]
+    },
+    {
+        "time": [
+            "00:03:41.751",
+            "00:03:45.765"
+        ],
+        "text": [
+            "For",
+            "two",
+            "random",
+            "variables,",
+            "x",
+            "and",
+            "y,",
+            "the",
+            "pdf,"
+        ]
+    },
+    {
+        "time": [
+            "00:03:45.765",
+            "00:03:53.270"
+        ],
+        "text": [
+            "often",
+            "called",
+            "the",
+            "joint",
+            "density,",
+            "is",
+            "a",
+            "function",
+            "of",
+            "two",
+            "variables",
+            "v",
+            "and",
+            "w."
+        ]
+    },
+    {
+        "time": [
+            "00:03:53.270",
+            "00:03:56.400"
+        ],
+        "text": [
+            "We",
+            "calculate",
+            "the",
+            "probability",
+            "that",
+            "x",
+            "is",
+            "between",
+            "a",
+            "and"
+        ]
+    },
+    {
+        "time": [
+            "00:03:56.400",
+            "00:04:00.310"
+        ],
+        "text": [
+            "b",
+            "and",
+            "y",
+            "between",
+            "c",
+            "and",
+            "d",
+            "as",
+            "a",
+            "double",
+            "integral."
+        ]
+    },
+    {
+        "time": [
+            "00:04:03.490",
+            "00:04:08.573"
+        ],
+        "text": [
+            "As",
+            "before,",
+            "f",
+            "should",
+            "be",
+            "non-negative",
+            "everywhere",
+            "and",
+            "integrate",
+            "to",
+            "one."
+        ]
+    },
+    {
+        "time": [
+            "00:04:08.573",
+            "00:04:11.716"
+        ],
+        "text": [
+            "To",
+            "derive",
+            "the",
+            "marginal",
+            "distribution",
+            "of",
+            "x,"
+        ]
+    },
+    {
+        "time": [
+            "00:04:11.716",
+            "00:04:15.922"
+        ],
+        "text": [
+            "we",
+            "eliminate",
+            "y",
+            "by",
+            "integrating",
+            "f",
+            "over",
+            "the",
+            "full",
+            "domain",
+            "of",
+            "y."
+        ]
+    },
+    {
+        "time": [
+            "00:04:15.922",
+            "00:04:19.530"
+        ],
+        "text": [
+            "The",
+            "resulting",
+            "density",
+            "is",
+            "called",
+            "the",
+            "marginal",
+            "density."
+        ]
+    },
+    {
+        "time": [
+            "00:04:22.102",
+            "00:04:26.258"
+        ],
+        "text": [
+            "We",
+            "can",
+            "calculate",
+            "the",
+            "mean",
+            "and",
+            "variance",
+            "of",
+            "x",
+            "with",
+            "the",
+            "marginal",
+            "density,"
+        ]
+    },
+    {
+        "time": [
+            "00:04:26.258",
+            "00:04:30.210"
+        ],
+        "text": [
+            "which",
+            "gives",
+            "the",
+            "results",
+            "on",
+            "the",
+            "slide",
+            "in",
+            "terms",
+            "of",
+            "the",
+            "joint",
+            "density."
+        ]
+    },
+    {
+        "time": [
+            "00:04:34.192",
+            "00:04:36.016"
+        ],
+        "text": [
+            "Next",
+            "to",
+            "the",
+            "mean",
+            "and",
+            "variance,"
+        ]
+    },
+    {
+        "time": [
+            "00:04:36.016",
+            "00:04:40.880"
+        ],
+        "text": [
+            "we",
+            "are",
+            "often",
+            "interested",
+            "in",
+            "the",
+            "covariance",
+            "of",
+            "two",
+            "random",
+            "variables."
+        ]
+    },
+    {
+        "time": [
+            "00:04:40.880",
+            "00:04:42.690"
+        ],
+        "text": [
+            "The",
+            "covariance",
+            "of",
+            "x",
+            "and"
+        ]
+    },
+    {
+        "time": [
+            "00:04:42.690",
+            "00:04:48.200"
+        ],
+        "text": [
+            "y",
+            "is",
+            "the",
+            "expectation",
+            "of",
+            "the",
+            "product",
+            "of",
+            "both",
+            "variables",
+            "minus",
+            "their",
+            "means."
+        ]
+    },
+    {
+        "time": [
+            "00:04:48.200",
+            "00:04:54.731"
+        ],
+        "text": [
+            "Using",
+            "the",
+            "general",
+            "rule",
+            "for",
+            "expectation,",
+            "we",
+            "find",
+            "the",
+            "expression",
+            "on",
+            "the",
+            "slide."
+        ]
+    },
+    {
+        "time": [
+            "00:04:54.731",
+            "00:04:58.788"
+        ],
+        "text": [
+            "The",
+            "correlation",
+            "is",
+            "defined",
+            "as",
+            "the",
+            "covariance",
+            "divided",
+            "by",
+            "the",
+            "product",
+            "of"
+        ]
+    },
+    {
+        "time": [
+            "00:04:58.788",
+            "00:05:00.860"
+        ],
+        "text": [
+            "the",
+            "standard",
+            "deviations",
+            "of",
+            "x",
+            "and",
+            "y."
+        ]
+    },
+    {
+        "time": [
+            "00:05:03.530",
+            "00:05:08.240"
+        ],
+        "text": [
+            "Now,",
+            "suppose",
+            "that",
+            "z",
+            "is",
+            "the",
+            "sum",
+            "of",
+            "x",
+            "and",
+            "y."
+        ]
+    },
+    {
+        "time": [
+            "00:05:08.240",
+            "00:05:10.280"
+        ],
+        "text": [
+            "What",
+            "are",
+            "its",
+            "mean",
+            "and",
+            "variance?"
+        ]
+    },
+    {
+        "time": [
+            "00:05:11.660",
+            "00:05:15.020"
+        ],
+        "text": [
+            "The",
+            "mean",
+            "follows",
+            "from",
+            "the",
+            "definition",
+            "of",
+            "expectation."
+        ]
+    },
+    {
+        "time": [
+            "00:05:15.020",
+            "00:05:20.140"
+        ],
+        "text": [
+            "In",
+            "the",
+            "equality",
+            "marked",
+            "with",
+            "an",
+            "a,",
+            "we",
+            "split",
+            "the",
+            "integral",
+            "of",
+            "a",
+            "sum."
+        ]
+    },
+    {
+        "time": [
+            "00:05:20.140",
+            "00:05:23.700"
+        ],
+        "text": [
+            "The",
+            "resulting",
+            "terms",
+            "are",
+            "the",
+            "expectations",
+            "of",
+            "x",
+            "and",
+            "y."
+        ]
+    },
+    {
+        "time": [
+            "00:05:24.780",
+            "00:05:30.920"
+        ],
+        "text": [
+            "We",
+            "have",
+            "just",
+            "proved",
+            "that",
+            "the",
+            "expectation",
+            "of",
+            "a",
+            "sum",
+            "is",
+            "the",
+            "sum",
+            "of",
+            "the",
+            "expectations."
+        ]
+    },
+    {
+        "time": [
+            "00:05:30.920",
+            "00:05:34.770"
+        ],
+        "text": [
+            "This",
+            "is",
+            "a",
+            "very",
+            "useful",
+            "result",
+            "that",
+            "you",
+            "will",
+            "use",
+            "a",
+            "lot",
+            "in",
+            "this",
+            "MOOC."
+        ]
+    },
+    {
+        "time": [
+            "00:05:37.110",
+            "00:05:39.360"
+        ],
+        "text": [
+            "One",
+            "application",
+            "is",
+            "to",
+            "compute",
+            "the",
+            "variance",
+            "of",
+            "z."
+        ]
+    },
+    {
+        "time": [
+            "00:05:40.770",
+            "00:05:43.850"
+        ],
+        "text": [
+            "We",
+            "first",
+            "apply",
+            "the",
+            "definition",
+            "of",
+            "the",
+            "variance."
+        ]
+    },
+    {
+        "time": [
+            "00:05:43.850",
+            "00:05:50.090"
+        ],
+        "text": [
+            "In",
+            "step",
+            "b",
+            "we",
+            "split",
+            "the",
+            "product",
+            "of",
+            "the",
+            "terms,",
+            "x",
+            "minus",
+            "mu_x",
+            "and",
+            "y",
+            "minus",
+            "mu_y."
+        ]
+    },
+    {
+        "time": [
+            "00:05:51.590",
+            "00:05:55.620"
+        ],
+        "text": [
+            "In",
+            "step",
+            "c,",
+            "we",
+            "move",
+            "to",
+            "a",
+            "sum",
+            "of",
+            "expectations."
+        ]
+    },
+    {
+        "time": [
+            "00:05:55.620",
+            "00:06:00.120"
+        ],
+        "text": [
+            "You",
+            "can",
+            "see",
+            "that",
+            "the",
+            "first",
+            "two",
+            "terms",
+            "are",
+            "the",
+            "variances",
+            "of",
+            "x",
+            "and",
+            "y",
+            "and"
+        ]
+    },
+    {
+        "time": [
+            "00:06:00.120",
+            "00:06:04.170"
+        ],
+        "text": [
+            "the",
+            "last",
+            "term",
+            "is",
+            "two",
+            "times",
+            "the",
+            "covariance",
+            "of",
+            "x",
+            "and",
+            "y."
+        ]
+    },
+    {
+        "time": [
+            "00:06:04.170",
+            "00:06:06.270"
+        ],
+        "text": [
+            "Please",
+            "check",
+            "these",
+            "steps",
+            "on",
+            "the",
+            "slide."
+        ]
+    },
+    {
+        "time": [
+            "00:06:10.260",
+            "00:06:11.667"
+        ],
+        "text": [
+            "Now,",
+            "a",
+            "question",
+            "for",
+            "you!"
+        ]
+    },
+    {
+        "time": [
+            "00:06:16.471",
+            "00:06:19.535"
+        ],
+        "text": [
+            "You",
+            "can",
+            "see",
+            "the",
+            "mean",
+            "and",
+            "the",
+            "variance",
+            "of",
+            "z",
+            "on",
+            "the",
+            "slide."
+        ]
+    },
+    {
+        "time": [
+            "00:06:21.270",
+            "00:06:26.250"
+        ],
+        "text": [
+            "The",
+            "expectation",
+            "of",
+            "z",
+            "follows",
+            "from",
+            "exchanging",
+            "expectations",
+            "on",
+            "sums."
+        ]
+    },
+    {
+        "time": [
+            "00:06:26.250",
+            "00:06:31.140"
+        ],
+        "text": [
+            "To",
+            "calculate",
+            "the",
+            "variance",
+            "of",
+            "z,",
+            "we",
+            "split",
+            "the",
+            "product"
+        ]
+    },
+    {
+        "time": [
+            "00:06:31.140",
+            "00:06:35.930"
+        ],
+        "text": [
+            "of",
+            "the",
+            "terms",
+            "a_1",
+            "*",
+            "(x-",
+            "mu_x)",
+            "and",
+            "a_2",
+            "*",
+            "(y",
+            "�",
+            "mu_y)."
+        ]
+    },
+    {
+        "time": [
+            "00:06:37.020",
+            "00:06:40.209"
+        ],
+        "text": [
+            "Please",
+            "take",
+            "a",
+            "moment",
+            "to",
+            "check",
+            "that",
+            "you",
+            "understand",
+            "these",
+            "derivations."
+        ]
+    },
+    {
+        "time": [
+            "00:06:44.291",
+            "00:06:49.320"
+        ],
+        "text": [
+            "These",
+            "results",
+            "for",
+            "two",
+            "random",
+            "variables",
+            "carry",
+            "over",
+            "to",
+            "n",
+            "random",
+            "variables."
+        ]
+    },
+    {
+        "time": [
+            "00:06:49.320",
+            "00:06:53.920"
+        ],
+        "text": [
+            "The",
+            "n",
+            "random",
+            "variables",
+            "y_i",
+            "have",
+            "a",
+            "joint",
+            "density",
+            "function",
+            "f"
+        ]
+    },
+    {
+        "time": [
+            "00:06:53.920",
+            "00:06:56.650"
+        ],
+        "text": [
+            "which",
+            "is",
+            "a",
+            "vector",
+            "function",
+            "of",
+            "the",
+            "n",
+            "by",
+            "1",
+            "vector",
+            "v."
+        ]
+    },
+    {
+        "time": [
+            "00:06:58.140",
+            "00:07:02.890"
+        ],
+        "text": [
+            "We",
+            "use",
+            "an",
+            "n-dimensional",
+            "integral",
+            "to",
+            "calculate",
+            "probabilities."
+        ]
+    },
+    {
+        "time": [
+            "00:07:02.890",
+            "00:07:08.690"
+        ],
+        "text": [
+            "We",
+            "obtain",
+            "the",
+            "marginal",
+            "density",
+            "of",
+            "y_i",
+            "by",
+            "integration",
+            "over",
+            "all",
+            "other",
+            "variables."
+        ]
+    },
+    {
+        "time": [
+            "00:07:11.492",
+            "00:07:16.910"
+        ],
+        "text": [
+            "The",
+            "n",
+            "random",
+            "variables",
+            "y_i",
+            "have",
+            "n",
+            "associated",
+            "means,",
+            "mu_i."
+        ]
+    },
+    {
+        "time": [
+            "00:07:16.910",
+            "00:07:19.020"
+        ],
+        "text": [
+            "We",
+            "collect",
+            "them",
+            "in",
+            "a",
+            "vector,",
+            "mu."
+        ]
+    },
+    {
+        "time": [
+            "00:07:20.060",
+            "00:07:24.560"
+        ],
+        "text": [
+            "The",
+            "variables",
+            "also",
+            "have",
+            "n",
+            "variances",
+            "sigma-squared_i."
+        ]
+    },
+    {
+        "time": [
+            "00:07:25.580",
+            "00:07:32.460"
+        ],
+        "text": [
+            "They",
+            "have",
+            "covariance,",
+            "since",
+            "sigma_ij",
+            "for",
+            "all",
+            "combinations",
+            "of",
+            "the",
+            "n",
+            "variables."
+        ]
+    },
+    {
+        "time": [
+            "00:07:32.460",
+            "00:07:38.790"
+        ],
+        "text": [
+            "In",
+            "total,",
+            "there",
+            "are",
+            "n*(n-1)/2",
+            "of",
+            "these",
+            "combinations."
+        ]
+    },
+    {
+        "time": [
+            "00:07:38.790",
+            "00:07:42.860"
+        ],
+        "text": [
+            "We",
+            "divide",
+            "by",
+            "two",
+            "because",
+            "the",
+            "order",
+            "in",
+            "the",
+            "combination",
+            "does",
+            "not",
+            "matter."
+        ]
+    },
+    {
+        "time": [
+            "00:07:44.790",
+            "00:07:50.870"
+        ],
+        "text": [
+            "We",
+            "collect",
+            "the",
+            "variance",
+            "and",
+            "covariance",
+            "terms,",
+            "in",
+            "the",
+            "covariance",
+            "matrix",
+            "sigma."
+        ]
+    },
+    {
+        "time": [
+            "00:07:50.870",
+            "00:07:55.739"
+        ],
+        "text": [
+            "You",
+            "can",
+            "see",
+            "this",
+            "matrix",
+            "as",
+            "the",
+            "expectation",
+            "of",
+            "the",
+            "outer",
+            "products",
+            "of",
+            "the",
+            "vector",
+            "(y-mu)"
+        ]
+    },
+    {
+        "time": [
+            "00:07:55.739",
+            "00:07:58.850"
+        ],
+        "text": [
+            "with",
+            "itself."
+        ]
+    },
+    {
+        "time": [
+            "00:07:58.850",
+            "00:08:01.780"
+        ],
+        "text": [
+            "The",
+            "diagonal",
+            "consists",
+            "of",
+            "the",
+            "variance",
+            "terms",
+            "and"
+        ]
+    },
+    {
+        "time": [
+            "00:08:01.780",
+            "00:08:04.816"
+        ],
+        "text": [
+            "the",
+            "off-diagonal",
+            "elements",
+            "are",
+            "covariance",
+            "terms."
+        ]
+    },
+    {
+        "time": [
+            "00:08:07.120",
+            "00:08:12.130"
+        ],
+        "text": [
+            "Now",
+            "let",
+            "us",
+            "consider",
+            "linear",
+            "transformations",
+            "of",
+            "the",
+            "n",
+            "random",
+            "variables."
+        ]
+    },
+    {
+        "time": [
+            "00:08:12.130",
+            "00:08:16.650"
+        ],
+        "text": [
+            "All",
+            "linear",
+            "transformations",
+            "can",
+            "be",
+            "written",
+            "compactly",
+            "with",
+            "vectors",
+            "and",
+            "matrices."
+        ]
+    },
+    {
+        "time": [
+            "00:08:16.650",
+            "00:08:21.239"
+        ],
+        "text": [
+            "So",
+            "we",
+            "can",
+            "use",
+            "the",
+            "powerful",
+            "linear",
+            "algebra",
+            "tools",
+            "of",
+            "the",
+            "building",
+            "blocks",
+            "on",
+            "matrices."
+        ]
+    },
+    {
+        "time": [
+            "00:08:22.710",
+            "00:08:27.316"
+        ],
+        "text": [
+            "First",
+            "let's",
+            "consider",
+            "a",
+            "univariate",
+            "random",
+            "variable"
+        ]
+    },
+    {
+        "time": [
+            "00:08:27.316",
+            "00:08:30.881"
+        ],
+        "text": [
+            "z",
+            "that",
+            "is",
+            "formed",
+            "by",
+            "b",
+            "+",
+            "a�",
+            "*",
+            "y."
+        ]
+    },
+    {
+        "time": [
+            "00:08:30.881",
+            "00:08:35.585"
+        ],
+        "text": [
+            "Because",
+            "the",
+            "expectation",
+            "of",
+            "a",
+            "sum",
+            "is",
+            "the",
+            "sum",
+            "of",
+            "the",
+            "expectations,"
+        ]
+    },
+    {
+        "time": [
+            "00:08:35.585",
+            "00:08:40.987"
+        ],
+        "text": [
+            "the",
+            "expectation",
+            "of",
+            "z",
+            "is",
+            "b",
+            "plus",
+            "the",
+            "weighted",
+            "sum",
+            "of",
+            "the",
+            "expectations",
+            "mu_i",
+            "so"
+        ]
+    },
+    {
+        "time": [
+            "00:08:40.987",
+            "00:08:42.750"
+        ],
+        "text": [
+            "b",
+            "+",
+            "a�",
+            "*",
+            "mu."
+        ]
+    },
+    {
+        "time": [
+            "00:08:44.240",
+            "00:08:46.755"
+        ],
+        "text": [
+            "The",
+            "derivation",
+            "of",
+            "the",
+            "variance",
+            "is",
+            "shown",
+            "on",
+            "the",
+            "slides."
+        ]
+    },
+    {
+        "time": [
+            "00:08:49.150",
+            "00:08:52.553"
+        ],
+        "text": [
+            "In",
+            "the",
+            "crucial",
+            "step,",
+            "marked",
+            "with",
+            "a",
+            "star,"
+        ]
+    },
+    {
+        "time": [
+            "00:08:52.553",
+            "00:08:56.551"
+        ],
+        "text": [
+            "I",
+            "write",
+            "the",
+            "square",
+            "of",
+            "a",
+            "sum",
+            "as",
+            "a",
+            "double",
+            "summation."
+        ]
+    },
+    {
+        "time": [
+            "00:08:56.551",
+            "00:09:02.113"
+        ],
+        "text": [
+            "Then",
+            "I",
+            "exchange",
+            "expectations",
+            "and",
+            "sums",
+            "which",
+            "gives",
+            "the",
+            "result",
+            "as",
+            "a",
+            "double"
+        ]
+    },
+    {
+        "time": [
+            "00:09:02.113",
+            "00:09:07.410"
+        ],
+        "text": [
+            "summation,",
+            "which",
+            "we",
+            "can",
+            "write",
+            "again",
+            "as",
+            "a�",
+            "*",
+            "Sigma",
+            "*",
+            "a."
+        ]
+    },
+    {
+        "time": [
+            "00:09:10.020",
+            "00:09:14.240"
+        ],
+        "text": [
+            "The",
+            "covariance",
+            "matrix",
+            "Sigma",
+            "has",
+            "some",
+            "useful",
+            "properties."
+        ]
+    },
+    {
+        "time": [
+            "00:09:14.240",
+            "00:09:18.140"
+        ],
+        "text": [
+            "I",
+            "ask",
+            "you",
+            "to",
+            "consider",
+            "these",
+            "properties",
+            "in",
+            "the",
+            "following",
+            "question."
+        ]
+    },
+    {
+        "time": [
+            "00:09:23.031",
+            "00:09:28.062"
+        ],
+        "text": [
+            "The",
+            "covariance",
+            "matrix",
+            "is",
+            "symmetric",
+            "because",
+            "the",
+            "covariance",
+            "between",
+            "y_i",
+            "and"
+        ]
+    },
+    {
+        "time": [
+            "00:09:28.062",
+            "00:09:31.320"
+        ],
+        "text": [
+            "Y_j",
+            "is",
+            "equal",
+            "to",
+            "the",
+            "covariance",
+            "between",
+            "y_j",
+            "and",
+            "y_i."
+        ]
+    },
+    {
+        "time": [
+            "00:09:32.670",
+            "00:09:36.980"
+        ],
+        "text": [
+            "The",
+            "covariance",
+            "matrix",
+            "is",
+            "also",
+            "positive",
+            "semi-definite."
+        ]
+    },
+    {
+        "time": [
+            "00:09:36.980",
+            "00:09:42.480"
+        ],
+        "text": [
+            "For",
+            "any",
+            "vector",
+            "of",
+            "weights",
+            "a,",
+            "the",
+            "variance",
+            "of",
+            "c,",
+            "defined",
+            "by"
+        ]
+    },
+    {
+        "time": [
+            "00:09:42.480",
+            "00:09:48.030"
+        ],
+        "text": [
+            "b",
+            "+",
+            "a�",
+            "y",
+            "is",
+            "equal",
+            "to",
+            "a�*",
+            "Sigma",
+            "*",
+            "a,",
+            "which",
+            "is",
+            "a",
+            "quadratic",
+            "form."
+        ]
+    },
+    {
+        "time": [
+            "00:09:49.050",
+            "00:09:53.140"
+        ],
+        "text": [
+            "The",
+            "variance",
+            "of",
+            "c",
+            "is",
+            "non-negative,",
+            "which",
+            "means",
+            "that",
+            "the",
+            "quadratic",
+            "form,"
+        ]
+    },
+    {
+        "time": [
+            "00:09:53.140",
+            "00:09:57.182"
+        ],
+        "text": [
+            "a�",
+            "*",
+            "Sigma",
+            "*",
+            "a",
+            "is",
+            "always",
+            "non-negative."
+        ]
+    },
+    {
+        "time": [
+            "00:09:58.270",
+            "00:09:59.833"
+        ],
+        "text": [
+            "In",
+            "building",
+            "block",
+            "M3,"
+        ]
+    },
+    {
+        "time": [
+            "00:09:59.833",
+            "00:10:04.691"
+        ],
+        "text": [
+            "you",
+            "have",
+            "learned",
+            "that",
+            "this",
+            "means",
+            "that",
+            "Sigma",
+            "is",
+            "positive",
+            "semi-definite."
+        ]
+    },
+    {
+        "time": [
+            "00:10:06.351",
+            "00:10:12.114"
+        ],
+        "text": [
+            "When",
+            "z",
+            "is",
+            "a",
+            "set",
+            "of",
+            "k",
+            "random",
+            "variables",
+            "that",
+            "are",
+            "a",
+            "linear",
+            "transformation",
+            "of",
+            "the",
+            "n"
+        ]
+    },
+    {
+        "time": [
+            "00:10:12.114",
+            "00:10:18.540"
+        ],
+        "text": [
+            "random",
+            "variables",
+            "y",
+            "by",
+            "b",
+            "+",
+            "A�y,",
+            "we",
+            "find",
+            "the",
+            "following",
+            "relation",
+            "for",
+            "the",
+            "mean."
+        ]
+    },
+    {
+        "time": [
+            "00:10:21.370",
+            "00:10:26.301"
+        ],
+        "text": [
+            "The",
+            "vector",
+            "mu_z",
+            "is",
+            "equal",
+            "to",
+            "b",
+            "+",
+            "A",
+            "*",
+            "mu_y."
+        ]
+    },
+    {
+        "time": [
+            "00:10:26.301",
+            "00:10:30.462"
+        ],
+        "text": [
+            "To",
+            "get",
+            "the",
+            "covariance",
+            "matrix,",
+            "we",
+            "use",
+            "its",
+            "definition",
+            "as"
+        ]
+    },
+    {
+        "time": [
+            "00:10:30.462",
+            "00:10:36.250"
+        ],
+        "text": [
+            "the",
+            "expectation",
+            "of",
+            "the",
+            "outer",
+            "product",
+            "of",
+            "z",
+            "�",
+            "mu_z,",
+            "with",
+            "itself."
+        ]
+    },
+    {
+        "time": [
+            "00:10:36.250",
+            "00:10:41.720"
+        ],
+        "text": [
+            "You",
+            "can",
+            "see",
+            "on",
+            "the",
+            "slides",
+            "that",
+            "we",
+            "substitute",
+            "a",
+            "linear",
+            "relation",
+            "and"
+        ]
+    },
+    {
+        "time": [
+            "00:10:41.720",
+            "00:10:47.100"
+        ],
+        "text": [
+            "use",
+            "the",
+            "rules",
+            "for",
+            "transposition",
+            "to",
+            "extract",
+            "the",
+            "constant",
+            "matrices,",
+            "A",
+            "and",
+            "A�."
+        ]
+    },
+    {
+        "time": [
+            "00:10:48.150",
+            "00:10:53.420"
+        ],
+        "text": [
+            "We",
+            "find",
+            "that",
+            "Sigma_z",
+            "equals",
+            "A",
+            "*",
+            "Sigma_y",
+            "*",
+            "A�."
+        ]
+    },
+    {
+        "time": [
+            "00:10:55.980",
+            "00:10:59.420"
+        ],
+        "text": [
+            "Now",
+            "I",
+            "invite",
+            "you",
+            "to",
+            "make",
+            "the",
+            "training",
+            "exercise,"
+        ]
+    },
+    {
+        "time": [
+            "00:10:59.420",
+            "00:11:02.350"
+        ],
+        "text": [
+            "to",
+            "train",
+            "yourself",
+            "with",
+            "the",
+            "topics",
+            "of",
+            "this",
+            "lecture."
+        ]
+    },
+    {
+        "time": [
+            "00:11:02.350",
+            "00:11:05.013"
+        ],
+        "text": [
+            "You",
+            "can",
+            "find",
+            "this",
+            "exercise",
+            "on",
+            "the",
+            "website,",
+            "and"
+        ]
+    }
+]

@@ -1,0 +1,141 @@
+.graph {
+  width: 100%;
+  height: 100%;
+  /* position: fixed; */
+  /* z-index: 100; */
+  /* left: 0;
+    top: 0; */
+}
+
+.buildingLabel {
+  width: 600px;
+  height: 600px;
+  background: rgba(0, 0, 0, 0) url(/textures/label.png);
+  background-size: cover;
+}
+
+.labelName {
+  width: 600px;
+  height: 510px;
+  vertical-align: middle;
+  display: table-cell;
+  color: #83FFFD;
+  font-weight: 600;
+  font-size: 100px;
+  line-height: 40px;
+  font-variant: tabular-nums;
+  font-feature-settings: "tnum";
+  font-family: SourceHanSerifCN-Heavy, SourceHanSerifCN;
+  text-align: center;
+}
+.entCircle{
+  cursor: pointer;
+}
+.linePoint{
+  cursor: pointer;
+}
+#moveLeft {
+  position: absolute;
+  width: 200px;
+  height:  100%;/*var(--graphDivHeightStyle);
+  /* top: 0px; */
+  background-color: black;
+  left: 0px;
+}
+
+#moveRight {
+  position: absolute;
+  width: 200px;
+  height:  100%;/*var(--graphDivHeightStyle);*/
+  /* top: 0px; */
+  background-color: blue;
+  right: 0px;
+}
+
+#assistGraphPanel{
+  position: absolute;
+  top: 770px;
+  right: 648px;
+  width: 530px;
+  height: 721px;/*var(--graphDivHeightStyle);*/
+  /* top: 0px; */
+  background-color: #fff;
+  /* box-shadow: 5px 5px 10px 5px rgba(0, 0, 0, 0.3),-10px 10px 10px 10px #fff; */
+  /* right: 690px;
+  top:850px; */
+}
+
+/* .basicRel{
+  animation: dash 10s;
+  animation-iteration-count: infinite;
+  /*-webkit-animation: dash 10s;*/
+
+/* } */
+
+
+.activeS{
+  animation: dashS 20s ease;
+  animation-iteration-count: infinite;
+  /*-webkit-animation: dash 10s;*/
+        /* 3、动画执行速度 */
+  animation-timing-function:linear
+
+}
+.activeN{
+  animation: dashN 20s ease;
+  animation-iteration-count: infinite;
+  /*-webkit-animation: dash 10s;*/
+        /* 3、动画执行速度 */
+  animation-timing-function:linear
+
+}
+/* @-webkit-keyframes dash {
+  from {
+      stroke-dashoffset: 100%;
+  }
+  to {
+      stroke-dashoffset: 0;
+  }
+}*/
+
+@keyframes dashS {
+  from {
+      stroke-dashoffset: 80%;
+  }
+  to {
+      stroke-dashoffset: 50%;
+  }
+}
+@keyframes dashN {
+  from {
+      stroke-dashoffset: -20%;
+  }
+  to {
+      stroke-dashoffset: 50%;
+  }
+}
+#zoomInDiv{
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  top: 57px;
+  right: 720px;
+}
+#zoomOutDiv{
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  top: 57px;
+  right: 680px;
+}
+.icon{
+  width: 100%;
+  height: 100%;
+}
+#editToolDiv{
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  top: 57px;
+  right: 473px;
+}

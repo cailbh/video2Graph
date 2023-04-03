@@ -1,0 +1,1313 @@
+[
+    {
+        "id": "0",
+        "layout": "0",
+        "name": "Random Variables",
+        "time": [
+            "00:00:00",
+            "00:00:10"
+        ],
+        "text": "",
+        "attribute": {
+            "importance": 16,
+            "duration": "",
+            "relevance": 16,
+            "expressions": {
+                "1": [
+                    [
+                        "00:00:00",
+                        "00:00:10"
+                    ]
+                ],
+                "2": [],
+                "3": []
+            }
+        },
+        "timeFatherId": "-1",
+        "timeSonId": "1",
+        "basicRel": [],
+        "similarityRel": [],
+        "son": [
+            "1",
+            "2"
+        ],
+        "father": [
+            "-1"
+        ],
+        "type": "0",
+        "totalDuration": 161
+    },
+    {
+        "id": "1",
+        "layout": "1",
+        "name": "Mean and Variance",
+        "time": [
+            "00:00:10",
+            "00:00:18"
+        ],
+        "text": "",
+        "attribute": {
+            "importance": 20,
+            "duration": "",
+            "relevance": 12,
+            "expressions": {
+                "1": [],
+                "2": [
+                    [
+                        "00:00:10",
+                        "00:00:18"
+                    ]
+                ],
+                "3": []
+            }
+        },
+        "timeFatherId": "0",
+        "timeSonId": "2",
+        "basicRel": [
+            4
+        ],
+        "similarityRel": [],
+        "son": [],
+        "father": [
+            "0"
+        ],
+        "type": "0",
+        "totalDuration": 46
+    },
+    {
+        "id": "2",
+        "layout": "1",
+        "name": "Continuous Random Variables",
+        "time": [
+            "00:00:18",
+            "00:00:28"
+        ],
+        "text": "",
+        "attribute": {
+            "importance": 15,
+            "duration": "",
+            "relevance": 8,
+            "expressions": {
+                "1": [],
+                "2": [
+                    [
+                        "00:00:18",
+                        "00:00:28"
+                    ]
+                ],
+                "3": []
+            }
+        },
+        "timeFatherId": "1",
+        "timeSonId": "3",
+        "basicRel": [],
+        "similarityRel": [],
+        "son": [
+            "3",
+            "4"
+        ],
+        "father": [
+            "0"
+        ],
+        "type": "0",
+        "totalDuration": 11
+    },
+    {
+        "id": "3",
+        "layout": "2",
+        "name": "Probability Density Function (pdf)",
+        "time": [
+            "00:00:28",
+            "00:00:50"
+        ],
+        "text": "",
+        "attribute": {
+            "importance": 20,
+            "duration": "",
+            "relevance": 9,
+            "expressions": {
+                "1": [],
+                "2": [
+                    [
+                        "00:00:28",
+                        "00:00:50"
+                    ]
+                ],
+                "3": []
+            }
+        },
+        "timeFatherId": "2",
+        "timeSonId": "4",
+        "basicRel": [],
+        "similarityRel": [],
+        "son": [],
+        "father": [
+            "1"
+        ],
+        "type": "0",
+        "totalDuration": 19
+    },
+    {
+        "id": "4",
+        "layout": "2",
+        "name": "Cumulative Density Function (cdf)",
+        "time": [
+            "00:00:50",
+            "00:01:16"
+        ],
+        "text": "",
+        "attribute": {
+            "importance": 14,
+            "duration": "",
+            "relevance": 8,
+            "expressions": {
+                "1": [],
+                "2": [
+                    [
+                        "00:00:50",
+                        "00:01:16"
+                    ]
+                ],
+                "3": []
+            }
+        },
+        "timeFatherId": "3",
+        "timeSonId": "5",
+        "basicRel": [
+            1
+        ],
+        "similarityRel": [],
+        "son": [],
+        "father": [
+            "0"
+        ],
+        "type": "0",
+        "totalDuration": 51
+    },
+    {
+        "id": "5",
+        "layout": "0",
+        "name": "Random Variables",
+        "time": [
+            "00:01:16",
+            "00:01:22"
+        ],
+        "text": "",
+        "attribute": {
+            "importance": 12,
+            "duration": "",
+            "relevance": 12,
+            "expressions": {
+                "1": [],
+                "2": [
+                    [
+                        "00:01:16",
+                        "00:01:22"
+                    ]
+                ],
+                "3": []
+            }
+        },
+        "timeFatherId": "4",
+        "timeSonId": "6",
+        "basicRel": [],
+        "similarityRel": [],
+        "son": [
+            "6"
+        ],
+        "father": [
+            "4"
+        ],
+        "type": "0",
+        "totalDuration": 16
+    },
+    {
+        "id": "6",
+        "layout": "1",
+        "name": "Expectation",
+        "time": [
+            "00:01:22",
+            "00:01:24"
+        ],
+        "text": "",
+        "attribute": {
+            "importance": 18,
+            "duration": "",
+            "relevance": 12,
+            "expressions": {
+                "1": [],
+                "2": [
+                    [
+                        "00:01:22",
+                        "00:01:24"
+                    ]
+                ],
+                "3": []
+            }
+        },
+        "timeFatherId": "5",
+        "timeSonId": "7",
+        "basicRel": [
+            "pdf"
+        ],
+        "similarityRel": [],
+        "son": [
+            "7","8"
+        ],
+        "father": [
+            "4"
+        ],
+        "type": "0",
+        "totalDuration": 11
+    },
+    {
+        "id": "7",
+        "layout": "2",
+        "name": "Mean",
+        "time": [
+            "00:01:24",
+            "00:02:05"
+        ],
+        "text": "",
+        "attribute": {
+            "importance": 18,
+            "duration": "",
+            "relevance": 12,
+            "expressions": {
+                "1": [],
+                "2": [
+                    [
+                        "00:01:24",
+                        "00:02:05"
+                    ]
+                ],
+                "3": []
+            }
+        },
+        "timeFatherId": "5",
+        "timeSonId": "7",
+        "basicRel": [
+            "pdf",
+            "qiwang"
+        ],
+        "similarityRel": [],
+        "son": [],
+        "father": [],
+        "type": "0",
+        "totalDuration": 11
+    },
+    {
+        "id": "8",
+        "layout": "2",
+        "name": "Variance",
+        "time": [
+            "00:02:05",
+            "00:02:32"
+        ],
+        "text": "",
+        "attribute": {
+            "importance": 15,
+            "duration": "",
+            "relevance": 18,
+            "expressions": {
+                "1": [],
+                "2": [
+                    [
+                        "00:02:05",
+                        "00:02:32"
+                    ]
+                ],
+                "3": []
+            }
+        },
+        "timeFatherId": "6",
+        "timeSonId": "8",
+        "basicRel": [],
+        "similarityRel": [
+            "pdf",
+            "qiwang"
+        ],
+        "son": [],
+        "father": [
+            "4"
+        ],
+        "type": "0",
+        "totalDuration": 6
+    },
+    {
+        "id": "9",
+        "layout": "0",
+        "name": "expectation of linear functions",
+        "time": [
+            "00:02:32",
+            "00:03:15"
+        ],
+        "text": "",
+        "attribute": {
+            "importance": 7,
+            "duration": "",
+            "relevance": 16,
+            "expressions": {
+                "1": [],
+                "2": [
+                    [
+                        "00:02:32",
+                        "00:03:15"
+                    ]
+                ],
+                "3": []
+            }
+        },
+        "timeFatherId": "7",
+        "timeSonId": "9",
+        "basicRel": [
+            6,
+            7
+        ],
+        "similarityRel": [
+            "qiwang"
+        ],
+        "son": [
+            "10"
+        ],
+        "father": [
+            "0"
+        ],
+        "type": "0",
+        "totalDuration": 47
+    },
+    {
+        "id": "10",
+        "layout": "1",
+        "name": "Test",
+        "time": [
+            "00:03:15",
+            "00:03:39"
+        ],
+        "text": "",
+        "attribute": {
+            "importance": 7,
+            "duration": "",
+            "relevance": 19,
+            "expressions": {
+                "1": [
+                    [
+                        "00:03:18",
+                        "00:03:20"
+                    ]
+                ],
+                "2": [
+                    [
+                        "00:03:15",
+                        "00:03:18"
+                    ],
+                    [
+                        "00:03:20",
+                        "00:03:39"
+                    ]
+                ],
+                "3": []
+            }
+        },
+        "timeFatherId": "8",
+        "timeSonId": "10",
+        "basicRel": [
+            6,
+            "fancha",
+            "qiwang"
+        ],
+        "similarityRel": [],
+        "son": [],
+        "father": [],
+        "type": "1",
+        "totalDuration": 9
+    },
+    {
+        "id": "11",
+        "layout": "0",
+        "name": "Two random variables",
+        "time": [
+            "00:03:39",
+            "00:03:48"
+        ],
+        "text": "",
+        "attribute": {
+            "importance": 19,
+            "duration": "",
+            "relevance": 17,
+            "expressions": {
+                "1": [],
+                "2": [
+                    [
+                        "00:03:39",
+                        "00:03:48"
+                    ]
+                ],
+                "3": []
+            }
+        },
+        "timeFatherId": "9",
+        "timeSonId": "11",
+        "basicRel": [
+        ],
+        "similarityRel": [],
+        "son": [],
+        "father": [],
+        "type": "0",
+        "totalDuration": 17
+    },
+    {
+        "id": "11",
+        "layout": "1",
+        "name": "Let x and y be random variables",
+        "time": [
+            "00:03:48",
+            "00:04:11"
+        ],
+        "text": "",
+        "attribute": {
+            "importance": 19,
+            "duration": "",
+            "relevance": 17,
+            "expressions": {
+                "1": [],
+                "2": [
+                    [
+                        "00:03:48",
+                        "00:04:11"
+                    ]
+                ],
+                "3": []
+            }
+        },
+        "timeFatherId": "9",
+        "timeSonId": "11",
+        "basicRel": [
+        ],
+        "similarityRel": [],
+        "son": [],
+        "father": [],
+        "type": "0",
+        "totalDuration": 17
+    },
+    {
+        "id": "11",
+        "layout": "0",
+        "name": "marginal density",
+        "time": [
+            "00:04:11",
+            "00:04:33"
+        ],
+        "text": "",
+        "attribute": {
+            "importance": 19,
+            "duration": "",
+            "relevance": 17,
+            "expressions": {
+                "1": [],
+                "2": [
+                    [
+                        "00:03:39",
+                        "00:04:33"
+                    ]
+                ],
+                "3": []
+            }
+        },
+        "timeFatherId": "9",
+        "timeSonId": "11",
+        "basicRel": [
+            "fancha",
+            "junzhi",
+            "pdf"
+        ],
+        "similarityRel": [],
+        "son": [],
+        "father": [],
+        "type": "0",
+        "totalDuration": 17
+    },
+    {
+        "id": "12",
+        "layout": "0",
+        "name": "covariance",
+        "time": [
+            "00:04:33",
+            "00:05:01"
+        ],
+        "text": "",
+        "attribute": {
+            "importance": 18,
+            "duration": "",
+            "relevance": 5,
+            "expressions": {
+                "1": [],
+                "2": [
+                    [
+                        "00:04:33",
+                        "00:05:01"
+                    ]
+                ],
+                "3": []
+            }
+        },
+        "timeFatherId": "10",
+        "timeSonId": "12",
+        "basicRel": [
+            "fancha",
+            "junzhi"
+        ],
+        "similarityRel": [],
+        "son": [],
+        "father": [],
+        "type": "0",
+        "totalDuration": 14
+    },
+    {
+        "id": "13",
+        "layout": "0",
+        "name": "Sum of two random variables",
+        "time": [
+            "00:05:01",
+            "00:05:02"
+        ],
+        "text": "",
+        "attribute": {
+            "importance": 17,
+            "duration": "",
+            "relevance": 19,
+            "expressions": {
+                "1": [],
+                "2": [
+                    [
+                        "00:05:01",
+                        "00:05:02"
+                    ]
+                ]
+            }
+        },
+        "timeFatherId": "11",
+        "timeSonId": "13",
+        "basicRel": [],
+        "similarityRel": [],
+        "son": [
+            "14",
+            "15"
+        ],
+        "father": [
+            "-1"
+        ],
+        "type": "0",
+        "totalDuration": 45
+    },
+    {
+        "id": "13",
+        "layout": "0",
+        "name": "z = x + y",
+        "time": [
+            "00:05:01",
+            "00:05:07"
+        ],
+        "text": "",
+        "attribute": {
+            "importance": 17,
+            "duration": "",
+            "relevance": 19,
+            "expressions": {
+                "1": [],
+                "2": [
+                    [
+                        "00:05:01",
+                        "00:05:07"
+                    ]
+                ]
+            }
+        },
+        "timeFatherId": "11",
+        "timeSonId": "13",
+        "basicRel": [],
+        "similarityRel": [],
+        "son": [
+            "14",
+            "15"
+        ],
+        "father": [
+            "-1"
+        ],
+        "type": "0",
+        "totalDuration": 45
+    },
+    {
+        "id": "14",
+        "layout": "1",
+        "name": "Mean of z",
+        "time": [
+            "00:05:07",
+            "00:05:36"
+        ],
+        "text": "",
+        "attribute": {
+            "importance": 11,
+            "duration": "",
+            "relevance": 5,
+            "expressions": {
+                "1": [],
+                "2": [
+                    [
+                        "00:05:07",
+                        "00:05:36"
+                    ]
+                ],
+                "3": []
+            }
+        },
+        "timeFatherId": "13",
+        "timeSonId": "15",
+        "basicRel": [
+            "qiwang"
+        ],
+        "similarityRel": [],
+        "son": [],
+        "father": [
+            "12"
+        ],
+        "type": "0",
+        "totalDuration": 19
+    },
+    {
+        "id": "15",
+        "layout": "1",
+        "name": "Variance of z",
+        "time": [
+            "00:05:36",
+            "00:06:08"
+        ],
+        "text": "",
+        "attribute": {
+            "importance": 5,
+            "duration": "",
+            "relevance": 16,
+            "expressions": {
+                "1": [],
+                "2": [
+                    [
+                        "00:05:36",
+                        "00:06:08"
+                    ]
+                ],
+                "3": []
+            }
+        },
+        "timeFatherId": "14",
+        "timeSonId": "16",
+        "basicRel": [
+            "qiwang",
+            "xiefangcha"
+        ],
+        "similarityRel": [],
+        "son": [],
+        "father": [
+            "-1"
+        ],
+        "type": "0",
+        "totalDuration": 77
+    },
+    {
+        "id": "16",
+        "layout": "0",
+        "name": "Test",
+        "time": [
+            "00:06:08",
+            "00:06:44"
+        ],
+        "text": "",
+        "attribute": {
+            "importance": 16,
+            "duration": "",
+            "relevance": 15,
+            "expressions": {
+                "1": [
+                    [
+                        "00:06:12",
+                        "00:06:16"
+                    ],
+                    [
+                        "00:06:40",
+                        "00:06:44"
+                    ]
+                ],
+                "2": [
+                    [
+                        "00:06:08",
+                        "00:06:12"
+                    ],
+                    [
+                        "00:06:26",
+                        "00:06:40"
+                    ]
+                ],
+                "3": []
+            }
+        },
+        "timeFatherId": "15",
+        "timeSonId": "17",
+        "basicRel": [
+            "junzhi",
+            "fancha",
+            "qiwang"
+        ],
+        "similarityRel": [
+            26
+        ],
+        "son": [],
+        "father": [
+            "15"
+        ],
+        "type": "1",
+        "totalDuration": 6
+    },
+    {
+        "id": "17",
+        "layout": "0",
+        "name": "n Random Variables",
+        "time": [
+            "00:06:44",
+            "00:06:50"
+        ],
+        "text": "",
+        "attribute": {
+            "importance": 10,
+            "duration": "",
+            "relevance": 17,
+            "expressions": {
+                "1": [],
+                "2": [
+                    [
+                        "00:06:44",
+                        "00:06:50"
+                    ]
+                ],
+                "3": []
+            }
+        },
+        "timeFatherId": "16",
+        "timeSonId": "18",
+        "basicRel": [
+            "Sum of two random variables"
+        ],
+        "similarityRel": [],
+        "son": [
+            "18",
+            "19",
+            "20",
+            "21",
+            "22"
+        ],
+        "father": [
+            "15"
+        ],
+        "type": "0",
+        "totalDuration": 11
+    },
+    {
+        "id": "18",
+        "layout": "1",
+        "name": "Joint density",
+        "time": [
+            "00:06:50",
+            "00:07:02"
+        ],
+        "text": "",
+        "attribute": {
+            "importance": 7,
+            "duration": "",
+            "relevance": 16,
+            "expressions": {
+                "1": [],
+                "2": [
+                    [
+                        "00:06:50",
+                        "00:07:02"
+                    ]
+                ],
+                "3": []
+            }
+        },
+        "timeFatherId": "17",
+        "timeSonId": "19",
+        "basicRel": [],
+        "similarityRel": [],
+        "son": [],
+        "father": [
+            "15"
+        ],
+        "type": "0",
+        "totalDuration": 12
+    },
+    {
+        "id": "19",
+        "layout": "1",
+        "name": "marginal density",
+        "time": [
+            "00:07:02",
+            "00:07:09"
+        ],
+        "text": "",
+        "attribute": {
+            "importance": 16,
+            "duration": "",
+            "relevance": 14,
+            "expressions": {
+                "1": [],
+                "2": [
+                    [
+                        "00:07:02",
+                        "00:07:09"
+                    ]
+                ],
+                "3": []
+            }
+        },
+        "timeFatherId": "18",
+        "timeSonId": "20",
+        "basicRel": [
+            16
+        ],
+        "similarityRel": [],
+        "son": [],
+        "father": [
+            "15"
+        ],
+        "type": "0",
+        "totalDuration": 8
+    }, {
+        "id": "20",
+        "layout": "1",
+        "name": "expectation of n random cariables",
+        "time": [
+            "00:07:09",
+            "00:07:09"
+        ],
+        "text": "",
+        "attribute": {
+            "importance": 12,
+            "duration": "",
+            "relevance": 9,
+            "expressions": {
+                "1": [],
+                "2": [
+                    [
+                        "00:07:09",
+                        "00:07:09"
+                    ]
+                ],
+                "3": []
+            }
+        },
+        "timeFatherId": "19",
+        "timeSonId": "21",
+        "basicRel": [
+            "junzhi"
+        ],
+        "similarityRel": [
+            22
+        ],
+        "son": [],
+        "father": [
+            "15"
+        ],
+        "type": "0",
+        "totalDuration": 10
+    },
+    {
+        "id": "20",
+        "layout": "1",
+        "name": "n Means",
+        "time": [
+            "00:07:09",
+            "00:07:19"
+        ],
+        "text": "",
+        "attribute": {
+            "importance": 12,
+            "duration": "",
+            "relevance": 9,
+            "expressions": {
+                "1": [],
+                "2": [
+                    [
+                        "00:07:09",
+                        "00:07:19"
+                    ]
+                ],
+                "3": []
+            }
+        },
+        "timeFatherId": "19",
+        "timeSonId": "21",
+        "basicRel": [
+            "junzhi"
+        ],
+        "similarityRel": [
+            22
+        ],
+        "son": [],
+        "father": [
+            "15"
+        ],
+        "type": "0",
+        "totalDuration": 10
+    },
+    {
+        "id": "21",
+        "layout": "1",
+        "name": "n Variance",
+        "time": [
+            "00:07:19",
+            "00:07:26"
+        ],
+        "text": "",
+        "attribute": {
+            "importance": 15,
+            "duration": "",
+            "relevance": 10,
+            "expressions": {
+                "1": [],
+                "2": [
+                    [
+                        "00:07:19",
+                        "00:07:26"
+                    ]
+                ],
+                "3": []
+            }
+        },
+        "timeFatherId": "20",
+        "timeSonId": "22",
+        "basicRel": [
+            "fancha"
+        ],
+        "similarityRel": [],
+        "son": [],
+        "father": [
+            "15"
+        ],
+        "type": "0",
+        "totalDuration": 16
+    },
+    {
+        "id": "22",
+        "layout": "1",
+        "name": "covariance",
+        "time": [
+            "00:07:26",
+            "00:08:06"
+        ],
+        "text": "",
+        "attribute": {
+            "importance": 11,
+            "duration": "",
+            "relevance": 10,
+            "expressions": {
+                "1": [],
+                "2": [
+                    [
+                        "00:07:26",
+                        "00:08:06"
+                    ]
+                ],
+                "3": []
+            }
+        },
+        "timeFatherId": "21",
+        "timeSonId": "23",
+        "basicRel": [
+            "xiefangcha",
+            "n fancha"
+        ],
+        "similarityRel": [
+            20
+        ],
+        "son": [],
+        "father": [],
+        "type": "0",
+        "totalDuration": 64
+    },
+    {
+        "id": "23",
+        "layout": "0",
+        "name": " linear transformations of the n random variables",
+        "time": [
+            "00:08:06",
+            "00:08:12"
+        ],
+        "text": "",
+        "attribute": {
+            "importance": 10,
+            "duration": "",
+            "relevance": 12,
+            "expressions": {
+                "1": [],
+                "2": [
+                    [
+                        "00:08:06",
+                        "00:08:12"
+                    ]
+                ],
+                "3": []
+            }
+        },
+        "timeFatherId": "22",
+        "timeSonId": "24",
+        "basicRel": [
+            16
+        ],
+        "similarityRel": [],
+        "son": [
+            "24",
+            "25"
+        ],
+        "father": [
+            "22"
+        ],
+        "type": "0",
+        "totalDuration": 11
+    },
+    {
+        "id": "24",
+        "layout": "1",
+        "name": "Mean",
+        "time": [
+            "00:08:12",
+            "00:08:43"
+        ],
+        "text": "",
+        "attribute": {
+            "importance": 16,
+            "duration": "",
+            "relevance": 20,
+            "expressions": {
+                "1": [],
+                "2": [
+                    [
+                        "00:08:12",
+                        "00:08:43"
+                    ]
+                ],
+                "3": []
+            }
+        },
+        "timeFatherId": "23",
+        "timeSonId": "25",
+        "basicRel": [
+            "qiwang"
+        ],
+        "similarityRel": [],
+        "son": [],
+        "father": [
+            "22"
+        ],
+        "type": "0",
+        "totalDuration": 16
+    },
+    {
+        "id": "25",
+        "layout": "1",
+        "name": "Variance",
+        "time": [
+            "00:08:43",
+            "00:09:08"
+        ],
+        "text": "",
+        "attribute": {
+            "importance": 15,
+            "duration": "",
+            "relevance": 10,
+            "expressions": {
+                "1": [],
+                "2": [
+                    [
+                        "00:08:43",
+                        "00:09:08"
+                    ]
+                ],
+                "3": []
+            }
+        },
+        "timeFatherId": "24",
+        "timeSonId": "26",
+        "basicRel": [
+            "qiwang",
+            "xiefangcha"
+        ],
+        "similarityRel": [],
+        "son": [],
+        "father": [
+            "22"
+        ],
+        "type": "0",
+        "totalDuration": 20
+    },
+    {
+        "id": "26",
+        "layout": "0",
+        "name": "Test",
+        "time": [
+            "00:09:08",
+            "00:10:03"
+        ],
+        "text": "",
+        "attribute": {
+            "importance": 19,
+            "duration": "",
+            "relevance": 5,
+            "expressions": {
+                "1": [
+                    [
+                        "00:09:18",
+                        "00:09:22"
+                    ]
+                ],
+                "2": [
+                    [
+                        "00:09:08",
+                        "00:09:18"
+                    ],
+                    [
+                        "00:09:22",
+                        "00:10:03"
+                    ]
+                ],
+                "3": []
+            }
+        },
+        "timeFatherId": "25",
+        "timeSonId": "27",
+        "basicRel": [
+            "xiefangcha",
+            "n Random Variables",
+            "fancha"
+        ],
+        "similarityRel": [
+            16
+        ],
+        "son": [],
+        "father": [
+            "-1"
+        ],
+        "type": "0",
+        "totalDuration": 71
+    },
+    {
+        "id": "27",
+        "layout": "0",
+        "name": "linear transformations of the n random variables",
+        "time": [
+            "00:10:03",
+            "00:10:18"
+        ],
+        "text": "",
+        "attribute": {
+            "importance": 14,
+            "duration": "",
+            "relevance": 11,
+            "expressions": {
+                "1": [],
+                "2": [
+                    [
+                        "00:10:03",
+                        "00:10:18"
+                    ]
+                ],
+                "3": []
+            }
+        },
+        "timeFatherId": "26",
+        "timeSonId": "28",
+        "basicRel": [],
+        "similarityRel": [],
+        "son": [
+            "28",
+            "29"
+        ],
+        "father": [
+            "26"
+        ],
+        "type": "0",
+        "totalDuration": 11
+    },
+    {
+        "id": "28",
+        "layout": "1",
+        "name": "Mean",
+        "time": [
+            "00:10:18",
+            "00:10:26"
+        ],
+        "text": "",
+        "attribute": {
+            "importance": 16,
+            "duration": "",
+            "relevance": 20,
+            "expressions": {
+                "1": [],
+                "2": [
+                    [
+                        "00:10:18",
+                        "00:10:26"
+                    ]
+                ],
+                "3": []
+            }
+        },
+        "timeFatherId": "23",
+        "timeSonId": "25",
+        "basicRel": [
+            "qiwang"
+        ],
+        "similarityRel": [],
+        "son": [],
+        "father": [
+            "22"
+        ],
+        "type": "0",
+        "totalDuration": 16
+    },
+    {
+        "id": "29",
+        "layout": "1",
+        "name": "Variance",
+        "time": [
+            "00:10:26",
+            "00:10:53"
+        ],
+        "text": "",
+        "attribute": {
+            "importance": 15,
+            "duration": "",
+            "relevance": 10,
+            "expressions": {
+                "1": [],
+                "2": [
+                    [
+                        "00:10:26",
+                        "00:10:53"
+                    ]
+                ],
+                "3": []
+            }
+        },
+        "timeFatherId": "24",
+        "timeSonId": "26",
+        "basicRel": [
+            "qiwang"
+        ],
+        "similarityRel": [],
+        "son": [],
+        "father": [
+            "22"
+        ],
+        "type": "0",
+        "totalDuration": 20
+    }
+]

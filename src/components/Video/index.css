@@ -1,0 +1,71 @@
+.video {
+  /* margin: 50px; */
+    width: calc(100% - 0px);
+    height: calc(100% - 140px);
+    align-content: center;
+    /* position: fixed; */
+    /* z-index: 100; */
+    /* left: 0;
+    top: 0; */
+  }
+  .buildingLabel{
+    width: 600px;
+    height: 600px;
+    background: rgba(0,0,0,0) url(/textures/label.png);
+    background-size: cover;
+  }
+  .labelName{
+    width: 600px;
+    height: 510px;
+    vertical-align:middle;
+    display:table-cell;
+    color: #83FFFD;
+    font-weight: 600;
+    font-size: 100px;
+    line-height: 40px;
+    font-variant: tabular-nums;
+    font-feature-settings: "tnum";
+    font-family: SourceHanSerifCN-Heavy, SourceHanSerifCN;
+    text-align: center;
+  }
+  .perVideo{
+    /* width: 80%; */
+    height: calc(100% - 0px);
+    text-align: center;
+    margin: auto;
+  }
+  #rootTopicLine{
+    float: left;
+    /* background-color: aqua; */
+    height: 57px;
+    width: 100%;
+    overflow: hidden;
+    transform: translateY(-34px);
+    /* border-bottom: solid rgba(179, 179, 179, 1) 3px */
+  }
+  #progressBar{
+    position:relative;
+    top: 27px;
+    background: #83FFFD;
+    /* float: left; */
+    /* margin-top: ; */
+    cursor: pointer;
+    border-radius: 10px;
+    width: calc(100% - 10px);
+    height: 6px;
+    margin-left: 5px;
+    margin-left: 5px;
+  }
+    #videoScript {
+      height: 110px;
+      background: aliceblue;
+      width: calc(100% - 30px);
+      /* padding: 25px; */
+      border: dashed rgb(179, 179, 179) 5px;
+      margin: 15px;
+      margin-top: 20px;
+      border-radius: 20px;
+  }
+  #videoScriptSvg{
+    transform: translateY(-25px)
+  }

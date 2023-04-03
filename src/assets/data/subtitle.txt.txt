@@ -1,0 +1,69 @@
+Today's lesson continues on
+computer network evolution. Internet provides transfer of packets
+of information across multiple possible dissimilar networks. Before discussing internet architecture
+let's visit some of the types of networks such as Internet operation. Early computers were extremely expensive,
+so network techniques were developed to
+allow them to be shared by users. The first computer network was the SAGE
+developed for air defense systems. The architecture was often tree
+topology terminal oriented networks. As the cost of computers job
+it had become necessary for users to connect to different
+computers for different applications. The ARPANET awards of a first major
+effort at the developing internet work to interconnect computers
+over a wide geographical area. So Internet was later developed to
+enable communications between computers that attached to different network. In late 1980's to 2000's we have witnessed proliferation of new
+applications on internet gross. Terminal-Oriented Networks
+provide a message transfer service to allow a number of
+terminals to share a host computer. Access from terminals located farther
+away from the host computer became possible as telephone communication
+lines and a modem became available. The cost of providing dedicated
+communication lines were expensive, while terminals generated
+a message in a bursting manner. Medium Access Control message were
+developed to allow a number of terminals to communicate with essential computer
+using a sheer communication line. In an arbitrated manner to
+avoid a possible conflict due to simultaneous transfers. Messages from a terminal
+are encapsulated inside a frame that consists of a header in
+addition to the user message. Polling protocol uses a master-slave
+arrangement where the central computer sends a poll message to
+a specific terminal on the line. All terminals listen to
+the said outgoing] line. But only the terminal
+that is polled replies by sending a ready information
+on the incoming line. Multiplexing provides another means for sharing a communication
+line among terminals. Frames are buffered at multiplexer
+until the line became available. So communication line transmits
+a sequence of binary digits. So a framing message is required
+to delineate the beginning and the end of each frame. Communication lines instill errors. Error control techniques were developed to
+ensure virtually error-free communication. Each frame could have
+a number of check bits. Usually calculated that by cyclic
+redundancy check called CRC. As cost of computers jumped,
+there was a need to develop flexible to computer to computer networks
+to support Different applications. The transfer of message between
+networked computers seem to be similar to the message switching
+services in telegraph networks. But computer networks should
+support multiple applications, transmission time should be short enough. For messages from interactive
+applications, while the store-and-forward operation could induce high delay for
+large messages. Packet switching was designed to provide
+a package transfer service, where a packet is of variable length broken
+information up to some specified maximum. Using messages that do not fit inside
+a single packet are segmented and transmitted using multiple packets. And they are reassembled
+at their destination. ARPANET was developed to provide a test
+bed for researching the interconnection of our host computers using package
+switching across a wide area network. It was somewhat a product of
+as a harvest structure of the system could have been too vulnerable. In ARPANET, we see most of the elements
+of computer network architecture such as emissions services was
+connection-less in the sense. So the no connection set-up what Required
+prior to the transmission of a packet. Packets are encapsulated in frames and
+the check bits are used for error control. Destinations are identified
+by unique addresses. And the routing tables are calculating
+dynamically at the packet switch. It provides end-to-end congestion
+control to prevent congestion inside the network and
+flow control to prevent buffer overflow. As ARPANET evolved to NSF-NET,
+more nodes joined the network, and a new application was introduced. As workstations and PCs became
+more affordable there was need for low cost, low error rate,
+and high speed networks. The practice gave rise to networks with
+limited typically less than one kilometer. Called local area networks,
+or simply LANs. LANs use broadcasting for
+transfer frames within the network. Media access control protocol becomes
+essential to coordinate access to transmission media in order to
+prevent a clashings between friends. Each machine network interface card has a global unique address
+called a MAC address. To summarize, minimum architecture design
+evolution is driven by services and applications.

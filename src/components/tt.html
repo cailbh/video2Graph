@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>简单计算器</title>
+    <style>
+        /* 样式表 */
+        body {
+            background-color: #f8f8f8;
+            font-family: Arial, sans-serif;
+            font-size: 18px;
+        }
+
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            background-color: #fff;
+            box-shadow: 0 5px 15px rgba(0,0,0,.1);
+        }
+
+        input {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            font-size: 18px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            margin: 5px;
+            font-size: 18px;
+            color: #fff;
+            background-color: #337ab7;
+            border: 1px solid #2e6da4;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #2e6da4;
+            border-color: #204d74;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>简单计算器</h1>
+        <form id="calculator">
+            <input type="text" id="num1" placeholder="请输入第一个数字">
+            <input type="text" id="num2" placeholder="请输入第二个数字">
+            <button class="btn" type="button" id="add">+</button>
+            <button class="btn" type="button" id="subtract">-</button>
+            <button class="btn" type="button" id="multiply">*</button>
+            <button class="btn" type="button" id="divide">/</button>
+            <p id="result"></p>
+        </form>
+    </div>
+    <script>
+        // 获取表单和结果元素
+        const form = document.querySelector('#calculator');
+        const result = document.querySelector('#result');
+
+        // 添加事件监听器
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+        });
+
+        document.querySelector('#add').addEventListener('click', function() {
+            const num1 = parseFloat(document.querySelector('#num1').value);
+            const num2 = parseFloat(document.querySelector('#num2').value);
+            const sum = num1 + num2;
+            result.textContent = `计算结果为：${sum}`;
+        });
+
+        document.querySelector('#subtract').addEventListener('click', function() {
+            const num1 = parseFloat(document.querySelector('#num1').value);
+            const num2 = parseFloat(document.querySelector('#num2').value);
+            const difference = num1 - num2;
+            result.textContent = `计算结果为：${difference}`;
+        });
+
+        document.querySelector('#multiply').addEventListener('click', function() {
+            const num1 = parseFloat(document.querySelector('#num1').value);
+            const num2 = parseFloat(document.querySelector('#num2').value);
+            const product = num1 * num2;
+            result.textContent = `计算结果为：${product}`;
+        });
+        </script>

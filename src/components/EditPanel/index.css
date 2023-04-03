@@ -1,0 +1,86 @@
+.editPanel{
+  width: 100%;
+  height: 100%;
+  /* position: fixed; */
+  /* z-index: 100; */
+  /* left: 0;
+    top: 0; */
+}
+.editTable{
+  /* margin: 50px; */
+}
+
+.buildingLabel {
+  width: 600px;
+  height: 600px;
+  background: rgba(0, 0, 0, 0) url(/textures/label.png);
+  background-size: cover;
+}
+.tableCell{
+  height: 40px;
+}
+
+
+#rootTree{
+  float: left;
+  /* background-color: blue; */
+  height: 85%;
+  width: 60%;
+}
+#editData{
+  float: left;
+  /* background-color: red; */
+  /* border-left: solid rgba(179, 179, 179, 1) 3px; */
+  height: 100%;
+  width: 100%;
+  padding-left: 30px;
+  padding-right: 30px;
+  padding-top: 10px;
+}
+.rootdivisionLine{
+  cursor: pointer;
+}
+.entdivisionLine{
+  cursor: pointer;
+}
+.cell{
+  height: 36px;
+}
+.el-input--small{
+  font-size: 15px;
+}
+
+#editData .el-slider__bar {
+  background-color: #f4f4d0;
+}
+.el-table_2_column_3{
+  text-align: center;
+}
+.el-radio-button__inner{
+  width: 110px;
+  height: 30px;
+  font-size: 14px !important;
+  padding: 9px 0px 0px 0px !important;
+}
+#cancelDiv{
+  position: absolute;
+  width: 40px;
+  bottom: 35px;
+  transform: translateX(145px);
+  /* right: 0px; */
+}
+#confirmDiv{
+  position: absolute;
+  width: 40px;
+  bottom: 35px;
+  transform: translateX(270px);
+}
+#toolsButs{
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  bottom: 500px;
+}
+.toolsBut{
+  margin: 5px;
+}

@@ -1,0 +1,216 @@
+[
+  {
+    "topic": "Fundamental Graphs",
+    "subtopics": [
+      {
+        "topic": "Introduction",
+        "subtopics": []
+      },
+      {
+        "topic": "Purpose of Introduction",
+        "subtopics": [
+          {
+            "topic": "Visualization",
+            "subtopics": [
+              {
+                "topic": "Attribute Types",
+                "subtopics": []
+              },
+              {
+                "topic": "Available Graphs",
+                "subtopics": [
+                  {
+                    "topic": "Bar Chart",
+                    "subtopics": []
+                  },
+                  {
+                    "topic": "Scatter Plot",
+                    "subtopics": []
+                  },
+                  {
+                    "topic": "Matrix",
+                    "subtopics": []
+                  },
+                  {
+                    "topic": "Line Chart",
+                    "subtopics": []
+                  },
+                  {
+                    "topic": "Symbol Map",
+                    "subtopics": []
+                  }
+                ]
+              },
+              {
+                "topic": "Importance of Graphs",
+                "subtopics": [
+                  {
+                    "topic": "Widely Adopted",
+                    "subtopics": []
+                  },
+                  {
+                    "topic": "Effective",
+                    "subtopics": []
+                  },
+                  {
+                    "topic": "Useful",
+                    "subtopics": []
+                  },
+                  {
+                    "topic": "Solve a Large Percentage of Problems",
+                    "subtopics": []
+                  },
+                  {
+                    "topic": "Training Ground",
+                    "subtopics": []
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "topic": "Benefits",
+            "subtopics": [
+              {
+                "topic": "Pedagogical Usefulness",
+                "subtopics": []
+              },
+              {
+                "topic": "Reasoning about Graphical Configurations and Communication",
+                "subtopics": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "topic": "Description of Graphs",
+        "subtopics": [
+          {
+            "topic": "Combinations of Attributes",
+            "subtopics": [
+              {
+                "topic": "Two Attributes",
+                "subtopics": []
+              },
+              {
+                "topic": "Three Attributes",
+                "subtopics": []
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "topic": "Fundamental Graphs",
+    "subtopics": [
+      {
+        "name": "Introduction",
+        "content": "I am now going to introduce a number of fundamental graphs."
+      },
+      {
+        "name": "Purpose",
+        "content": "Why do I do that? Because I want to teach you first of all, once you have identified attribute types, what graphs are available to visualize the combination of attributes that you have in your hands."
+      },
+      {
+        "name": "Graph Types",
+        "content": "This is a preview of the graphs I'm going to talk about. The bar chart, the scatter plot, the matrix, the line chart and the symbol map.",
+        "subtopics": [
+          {
+            "name": "Bar Chart",
+            "content": "A type of graph used to represent categorical data with rectangular bars."
+          },
+          {
+            "name": "Scatter Plot",
+            "content": "A type of graph used to display the relationship between two continuous variables by showing a set of points on a two-dimensional plane."
+          },
+          {
+            "name": "Matrix",
+            "content": "A type of graph used to show the relationship between two or more variables using a matrix of cells, where the cells are colored or shaded based on the value of the variable."
+          },
+          {
+            "name": "Line Chart",
+            "content": "A type of graph used to display changes in data over time by connecting a series of data points with a line."
+          },
+          {
+            "name": "Symbol Map",
+            "content": "A type of graph used to represent data on a map, where the data is displayed using symbols, such as circles or squares, that vary in size, color, or shape based on the value of the data."
+          }
+        ]
+      },
+      {
+        "name": "Reasons for Using These Graphs",
+        "content": "There are a number of reasons but most importantly because they are widely adopted, they are very effective and they are very useful. A second reason is that they solve a very large percentage of visualization problems. It's really surprising how many problems out there can be solved by one of these five graphs or variants over these graphs."
+      },
+      {
+        "name": "Training Ground",
+        "content": "These graphs are an amazing training ground before you are able to discuss and design more sophisticated graphs. So, I find that they are from the pedagogical standpoint extremely useful."
+      },
+      {
+        "name": "Combinations of Attributes",
+        "content": "The graphs that I'm going to show you can all be described as combinations of two or sometimes three attributes."
+      }
+    ]
+  },
+  {
+    "topic": "Fundamental Graphs",
+    "subtopics": [
+      {
+        "topic": "Bar Chart",
+        "subtopics": [
+          {
+            "topic": "Description",
+            "subtopics": []
+          },
+          {
+            "topic": "Data",
+            "subtopics": [
+              {
+                "topic": "Categories",
+                "subtopics": []
+              },
+              {
+                "topic": "Quantity",
+                "subtopics": []
+              }
+            ]
+          },
+          {
+            "topic": "Example",
+            "subtopics": [
+              {
+                "topic": "Dataset",
+                "subtopics": []
+              },
+              {
+                "topic": "Axis",
+                "subtopics": [
+                  {
+                    "topic": "X Axis",
+                    "subtopics": [
+                      {
+                        "topic": "Boroughs",
+                        "subtopics": []
+                      }
+                    ]
+                  },
+                  {
+                    "topic": "Y Axis",
+                    "subtopics": [
+                      {
+                        "topic": "Count of Vehicle Collisions",
+                        "subtopics": []
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]
