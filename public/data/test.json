@@ -1,0 +1,202 @@
+[{
+    "topic": "Computer Network Evolution",
+    "subtopics": [
+        {
+            "topic": "Internet",
+            "subtopics": [
+                {
+                    "topic": "Packet Transfer",
+                    "subtopics": [
+                        {
+                            "topic": "Multiple Networks"
+                        },
+                        {
+                            "topic": "Dissimilar Networks"
+                        }
+                    ]
+                },
+                {
+                    "topic": "Architecture"
+                }
+            ]
+        },
+        {
+            "topic": "Network Types",
+            "subtopics": [
+                {
+                    "topic": "SAGE Network",
+                    "subtopics": [
+                        {
+                            "topic": "Tree Topology"
+                        },
+                        {
+                            "topic": "Terminal Orientation"
+                        }
+                    ]
+                },
+                {
+                    "topic": "ARPANET",
+                    "subtopics": [
+                        {
+                            "topic": "Interconnection of Computers"
+                        },
+                        {
+                            "topic": "Wide Geographical Area"
+                        }
+                    ]
+                },
+                {
+                    "topic": "New Applications on Internet"
+                }
+            ]
+        },
+        {
+            "topic": "Cost of Computers"
+        }
+    ]
+},
+{
+    "topic": "Terminal-Oriented Networks",
+    "subtopics": [
+      {
+        "topic": "Message transfer service",
+        "subtopics": []
+      },
+      {
+        "topic": "Terminals sharing host computer",
+        "subtopics": []
+      },
+      {
+        "topic": "Access from distant terminals",
+        "subtopics": [
+          {
+            "topic": "Telephone communication lines",
+            "subtopics": []
+          },
+          {
+            "topic": "Modem",
+            "subtopics": []
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "topic": "Medium Access Control message",
+    "subtopics": [
+        {
+            "topic": "Arbitrated manner",
+            "subtopics": []
+        },
+        {
+            "topic": "Message encapsulation",
+            "subtopics": [
+                {
+                    "topic": "Frame header",
+                    "subtopics": []
+                },
+                {
+                    "topic": "User message",
+                    "subtopics": []
+                }
+            ]
+        },
+        {
+            "topic": "Polling protocol",
+            "subtopics": [
+                {
+                    "topic": "Master-slave arrangement",
+                    "subtopics": []
+                },
+                {
+                    "topic": "Outgoing line",
+                    "subtopics": []
+                },
+                {
+                    "topic": "Incoming line",
+                    "subtopics": []
+                },
+                {
+                    "topic": "Ready information",
+                    "subtopics": []
+                }
+            ]
+        }
+    ]
+},
+{
+    "topic": "Multiplexing and Framing",
+    "subtopics": [
+      {
+        "topic": "Multiplexing",
+        "subtopics": [
+          {
+            "topic": "Buffering Frames",
+            "subtopics": []
+          }
+        ]
+      },
+      {
+        "topic": "Framing",
+        "subtopics": [
+          {
+            "topic": "Message Delineation",
+            "subtopics": []
+          }
+        ]
+      }
+    ]
+  }
+  ,
+{
+    "topic": "Computer Networks",
+    "subtopics": [
+        {
+            "topic": "Evolution of Computer Networks",
+            "subtopics": [
+                {
+                    "topic": "Flexible Networks",
+                    "subtopics": [
+                        {
+                            "topic": "Support for Different Applications"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "topic": "Message Transfer in Computer Networks",
+            "subtopics": [
+                {
+                    "topic": "Comparison to Telegraph Networks",
+                    "subtopics": [
+                        {
+                            "topic": "Similarities"
+                        }
+                    ]
+                },
+                {
+                    "topic": "Challenges in Computer Networks",
+                    "subtopics": [
+                        {
+                            "topic": "Support for Multiple Applications"
+                        },
+                        {
+                            "topic": "Transmission Time"
+                        },
+                        {
+                            "topic": "Store-and-Forward Operation",
+                            "subtopics": [
+                                {
+                                    "topic": "Delays for Large Messages"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
+  
+]
