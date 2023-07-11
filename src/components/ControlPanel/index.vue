@@ -262,6 +262,12 @@ export default {
         key: 'Relationships',
         value: '1',
       }, {
+        key: 'similarity',
+        value: '3',
+      },  {
+        key: 'asociation',
+        value: '',
+      }, {
         key: 'Editable',
         value: '2',
       },  {

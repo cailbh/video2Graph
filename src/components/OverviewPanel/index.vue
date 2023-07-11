@@ -172,7 +172,7 @@ export default {
         }
       }
       _this.drawSunTree(sunTreeG, centerX, centerY, curD, layout, totalDur, 0, Math.PI * 2, 0, "", "root");
-      _this.drawTypeRiver(riverG);
+      // _this.drawTypeRiver(riverG);
     },
     drawTypeRiver(svg) {
       const _this = this;

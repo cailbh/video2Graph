@@ -1,0 +1,67 @@
+{
+  "name": "icicle-chart",
+  "version": "1.5.2",
+  "description": "A partition / icicle interactive chart web component for visualizing hierarchical data",
+  "license": "MIT",
+  "unpkg": "dist/icicle-chart.min.js",
+  "jsdelivr": "dist/icicle-chart.min.js",
+  "main": "dist/icicle-chart.common.js",
+  "module": "dist/icicle-chart.module.js",
+  "types": "dist/icicle-chart.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vasturiano/icicle-chart.git"
+  },
+  "homepage": "https://github.com/vasturiano/icicle-chart",
+  "keywords": [
+    "icicle",
+    "partition",
+    "chart",
+    "data-visualization",
+    "d3",
+    "hierarchical",
+    "svg"
+  ],
+  "author": {
+    "name": "Vasco Asturiano",
+    "url": "http://bl.ocks.org/vasturiano"
+  },
+  "bugs": {
+    "url": "https://github.com/vasturiano/icicle-chart/issues"
+  },
+  "files": [
+    "dist/**/*"
+  ],
+  "scripts": {
+    "build": "rimraf dist && rollup -c",
+    "dev": "rollup -w -c rollup.config.dev.js",
+    "prepare": "npm run build"
+  },
+  "dependencies": {
+    "accessor-fn": "1",
+    "d3-hierarchy": "1 - 3",
+    "d3-interpolate": "1 - 3",
+    "d3-scale": "1 - 4",
+    "d3-selection": "2 - 3",
+    "d3-transition": "2 - 3",
+    "d3-zoomable": "1",
+    "kapsule": "^1.13",
+    "tinycolor2": "^1.4"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.14.6",
+    "@babel/plugin-proposal-class-properties": "^7.14.5",
+    "@babel/plugin-proposal-object-rest-spread": "^7.14.7",
+    "@babel/preset-env": "^7.14.7",
+    "@rollup/plugin-babel": "^5.3.0",
+    "@rollup/plugin-commonjs": "^19.0.0",
+    "@rollup/plugin-node-resolve": "^13.0.0",
+    "postcss": "^8.3.5",
+    "rimraf": "^3.0.2",
+    "rollup": "^2.52.2",
+    "rollup-plugin-dts": "^3.0.2",
+    "rollup-plugin-postcss": "^4.0.0",
+    "rollup-plugin-terser": "^7.0.2",
+    "typescript": "^4.3.4"
+  }
+}

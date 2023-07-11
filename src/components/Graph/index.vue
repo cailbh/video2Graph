@@ -3,8 +3,10 @@
 
 <template>
   <div class="graph" ref="graphDiv">
-    <div class="panelHead">ConceptMap</div>
-  <div id="graphPanel" class="panelBody">
+    <!-- <div class="panelHead">ConceptMap</div> -->
+    <div id="graphTimeAxisPanel" class="">
+    </div>
+    <div id="graphPanel" class="panelBody">
     </div>
     <!-- <div id="moveLeft" ref="moveGraphLeft"></div>
                     <div id="moveRight" ref="moveGraphRight"></div> -->
@@ -44,7 +46,12 @@ export default {
       assistGTransformY: 100,
       drawEntityLocation: [],
       showEntityList: [],
+      overEntityId:'',
+      showEntityRelIdList: [],
+      showEntityRelIdOverState: '',
+      rootEntityList: [],
       rootSvg: null,
+      TimeAxisSvg: null,
       groupsSvg: null,
       arcG: null,
       curEntId: '',
@@ -53,6 +60,11 @@ export default {
       minDRelevance: 0,
       maxDRelevance: 0,
       maxDDuration: 0,
+      timeAxisX: 0,
+      timeAxisW: 200,
+      timeAxisDropFlag: 0,
+      timeAxisDownX: 0,
+      timeAxisDownW: 60,
       maxTotalDuration: 0,
       videoDuration: 672,
       totalDuration: 1000,
@@ -60,6 +72,7 @@ export default {
       importanceCompute_color: null,
       relevanceScale_linear: null,
       totalDurationScale_linear: null,
+      sumTotalDuration: 0,
       // importanceMinColor: "rgb(1, 164, 183)",
       // importanceMaxColor: "rgb(106, 52, 127)",
       zoomInUrl: require("@/assets/img/zoomIn.png"),
@@ -69,12 +82,13 @@ export default {
       graphGTransformK: 1,
       graphGTransformX: 10,
       graphGTransformY: 100,
+      graphGMoveX: 10,
       graphSvgScale: 1,
       moveTimer: null,
       moveFlag: false,
       importanceMinColor: "rgb(203, 230, 209)",
       importanceMaxColor: "rgb(22, 144, 207)",
-      stepX: 80,
+      stepX: 150,
       stepY: 100,
       circleInterval: 55,
       width: 0,
@@ -83,7 +97,8 @@ export default {
       margin: { top: 80, right: 20, bottom: 0, left: 20 },
       color: [
         "rgb(255,60,60)",
-        "rgb(255,83,255)",
+        "rgb(0, 178, 171)",
+        // "rgb(255,83,255)",
         "rgb(235,135,162)",
         "rgb(255,178,101)",
         "rgb(63,151,134)",
@@ -93,32 +108,34 @@ export default {
         "rgb(200,200,200)",
       ],
       mcolor: [
-        "rgb(91, 107, 255)",
-        "rgb(6, 214, 160)",
-        "rgb(255, 120, 90)",
-        "rgb(125, 98, 211)",
-        "rgb(255, 113, 212)",
-        "rgb(112, 214, 255)",
-        "rgb(255, 159, 28)",
-        "rgb(255, 77, 109)",
+        "rgb(125, 66, 206)",
+        "rgb(248, 134, 124)",
+        "rgb(50, 198, 191)",
+        "rgb(135, 126, 253)",
+        "rgb(198, 121, 123)",
+        "rgb(252, 177, 49)",
+        "rgb(112, 202, 229)",
       ],
       // mcolor: [
-      //   "rgb(255,60,60)",
-      //   "rgb(155,20,100)",
-      //   "rgb(255,83,255)",
-      //   "rgb(200,100,50)",
-      //   "rgb(235,135,162)",
-      //   "rgb(200,200,102)",
-      //   "rgb(255,178,101)",
-      //   "rgb(63,151,134)",
-      //   "rgb(83,155,255)",
-      //   "rgb(50,200,120)",
-      //   "rgb(2,50,200)",
-      //   "rgb(0,122,244)",
-      //   "rgb(150,122,244)",
-      //   "rgb(168,168,255)",
-      //   "rgb(200,200,200)",
+      //   "rgb(91, 107, 255)",
+      //   "rgb(0, 178, 171)",
+      //   // "rgb(6, 214, 160)",
+      //   "rgb(255, 120, 90)",
+      //   "rgb(125, 98, 211)",
+      //   "rgb(255, 113, 212)",
+      //   "rgb(112, 214, 255)",
+      //   "rgb(255, 159, 28)",
+      //   "rgb(255, 77, 109)",
       // ],
+      mDarkcolor: [
+        "rgb(95, 39, 179)",
+        "rgb(221, 83, 72)",
+        "rgb(0, 158, 148)",
+        "rgb(93, 88, 202)",
+        "rgb(180, 72, 79)",
+        "rgb(202, 134, 32)",
+        "rgb(46, 174, 202)",
+      ],
       mLigntcolor: [
         "#ff9c9c",
         "#cc88b0",
@@ -142,8 +159,13 @@ export default {
   watch: {
     type(val) {
     },
+    timeAxisX(val) {
+      const _this = this;
+      _this.updataTimeAxisDur(_this.TimeAxisSvg, _this.timeAxisX, _this.timeAxisW);
+    },
     curEntId(val) {
       const _this = this;
+      _this.overEntityId = val;
       _this.$bus.$emit("selectEnt", val);
       let entityLocationData = _this.drawEntityLocation;
 
@@ -198,6 +220,47 @@ export default {
 
 
     },
+    overEntityId(val){
+      const _this = this;
+      
+      let relList = [];
+      let relRootList = [];
+      let relData = _this.relData;
+      let oData = _this.drawEntityLocation;
+      let basicRel = relData['basicRel'];
+      d3.selectAll('.timeAxisEnt').attr("stroke-width",0).attr("opacity",0.4).attr("stroke",function(){
+        let cid = d3.select(this).attr("id").split("_")[1];
+        let nd = oData.find(function (d) { return d['id'] == cid });
+        console.log(2222,nd)
+        return nd['colorD']
+      });
+      for (let re = 0; re < basicRel.length; re++) {
+
+        let sorceId = basicRel[re][0];
+        let targetId = basicRel[re][1];
+        let cNode = '';
+        if (sorceId == val) {
+          cNode = oData.find(function (d) { return d['id'] == targetId });
+          relList.push(targetId);
+          relRootList.push(cNode['rootIndex']);
+        }
+
+        if (targetId == val) {
+          cNode = oData.find(function (d) { return d['id'] == sorceId });
+          relList.push(sorceId);
+          relRootList.push(cNode['rootIndex']);
+        }
+      };
+      console.log(1111111111111111111111111111111,relList);
+      relList.forEach((self, indx, arr) => {
+
+        d3.select(`#timeAxisEnt_${self}`).attr("stroke",'white').attr("stroke-width",2).attr("opacity",1);
+      })
+        d3.select(`#timeAxisEnt_${val}`).attr("stroke-width",2).attr("opacity",1);
+    },
+    showEntityRelIdList(val){
+      this.updataRel();
+    },
     groupsSvg: {
       deep: true,
       handler() {
@@ -220,7 +283,6 @@ export default {
       _this.updataGraph();
     },
     data(val) {
-      console.log(val);
     },
     videoTime(val) {
       const _this = this;
@@ -238,11 +300,46 @@ export default {
         }
       }
     },
+    graphGMoveX(val) {
+      const _this = this;
+      console.log(val);
+      let data = _this.drawEntityLocation;
+      let stjg = 0;
+      let enjg = 0;
+      let snode = '';
+      let enode = '';
+      let width = 1590
+      data.forEach((self, indx, arr) => {
+        let entx = self['x'] * _this.graphGTransformK;
+        let transformX = entx + val;
+        if ((transformX > 0) && (transformX < width)) {
+          stjg++;
+        }
+        else {
+          if ((stjg > 0) && enjg == 0) {
+            enode = self;
+            enjg = 1
+          }
+        }
+        if (stjg == 1) {
+          snode = self
+        }
+      })
+      let ew = enode['timeW'];
+      if(snode == ''){
+        _this.timeAxisX =0
+      }
+      else
+      _this.timeAxisX = snode['timeX'];
+      _this.timeAxisW = enode['timeX'] - snode['timeX'] + enode['timeW']
+      if(ew==undefined){
+        _this.timeAxisW = width - snode['timeX']
+      }
+    },
     graphGTransformX(val) {
       const _this = this;
       let groups = _this.groupsSvg;
-      // let scalePre = _this.graphSvgScale;
-      // let margin = _this.margin;
+      _this.graphGMoveX = _this.graphGTransformX;
       let graphGTransformX = _this.graphGTransformX;
       let graphGTransformY = _this.graphGTransformY;
       let graphGTransformK = _this.graphGTransformK;
@@ -255,6 +352,27 @@ export default {
       if (_this.curToolState == 'edit') _this.curToolState = 'unEdit';
       else if (_this.curToolState != 'edit') _this.curToolState = 'edit';
       this.$emit("toolState", this.curToolState);
+    },
+    updataRel(){
+      const _this = this;
+      let relData = _this.relData;
+      let oData = _this.drawEntityLocation;
+      let showJageData = _this.showEntityList;
+      let showRel = _this.showEntityRelIdList;
+      let basicRel = relData['basicRel'];
+      for (let r = 0; r < basicRel.length; r++) {
+        let sorceId = basicRel[r][0];
+        let targetId = basicRel[r][1];
+        let idN = "basicRel" + sorceId + "_" + targetId;
+        console.log(sorceId,showRel,showRel.includes(sorceId))
+        if((showRel.includes(sorceId))||(showRel.includes(targetId))){
+          d3.select(`#${idN}`).attr('opacity',1).attr('stroke','darkslateblue')
+        }
+        else{
+          d3.select(`#${idN}`).attr('opacity',0)
+          
+        }
+      };
     },
     drawRelationshipLine(svg) {
       const _this = this;
@@ -289,7 +407,7 @@ export default {
           // if((targetNode['id'] == "4")||((sorceNode['id']=="1")&&(targetNode['id']=="6"))||((sorceNode['id']=="2")&&(targetNode['id']=="7"))||((sorceNode['id']=="3")&&(targetNode['id']=="8"))){
           //   flag = true;
           // }
-          if(targetNode['id'] == "4"){
+          if (targetNode['id'] == "4") {
             flag = true;
           }
           // if(targetNode['id'] == "30"){
@@ -366,11 +484,9 @@ export default {
           let hScale_linear = d3.scaleLinear([0, _this.width / 2], [0, h / 3 * 2])
           let cny = (flag) ? (midY - hScale_linear(endX)) : (midY + hScale_linear(endX));
           if (sorceNode['id'] == '7') { cny -= 20 }
-
-          console.log(cny)
           if (cny < -150) {
-            startY=sorceNode['y'] + sorceNode['r'] + rsourceint
-            endY=targetNode['y'] + targetNode['r'] + rtargetint
+            startY = sorceNode['y'] + sorceNode['r'] + rsourceint
+            endY = targetNode['y'] + targetNode['r'] + rtargetint
             cny = height - cny - 300;
           }
 
@@ -378,12 +494,12 @@ export default {
           path.lineTo(startX, cny);
           path.lineTo(endX, cny);
           path.lineTo(endX, endY);
-          // console.log(startP,endP,midP)
           _this.drawTimeLine(svg, path, "rgb(200,200,200)", 5, "0", idN, classN);
         }
 
 
       };
+      _this.updataRel()
     },
     drawMain(svg) {
       let _this = this;
@@ -396,6 +512,8 @@ export default {
       let graphGTransformX = _this.graphGTransformX;
       let graphGTransformY = _this.graphGTransformY;
       let graphGTransformK = _this.graphGTransformK;
+      let axisGroups = svg.append("g").attr("id", "axisGroups").attr("width", width).attr("height", height)
+      // .attr("transform", "translate(" + graphGTransformX + ',' + graphGTransformY + ") scale(" + graphGTransformK + ")");
       let groups = svg.append("g").attr("id", "groups").attr("width", width).attr("height", height)
         .attr("transform", "translate(" + graphGTransformX + ',' + graphGTransformY + ") scale(" + graphGTransformK + ")");
       this.groupsSvg = groups;
@@ -426,6 +544,7 @@ export default {
           graphGTransformX = _this.graphGTransformX + e.transform.x - stx;
           graphGTransformY = _this.graphGTransformY + e.transform.y - sty;
           graphGTransformK = _this.graphGTransformK + e.transform.k - stk;
+          _this.graphGMoveX = graphGTransformX;
 
           groups.attr('transform', 'translate(' + (graphGTransformX) + ',' + (graphGTransformY) + ') scale(' + (graphGTransformK) + ')')
         })
@@ -447,10 +566,24 @@ export default {
       let prer = 0;
       let preSonLen = 0;
       let layoutShow = _this.layoutShow;
+      let sumTotalDuration = 0;
+      let rootIndex = -1;
       for (let i = 0; i < data.length; i++) {
         let lay = parseInt(data[i]['layout']);
+
+        let colors = _this.mcolor;
+        let colorsD = _this.mDarkcolor;
         let entityLocationData = tools.deepClone(data[i]);
-        let showEntity = _this.showEntityList.find(function (d) { return d['id'] == data[i]['id'] })
+        if (lay == 0) {
+          rootIndex++;
+        }
+        entityLocationData['rootIndex'] = rootIndex;
+        entityLocationData['color'] = colors[rootIndex % colors.length];
+        entityLocationData['colorD'] = colorsD[rootIndex % colorsD.length];
+        let timeList = data[i]['time'];
+        let duration = tools.time2seconds(timeList[1]) - tools.time2seconds(timeList[0]);
+        sumTotalDuration += duration;
+        let showEntity = _this.showEntityList.find(function (d) { return d['id'] == data[i]['id'] });
         if ((showEntity['show'] == true)) {
           let y = margin.top + lay * stepY
           let relevanceValue = data[i]['attribute']['relevance'];
@@ -464,6 +597,20 @@ export default {
           let controlP2x = x - interval / 1;
           let curLinex = x - r - interval;
 
+          let relData = _this.relData;
+          let oData = _this.drawEntityLocation;
+          let basicRel = relData['basicRel'];
+          let daId = data[(i)]['id'];
+          let jg=0;
+          for (let re = 0; re < basicRel.length; re++) {
+
+            let sorceId = basicRel[re][0];
+            let targetId = basicRel[re][1];
+            let cNode = '';
+            if ((sorceId == daId)||(targetId == daId)) {
+              jg=1;
+            }
+          };
           let sonFlag = 1;
           if (((i > 0) && (preSonLen == 0)) && (data[(i)]['son'].length == 0)) {
             sonFlag = 0;
@@ -475,21 +622,28 @@ export default {
           }
           else if (((i > 0) && (preSonLen != 0)) && (data[(i)]['son'].length == 0)) {
             sonFlag = 0;
-            stepL = r + stepX + interval;
+            stepL = r + stepX + interval + 30;
             x += stepL;
             controlP1x = prex + interval / 1;
-            controlP2x = x - r - interval / 2 - interval / 1;
+            controlP2x = x - r - interval / 1 - interval / 1;
             curLinex = r + interval / 10;
           }
           else {
-            stepL = r + stepX + interval;
+            stepL = r + stepX + interval + 10;
             x += stepL;
             controlP1x = prex + interval / 1;
             controlP2x = x - r - interval - interval / 1;
             curLinex = r + interval;
           }
+          
+          if((jg==1)&&(data[i]['type']==0)){
+            curLinex+=r*1.5
+          }
           _this.drawEntity(circleG, x, y, r, data[i])
           path.bezierCurveTo(controlP1x, prey, controlP2x, y, x - curLinex, y)
+          // path.lineTo(controlP1x, prey)
+          // path.lineTo(controlP2x, y)
+          // path.lineTo(x - curLinex, y)
           path.moveTo(x + curLinex, y);
           prex = x + curLinex;
           prey = y;
@@ -505,18 +659,25 @@ export default {
           entityLocationData['r'] = prer;
         }
         entityLocationData['sonFlag'] = (entityLocationData['son'].length > 0) ? (1) : (0);
-
+        // entityLocationData['showRel'] = false;
         _this.drawEntityLocation.push(entityLocationData);
       }
       let entityLocationData = _this.drawEntityLocation;
       let colors = _this.mcolor;
       let colorIndex = 0;
       let colorrootIndex = 0;
+
+      _this.sumTotalDuration = sumTotalDuration;
       for (let i = 0; i < entityLocationData.length; i++) {
-        // console.log(i, entityLocationData[i])
+        let x = entityLocationData[i]['x'];
+        let y = entityLocationData[i]['y'];
+        let r = entityLocationData[i]['r'];
+        if(entityLocationData[i]['type']==0){
+        _this.drawEntityTimeAxis(circleG, entityLocationData[i]);}
         if ((entityLocationData[i]['layout'] == '0' && (entityLocationData[i]['name'] != 'Test'))) {
           colorIndex = colorrootIndex;
           colorrootIndex++;
+
         }
         if ((entityLocationData[i]['son'].length != 0) && (_this.showEntityList.find(function (d) { return d['id'] == entityLocationData[i]['son'][0] })['show'])) {
           let maxxs = entityLocationData[i]['x'] - entityLocationData[i]['r'] - 40;
@@ -542,22 +703,261 @@ export default {
           }
           rectPoints = [[minxs, minys], [minxs, maxys], [maxxs, maxys], [maxxs, minys]];
           // _this.drawpolygon(backG, colors[colorIndex], rectPoints, "rgb(255,255,255)",0.3);
-          _this.drawRect(backG, minxs, minys, Math.abs(maxxs - minxs), Math.abs(maxys - minys), 20, 20, colors[colorIndex], 0.1, "white")
+          _this.drawRect(backG, minxs, minys, Math.abs(maxxs - minxs), Math.abs(maxys - minys), 20, 20, colors[colorIndex], 0.1, "white", `backRect${i}`)
+
           colorIndex++;
           colorIndex %= colors.length
         }
+        // entityLocationData[i]['color'] = colors[colorIndex - 1];
+        // if ((entityLocationData[i]['layout'] == '0') && ((entityLocationData[i]['name'] == 'Test') || (entityLocationData[i]['name'] == 'Example'))) {
+        //   entityLocationData[i]['color'] = colors[colorIndex]
+        // }
       }
       _this.drawTimeLine(timeLineG, path, "rgb(200,200,200)", 5, '0', 'timeLine ', 'timeLine ');
       _this.drawRelationshipLine(timeLineG);
+      _this.drawTimeAxis(_this.TimeAxisSvg);
+      _this.drawTypeRiver(_this.TimeAxisSvg);
+      _this.updataTimeAxisDur(_this.TimeAxisSvg, _this.timeAxisX, _this.timeAxisW);
     },
-    drawTriangle(svg, color, points, stroke, opacity = 1) {
+    updataTimeAxisDur(svg, x, width) {
+      const _this = this;
+      let margin = _this.margin;
+      let totalWidth = _this.width - margin.left - margin.right;
+      let y = 0;
+      let h = 160;
+      _this.drawRect(svg, 0, y, x, h, 3, 3, 'white', 0.3, '', "timeAxisRect1")
+      let curRect = _this.drawRect(svg, x, y-0, width, h-5, 3, 3, 'rgba(0,0,0,0)', 1, 'rgb(145, 180, 189)', 'winRect',2);
+      // --------------------------------------
+      // curRect.on('mousemove', function (e) {
+      //   d3.select(this).attr("cursor", 'pointer');
+      //   if (_this.timeAxisDropFlag == 1) {
+      //     let mx = e.clientX - _this.timeAxisDownX;
+      //     _this.timeAxisX = e.layerX - 450 - _this.timeAxisW / 2;
+      //   }
+      // })
+      // curRect.on('mousedown', function (e) {
+      //   _this.timeAxisDownX = e.clientX;
+      //   _this.timeAxisDropFlag = 1;
+      // })
+      // curRect.on('mouseup', function (e) {
+      //   _this.timeAxisDownX = e.clientX;
+      //   _this.timeAxisDropFlag = 0;
+      // })
+      // ----------------------------------------
+
+      _this.drawRect(svg, x + width, y, totalWidth - width, h, 3, 3, 'white', 0.3, '', "timeAxisRect2")
+    },
+    drawTypeRiver(svg) {
+      const _this = this;
+      let oriData = _this.data;
+      let resData = [];
+      let triLi = [];
+      let exeLi = [];
+      var defs = svg.append("defs");
+
+      var filter = defs
+        .append("filter")
+        .attr("id", "coolShadow")
+        .attr("x", "-100%")
+        .attr("y", "-100%") //
+        .attr("width", "300%")
+        .attr("height", "300%"); //
+
+      filter
+        .append("feMorphology")
+        .attr("in", "SourceGraphic")
+        .attr("result", "upperLayer")
+        .attr("operator", "dilate")
+        .attr("radius", "0.2 0.2");
+
+      filter
+        .append("feMorphology")
+        .attr("in", "SourceAlpha")
+        .attr("result", "enlargedAlpha")
+        .attr("operator", "dilate")
+        .attr("radius", "0.2 0.2");
+
+      filter
+        .append("feGaussianBlur")
+        .attr("in", "enlargedAlpha")
+        .attr("result", "bluredAlpha")
+        .attr("stdDeviation", "3");
+
+      filter
+        .append("feOffset")
+        .attr("in", "bluredAlpha")
+        .attr("result", "lowerLayer")
+        .attr("dy", "1"); //
+
+      var feMerge = filter.append("feMerge");
+      feMerge.append("feMergeNode").attr("in", "lowerLayer");
+      feMerge.append("feMergeNode").attr("in", "upperLayer");
+      for (let i = 0; i < oriData.length; i++) {
+        let curEnt = oriData[i];
+        let tp = {}
+        tp['od'] = i;
+        if ((curEnt['type'] == "1")) {
+          triLi.push(tp);
+        }
+        if (curEnt['type'] == "2") {
+          exeLi.push(tp);
+        }
+        let typeData = curEnt["attribute"]["expressions"];
+        let totalDur = 0;
+
+        for (let t in typeData) {
+          // let color = typeColor[i];
+          let typeDurition = typeData[t];
+          let totalTypeSeconds = 0;
+          for (let d in typeDurition) {
+            totalTypeSeconds += (tools.time2seconds(typeDurition[d][1]) - tools.time2seconds(typeDurition[d][0]))
+          }
+          totalDur += totalTypeSeconds;
+          tp[t] = totalTypeSeconds;
+        }
+        for (let t in tp) {
+          if (t != 'od') {
+            tp[t] /= totalDur;
+            if (totalDur == 0) {
+              tp[t] = 0;
+            }
+          }
+        }
+        resData.push(tp)
+      }
+
+      let data = resData;
+      console.log(data)
+      var stack = d3.stack()
+        .keys(['1', '2', '3'])
+        .order(d3.stackOrderInsideOut)
+        .offset(d3.stackOffsetWiggle);
+
+      let yRangeWidth = 80;
+      let w = parseInt(svg.attr("width"))+60
+      let xStep = (w) / oriData.length;
+      let yScale = d3.scaleLinear().domain([-1, 1]).range([0, 80]);
+      var area = d3.area()
+        .curve(d3.curveBasis)
+        .x(function (d) {
+          return d.data.od * xStep +15;
+        })
+        .y0(function (d) {
+          return 120+yRangeWidth - yScale(d[0]);
+        })
+        .y1(function (d) {
+          return 120+yRangeWidth - yScale(d[1]);
+        });
+      console.log(data)
+      let stackData = stack(data)
+      console.log(data, stackData)
+      let lenThreshold = 0.4;
+      let iconLi = {}
+      for (let s in stackData) {
+        iconLi[s] = []
+        for (let i in stackData[s]) {
+          let lenArea = stackData[s][i]
+          if ((lenArea[1] - lenArea[0]) > 0.4) {
+            iconLi[s].push([i, lenArea]);
+          }
+          for (let li in iconLi[s]) {
+            if (i < (iconLi[s][li][0] + 2)) {
+              let selectArea = iconLi[s][li][1]
+              if (((selectArea[1] - lenArea[1]) - (selectArea[0] - lenArea[0])) < 0.2) {
+                iconLi[s].splice(s, 1);
+              }
+            }
+          }
+        }
+      }
+      // let areaG = svg.append("g")
+      let typeColor = {
+        "1": "#ff9c9c",
+        "2": "#f4f4d0",
+        "3": "#6f8be0",
+      };
+      let colorLi = _this.mcolor;
+      svg.selectAll("path")
+        .data(stackData)
+        .join("path")
+        .attr("id",function(d){return d.key})
+        .attr("class","river")
+        .attr("d", function (d) {
+          return area(d)
+        })
+        .attr("fill", function (d, i) {
+          return typeColor[d.key]
+        })
+        .on("mouseover",function(d){
+          d3.selectAll(".river").style("filter", "url()")
+          d3.select(this).style("filter", "url(#coolShadow)")
+        })
+
+      for (let t in triLi) {
+        let area = tools.calcTriangle((triLi[t]['od']) * xStep, -30, 14);
+        _this.drawTriangle(svg, "rgb(250, 199, 88)", area, "rgb(250, 199, 88)");
+        _this.drawTxt(svg, (triLi[t]['od']) * xStep, -23, "T", "white", 0, "middle", 18)
+      }
+      for (let t in exeLi) {
+        let area = tools.calcTriangle((exeLi[t]['od']) * xStep, -30, 14);
+        _this.drawTriangle(svg, "rgb(250, 199, 88)", area, "rgb(250, 199, 88)");
+        _this.drawTxt(svg, (exeLi[t]['od']) * xStep, -23, "E", "white", 0, "middle", 18)
+      }
+    },
+    drawTimeAxis(svg) {
+      const _this = this;
+      let sumTotalDuration = _this.sumTotalDuration;
+      let data = _this.drawEntityLocation;
+      let addData = tools.deepClone(_this.drawEntityLocation);
+      let margin = _this.margin;
+      let prex = margin.left;
+      let prey = margin.top / 2;
+      let width = svg.attr("width")// _this.width - margin.left - margin.right;
+      let height = _this.height - margin.top - margin.bottom;
+      let widthScale = d3.scaleLinear([0, sumTotalDuration], [0, width]);
+      data.forEach((self, indx, arr) => {
+        let totalDurationValue = self['totalDuration'];
+        let timeList = self['time'];
+        let id = self['id']
+        let duration = tools.time2seconds(timeList[1]) - tools.time2seconds(timeList[0]);
+        // console.log(timeList,tools.time2seconds(timeList[0]))
+        let evWidth = widthScale(duration)-4;
+
+        let evTWidth = widthScale(totalDurationValue);
+        let lay = parseInt(self['layout']);
+        let evHight = 80 - 20 * lay;
+        let x = prex;
+        let y = prey + 20 * lay;
+        prex += evWidth+4;
+        let cr = 3;
+        // if(self['type']==0){
+        if(1){
+          if (lay == 0) {
+            _this.drawRect(svg, x-2, y - 20, evTWidth, 100, 6, 6, self['color'], 0.3, 'white', `timeAxisEntB_${indx}`,1.5, 'timeAxisEntB')
+          }
+          _this.drawRect(svg, x, y, evWidth, evHight, 3, 3, self['color'], 0.4, self['colorD'], `timeAxisEnt_${id}`,1.5, 'timeAxisEnt')
+        }
+        else{
+          if (lay == 0) {
+            _this.drawRect(svg, x-2, y - 20, evTWidth, 100, 6, 6, self['color'], 0.3, 'white', `timeAxisEntB_${id}`,1.5, 'timeAxisEnt')
+          }
+          let area = [[x+cr,y+evHight-cr],[x-cr+evWidth,y+evHight-cr],[x+evWidth/2,y]];
+          _this.drawTriangle(svg, self['color'], area, self['color'],1,cr*2);
+        }
+        addData[indx]['timeX'] = x;
+        addData[indx]['timeW'] = evWidth
+      })
+      _this.drawEntityLocation = addData;
+      console.log(11111111111111, width, sumTotalDuration, data, _this.drawEntityLocation)
+    },
+    drawTriangle(svg, color, points, stroke, opacity = 1,strokeW=15) {
       svg.append("polygon")
         .attr("points", points)
         .attr("fill", color)
         .attr("stroke-linejoin", "round")
         .attr("opacity", opacity)
         .attr("stroke", stroke)
-        .attr("stroke-width", "15px");
+        .attr("stroke-width", strokeW);
     },
     drawpolygon(svg, color, areas, stroke, opacity = 1) {
       svg.append("polygon")
@@ -566,6 +966,132 @@ export default {
         .attr("opacity", opacity)
         .attr("stroke", stroke)
         .attr("stroke-width", "1.5px");
+    },
+    drawEntityTimeAxis(svg, entData) {
+
+      const _this = this;
+      let x = entData['x'];
+      let r = entData['r'];
+      let y = entData['y'] + r / 2;
+      let daId = entData['id']
+      let entDataO = _this.drawEntityLocation;
+      let sumTotalDuration = _this.sumTotalDuration;
+      let widthScale = d3.scaleLinear([0, sumTotalDuration], [0, Math.PI]);
+      let timeStepR = 0;
+      let timeStartR = -Math.PI / 2;
+      let inter = 0;
+      let sons = tools.deepClone(entData['son']);
+      let relList = [];
+      let relRootList = [];
+      let psNum = 0.5;
+      if ((sons.length > 0)) {
+        inter = 16
+      }
+
+      let relData = _this.relData;
+      let oData = _this.drawEntityLocation;
+      let basicRel = relData['basicRel'];
+      for (let re = 0; re < basicRel.length; re++) {
+
+        let sorceId = basicRel[re][0];
+        let targetId = basicRel[re][1];
+        let cNode = '';
+        if (sorceId == daId) {
+          cNode = oData.find(function (d) { return d['id'] == targetId });
+          relList.push(targetId);
+          relRootList.push(cNode['rootIndex']);
+        }
+
+        if (targetId == daId) {
+          cNode = oData.find(function (d) { return d['id'] == sorceId });
+          relList.push(sorceId);
+          relRootList.push(cNode['rootIndex']);
+          console.log(sorceId, targetId, daId, cNode)
+        }
+      };
+      console.log(relList, relRootList)
+      // if(entData[]) 
+      let wline = 0;
+      let sumTotalDurationF = 0;
+      entDataO.forEach((self, indx, arr) => {
+        let totalDurationValue = self['totalDuration'];
+        let timeList = self['time'];
+        let layout = self['layout'];
+        let rootIndex = self['rootIndex'];
+        let duration = tools.time2seconds(timeList[1]) - tools.time2seconds(timeList[0]);
+        timeStepR = widthScale(duration);
+        if (!relRootList.includes(rootIndex)) {
+          wline += timeStepR * psNum;
+          sumTotalDurationF += duration;
+        }
+      })
+      let widthScaleA = d3.scaleLinear([0, sumTotalDuration - sumTotalDurationF], [0, Math.PI - wline]);
+      // if(rootEntityList.length==0){
+      //   widthScaleA = widthScale
+      // }
+      // let wline = 0;
+      entDataO.forEach((self, indx, arr) => {
+        let totalDurationValue = self['totalDuration'];
+        let timeList = self['time'];
+        let layout = self['layout'];
+        let rootIndex = self['rootIndex'];
+        let cId = self['id'];
+        let duration = tools.time2seconds(timeList[1]) - tools.time2seconds(timeList[0]);
+        timeStepR = widthScale(duration);
+        if (!relRootList.includes(rootIndex)) {
+          if (relRootList.length != 0) {
+            timeStepR = psNum * widthScale(duration);
+          }
+        }
+        else {
+          timeStepR = widthScaleA(duration)
+        }
+        let endAnglet = timeStartR + timeStepR;
+        var dataset = { startAngle: timeStartR, endAngle: endAnglet }; //创建一个弧生成器
+        timeStartR = endAnglet;
+        let color = 'blue';
+        let rh = r*0.7;
+        let h = rh;
+        let nh = 0;
+        if (relRootList.length != 0) {
+          h = rh*0.3 + rh*0.6 - 3 * layout;
+          nh = rh*0.3;
+        }
+        if (!relRootList.includes(self['rootIndex'])) {
+          h = rh*0.7;
+          nh = h*0 + h*0.6;
+        }
+        else{
+          dataset.startAngle+=0.003;
+          dataset.endAngle-=0.003; 
+
+        }
+        var arcPath = d3.arc()
+          .innerRadius(r + inter + nh)
+          .outerRadius(r + inter + h);
+        var pathArc = arcPath(dataset);
+        console.log(self, relList, relList.includes(self['id']))
+        let arc;
+        if (relRootList.length != 0) {
+          if (relRootList.includes(self['rootIndex'])) {
+            if (relList.includes(parseInt(self['id']))) {
+             arc= _this.drawArc(svg, x, y - r / 2, pathArc, self['color'], self['color'], `timeAxisFor f${entData['id']} ${self['id']}`, '0', 0, 1);
+            }
+            else {
+              arc = _this.drawArc(svg, x, y - r / 2, pathArc, "white", self['color'], `timeAxisFor f${entData['id']} ${self['id']}`, '0', 0.0, 0.4);
+            }
+          }
+          else{
+             arc = _this.drawArc(svg, x, y - r / 2, pathArc, self['color'], self['color'], `timeAxisFor f${entData['id']} ${self['id']}`, '0', 0, 0.2);
+        
+          }
+         arc.on("mouseover",function(d){
+            let classN = d3.select(this).attr("fill",'red');
+            let tId = classN.split(" ")[2];
+
+          })
+         }
+      })
     },
     drawEntity(svg, x, y, r, data) {
       const _this = this;
@@ -615,7 +1141,6 @@ export default {
           similarityRelsli.splice(0, 1);
           let jg = 0;
           for (let srel in similarityRels) {
-            console.log(similarityRels[srel])
             let cdata = oData.find(function (d) { return d['id'] == similarityRels[srel] });
             if (jgidL.indexOf(cdata['id']) == -1) {
               similarityRelsli.push(cdata["similarityRel"])
@@ -666,7 +1191,6 @@ export default {
             endx += t * 5;
             ys = y + (y - lineData[lineData.length - 1][1]) / 3
           }
-          console.log(ys)
           // }
           lineData.push([startx, ys], [midx, yz], [endx, y])
           // let startx = timeLineScale_linear((startS - duration * 10));
@@ -792,12 +1316,40 @@ export default {
             sonNum += 1;
           }
           let skipArc = Math.PI / (sonNum + 2);
-          let timeSonLinear = d3.scaleLinear([0, sonTotal], [0, Math.PI * 2 - skipArc * sonNum]);
+          let timeSonLinear = d3.scaleLinear([0, sonTotal], [0, Math.PI - skipArc * (sonNum - 1)]);
           let timeSonHeighLinear = d3.scaleLinear([0, sonTotal], [40, 40]);
 
           let timeSonColor_linear = d3.scaleLinear().domain([0, sonTotal]).range([0, 1]);
           let timeSonCompute_color = d3.interpolate("white", circleColor);
-          var sonStartR = 0;//-Math.PI/2;
+          var sonStartR = Math.PI / 2;
+
+          let relList = [];
+          let relRootList = [];
+          let psNum = 0.1;
+          let daId = data['id']
+          let relData = _this.relData;
+          let odData = _this.data;
+          let basicRel = relData['basicRel'];
+          for (let re = 0; re < basicRel.length; re++) {
+
+            let sorceId = basicRel[re][0];
+            let targetId = basicRel[re][1];
+            let cNode = '';
+            if (sorceId == daId) {
+              cNode = odData.find(function (d) { return parseInt(d['id']) == parseInt(targetId) });
+              relList.push(targetId);
+            }
+
+            if (targetId == daId) {
+              cNode = odData.find(function (d) { return parseInt(d['id']) == parseInt(sorceId) });
+              relList.push(sorceId);
+            }
+          };
+          if (relList.length == 0) {
+            sonStartR = 0;
+            timeSonLinear = d3.scaleLinear([0, sonTotal], [0, Math.PI * 2 - skipArc * (sonNum)]);
+          }
+
           for (let s in sonList) {
             let sonData = oData.find(function (d) { return d['id'] == sonList[s] });
             let sonDur = sonData['totalDuration'];
@@ -835,12 +1387,12 @@ export default {
             }
           }
 
-        }
+        };
       }
       let txts = data['name'].split(" ")
       let tx = x - r - 30;
       let ty = y + r + 60;
-      let tw = r*2;
+      let tw = r * 2;
       tx = x;
       if (data['son'].length == 0) {
         tx = x//-r-10;
@@ -861,8 +1413,8 @@ export default {
 
       _this.drawTxt(svg, tx, ty, tw, txts, "grey", 16, `text_${data['id']}`);
     },
-    drawArc(svg, x, y, arcPath, stroke, fill, className, stroke_dasharray = "0", width = 3) {
-      svg.append("path")
+    drawArc(svg, x, y, arcPath, stroke, fill, className, stroke_dasharray = "0", width = 3, opacity = 1) {
+      let arc = svg.append("path")
         .attr("d", arcPath)
         .attr("class", className)
         .attr("transform", "translate(" + x + "," + y + ")")
@@ -871,6 +1423,8 @@ export default {
         .attr("stroke-dasharray", stroke_dasharray)
         .attr("stroke-linejoin", "round")
         .attr("fill", fill)
+        .attr("opacity", opacity);
+        return arc;
     },
     drawCircle(svg, x, y, r, fill, data, opacity, className, idName) {
       const _this = this;
@@ -886,6 +1440,16 @@ export default {
         .on("mouseover", function (d) {
           d3.select(this).attr("r", r * 1.1)
           let classN = d3.select(this).attr("class");
+          let idN = d3.select(this).attr("id").split("_")[1]
+          let showRel = _this.showEntityRelIdList
+          if(!showRel.includes(parseInt(idN))){ 
+            showRel.push(parseInt(idN))
+            _this.showEntityRelIdOverState = 0;
+          }
+          else{
+            _this.showEntityRelIdOverState = 1;
+          }
+          _this.showEntityRelIdList = showRel;
           if (classN == 'linePoint') {
             d3.select(this).attr("opacity", 1).attr("r", 5)
           }
@@ -915,6 +1479,17 @@ export default {
         .on("mouseleave", function (d) {
           d3.select(this).attr("r", r)
           let classN = d3.select(this).attr("class");
+          
+          let idN = d3.select(this).attr("id").split("_")[1]
+          let showRel = _this.showEntityRelIdList
+          if(_this.showEntityRelIdOverState == 1){ 
+            showRel.push(parseInt(idN))
+          }
+          else{
+            showRel.splice(showRel.indexOf(parseInt(idN)),1)
+          }
+          _this.showEntityRelIdList = showRel;
+
           if (classN == 'linePoint') {
             d3.select(this).attr("opacity", 0).attr("r", 5)
           }
@@ -940,6 +1515,21 @@ export default {
           }
         })
         .on("click", function (d) {
+
+          let idN = d3.select(this).attr("id").split("_")[1]
+          let showRel = _this.showEntityRelIdList;
+          //  - _this.showEntityRelIdOverState;
+          if(!showRel.includes(parseInt(idN))){ 
+            showRel = [(parseInt(idN))]
+            _this.showEntityRelIdOverState = 1;
+          }
+          else if(showRel.includes(parseInt(idN))){ 
+            // showRel.filter(item=>{return item==parseInt(idN)})
+            _this.showEntityRelIdOverState = 0;
+            showRel.splice(showRel.indexOf(parseInt(idN)),1)
+          }
+          _this.showEntityRelIdList = showRel;
+
           d3.select(this).attr("r", r);
           d3.selectAll(".f" + data['id'])
             .attr("transform", function (d) {
@@ -985,9 +1575,11 @@ export default {
         });
       // .on("")
     },
-    drawRect(svg, x, y, w, h, rx, ry, fill, opacity, stroke) {
-      svg.append("rect")
-        // .attr("id", "san")
+    drawRect(svg, x, y, w, h, rx, ry, fill, opacity, stroke, id = 'rect',strokeW = 1.5,classN = 'rect') {
+      d3.select(`#${id}`).remove()
+      let rect = svg.append("rect")
+        .attr("id", id)
+        .attr("class",classN)
         .attr("x", x)
         .attr("y", y)
         .attr("rx", rx)
@@ -997,7 +1589,8 @@ export default {
         .attr("fill", fill)
         .attr("opacity", opacity)
         .attr("stroke", stroke)
-        .attr("stroke-width", "1.5px");
+        .attr("stroke-width", `${strokeW}px`);
+      return rect;
     },
     drawTxt(svg, x, y, width, txts, fill, fontsize = 12, idN) {
       let tx = x;
@@ -1006,7 +1599,7 @@ export default {
       let preIdN = 0;
       let pretext = ''
       for (let t = 0; t < txts.length; t++) {
-        pretext +=" "+ txts[t];
+        pretext += " " + txts[t];
         let txt = svg.append("text")
           .attr("y", ty)
           .attr("x", tx)
@@ -1016,12 +1609,12 @@ export default {
           .style("text-anchor", "middle")
           .text(pretext)
         let textWidth = document.getElementById(`${idN}_${t}`).getBBox().width;
-        if((textWidth>width)||(t==txts.length -1)){
+        if ((textWidth > width) || (t == txts.length - 1)) {
           pretext = '';
           tx = x;
           ty += 25;
         }
-        else{
+        else {
           txt.remove()
         }
         preWidth += textWidth;
@@ -1111,6 +1704,7 @@ export default {
       let margin = _this.margin
       let width = _this.$refs.graphDiv.offsetWidth - margin.left - margin.right;
       let height = document.getElementById("graphPanel").clientHeight - margin.top - margin.bottom;
+      let heightTimeAxis = document.getElementById("graphTimeAxisPanel").clientHeight - margin.top - margin.bottom;
       _this.width = width;
       _this.height = height;
       d3.select("#graphPanel").select("svg").remove()
@@ -1118,6 +1712,11 @@ export default {
         .attr("width", width)
         .attr("height", height);
       _this.rootSvg = svg;
+      d3.select("#graphTimeAxisPanel").select("svg").remove()
+      var TimeAxisSvg = d3.select("#graphTimeAxisPanel").append("svg")
+        .attr("width", width)
+        .attr("height", height);
+      _this.TimeAxisSvg = TimeAxisSvg;
       let data = _this.data;
 
       let maxDImportance = Math.max.apply(Math, data.map(function (d) { return d['attribute']['importance']; }))
@@ -1205,4 +1804,6 @@ export default {
 } 
 </script>
 
-<style>@import './index.css';</style>
+<style>
+@import './index.css';
+</style>

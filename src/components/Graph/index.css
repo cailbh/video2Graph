@@ -51,13 +51,34 @@
   background-color: blue;
   right: 0px;
 }
-
+#graphTimeAxisPanel{
+  float: left;
+  width: 100%;
+  height: calc(30% - 40px);
+  padding: 5px; 
+  border: solid rgb(200,200,200) 2px;
+  border-radius: 10px;
+  background-color: white;
+}
+.graph{
+  background-color:rgb(200, 200, 200);
+}
+#graphPanel{
+  float: left;
+  width: 100%;
+  height: calc(70% + 40px);
+  padding: 5px; 
+  border: solid rgb(200,200,200) 2px;
+  border-radius: 10px;
+  background-color: white;
+}
 #assistGraphPanel{
   position: absolute;
-  top: 770px;
-  right: 648px;
-  width: 530px;
-  height: 721px;/*var(--graphDivHeightStyle);*/
+  top: 744px;
+  right: 595px;
+  width: 489px;
+  height: 697px;
+  /*var(--graphDivHeightStyle);*/
   /* top: 0px; */
   background-color: #fff;
   /* box-shadow: 5px 5px 10px 5px rgba(0, 0, 0, 0.3),-10px 10px 10px 10px #fff; */
@@ -119,14 +140,14 @@
   width: 30px;
   height: 30px;
   top: 57px;
-  right: 720px;
+  right: 520px;
 }
 #zoomOutDiv{
   position: absolute;
   width: 30px;
   height: 30px;
   top: 57px;
-  right: 680px;
+  right: 380px;
 }
 .icon{
   width: 100%;
