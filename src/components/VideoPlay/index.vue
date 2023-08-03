@@ -4,6 +4,7 @@
 <template>
   <div class="m-video" :style="`width: ${width}px; height: ${height}px;`">
     <video
+      id="playVideo"
       ref="veo"
       :style="`object-fit: ${zoom};`"
       :src="videoUrl"

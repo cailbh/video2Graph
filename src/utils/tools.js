@@ -7,6 +7,9 @@
 //             } else {
 //                 result[key] = obj[key];//如果对象的属性值不为object的时候，直接复制参数对象的每一个键值到新的对象对应的键值对中。
 //             }
+
+
+import {createWorker, createScheduler,RecognizeResult,PSM,OEM} from "./tesseract.min.js";
  
 //         }
 //         return result;
@@ -45,7 +48,15 @@ function getRgbValue(str){
     var arr = str.slice(4, str.length-1).split(",")
     return arr;
 }
-
+function createWorkers(){
+  let worker= createWorker({
+    // langPath:"@/assets/data"
+    workerPath: '/uti/worker.min.js',
+    // corePath: './tesseract-core.wasm.js',
+    // langPath: 'D:/Cailibuhong/video2Graph/video2Graph/src/utils/tesseract'
+  });
+  return worker;
+}
 
 export default {
    deepClone:(obj)=>{return deepClone(obj);},
@@ -60,5 +71,8 @@ export default {
    },
    getRgbValue:(str)=>{
     return getRgbValue(str);
+   },
+   createWorkers:()=>{
+    return createWorkers();
    }
 }

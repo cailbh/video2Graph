@@ -21,8 +21,8 @@ import * as d3 from 'd3'
 import { onMounted, ref } from 'vue';
 import filenames from "@/utils/fileName";
 import domtoimage from 'dom-to-image';
-import TestJson from "@/assets/json/case2_fin.json";
-import TestRelJson from "@/assets/json/case2_fin_rel.json";
+import TestJson from "@/assets/json/case1_fin.json";
+import TestRelJson from "@/assets/json/case1_fin_rel.json";
 import tools from "@/utils/tools.js";
 import { color } from 'd3';
 
@@ -38,6 +38,7 @@ export default {
       textG: '',
       colorMap: {},
       rootColorMap: {},
+      overEntityId: "",
       margin: { top: 15, right: 5, bottom: 5, left: 5 },
       // mcolor: [
       //   "rgb(255,60,60)",
@@ -91,26 +92,50 @@ export default {
     treeData(val) {
       this.drawoverView();
     },
+    overEntityId(val) {
+      const _this = this;
+
+      if (val != '') {
+        let textId = tools.deepClone(val);
+        if (_this.nameTextIds.indexOf(textId) == -1) {
+          while (textId != 'root') {
+            _this.nameTextIds.push(textId);
+            textId = _this.fatherMap[textId];
+          }
+        }
+      }
+      else {
+        _this.nameTextIds = []
+      }
+
+    },
     nameTextIds(ids) {
       const _this = this;
       let data = _this.data;
-      let tx = 10;
-      let ty = 40;
+      let tx = 50;
+      let ty = 600;
       let colorMap = this.colorMap;
       _this.textPathG.select("g").remove();
       let g = _this.textPathG.append("g");
+      d3.selectAll(`.curOverArc`).style("filter", "url()")
       for (let i = ids.length - 1; i >= 0; i--) {
+      d3.selectAll(`.na_${ids[i]}`).style("filter", "url(#coolShadow)")
         let curd = data.find(function (d) { return d['id'] == ids[i]; });
         let name = curd['name'].split("_")[0];
+        let nameS = name.split(" ")
+        if(nameS.length>4){
+          name = nameS.splice(0,4).join(" ")+" ..."
+
+        }
         let w = name.length * 10;
-        let h = 20;
+        let h = 4;
         let rx = 5;
         let ry = 5;
         let color = colorMap[ids[i]];
-        _this.drawRect(g, tx, ty - 18, w, h, rx, ry, color, 0.5, color)
+        _this.drawRect(g, tx, ty + 5, w, h, rx, ry, color, 0.5, color)
         _this.drawTxt(g, tx, ty, name, "rgb(60,60,60)", 0, "start", 18);
-        tx += name.length * 20;
-        if (tx > 100) {
+        tx += name.length * 12;
+        if (tx > 900) {
           tx = 10;
           ty += 30;
         }
@@ -135,7 +160,8 @@ export default {
       d3.select("#overviewPanelDiv").select("svg").remove();
       var svg = d3.select("#overviewPanelDiv").append("svg")
         .attr("width", width)
-        .attr("height", height);
+        .attr("height", height)
+        .attr("transform", "translate(5,-10)");
       let sunTreeG = svg.append('g')
         .attr("width", width)
         .attr("height", height);
@@ -153,33 +179,6 @@ export default {
         .attr("width", width)
         .attr("height", height);
 
-      _this.textG = textG;
-      _this.textPathG = textPathG;
-
-      let centerX = margin.left + (width / 2);
-      let centerY = margin.top + (height / 2) - 100;
-      const gCircle = svg.append("g")
-      // .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
-      let curD = tools.deepClone(data);
-      // console.log(data,curD)
-      // curD['layout'] = '-1';
-
-      let layout = -1;
-      let totalDur = 0
-      for (let c in data['children']) {
-        if (data['children'][c]['name'] != 'Test') {
-          totalDur += data['children'][c]['totalDuration'];
-        }
-      }
-      _this.drawSunTree(sunTreeG, centerX, centerY, curD, layout, totalDur, 0, Math.PI * 2, 0, "", "root");
-      // _this.drawTypeRiver(riverG);
-    },
-    drawTypeRiver(svg) {
-      const _this = this;
-      let oriData = _this.data;
-      let resData = [];
-      let triLi = [];
-      let exeLi = [];
       var defs = svg.append("defs");
 
       var filter = defs
@@ -219,6 +218,35 @@ export default {
       var feMerge = filter.append("feMerge");
       feMerge.append("feMergeNode").attr("in", "lowerLayer");
       feMerge.append("feMergeNode").attr("in", "upperLayer");
+
+      _this.textG = textG;
+      _this.textPathG = textPathG;
+
+      let centerX = margin.left + (width / 2);
+      let centerY = margin.top + (height / 2) - 50;
+      const gCircle = svg.append("g");
+      // .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+      let curD = tools.deepClone(data);
+      // console.log(data,curD)
+      // curD['layout'] = '-1';
+
+      let layout = -1;
+      let totalDur = 0
+      for (let c in data['children']) {
+        if (data['children'][c]['name'] != 'Test') {
+          totalDur += data['children'][c]['totalDuration'];
+        }
+      }
+      _this.drawSunTree(sunTreeG, centerX, centerY, curD, layout, totalDur, 0, Math.PI * 2, 0, "", "root");
+      // _this.drawTypeRiver(riverG);
+    },
+    drawTypeRiver(svg) {
+      const _this = this;
+      let oriData = _this.data;
+      let resData = [];
+      let triLi = [];
+      let exeLi = [];
+
       for (let i = 0; i < oriData.length; i++) {
         let curEnt = oriData[i];
         let tp = {}
@@ -306,15 +334,15 @@ export default {
       svg.selectAll("path")
         .data(stackData)
         .join("path")
-        .attr("id",function(d){return d.key})
-        .attr("class","river")
+        .attr("id", function (d) { return d.key })
+        .attr("class", "river")
         .attr("d", function (d) {
           return area(d)
         })
         .attr("fill", function (d, i) {
           return typeColor[d.key]
         })
-        .on("mouseover",function(d){
+        .on("mouseover", function (d) {
           d3.selectAll(".river").style("filter", "url()")
           d3.select(this).style("filter", "url(#coolShadow)")
         })
@@ -381,7 +409,7 @@ export default {
           }
           else { color = Compute_color(Color_linear(curTotalDur)) }
           _this.colorMap[data['children'][c]['id']] = color;
-          _this.drawArc(svg, x, y, pathArc, color, color, 'cur_' + data['children'][c]['id'], '0', 10);
+          _this.drawArc(svg, x, y, pathArc, color, color, `curOverArc fa_${father} na_${data['children'][c]['id']}`, '0', 10);
           _this.drawSunTree(svg, x, y, data['children'][c], layout + 1, curTotalDur, dataset.startAngle, dataset.endAngle, curHeightScale_linear(Math.sqrt(curTotalDur)), color, data['children'][c]['id']);
 
           if ((parseInt(layout) < 1)) {
@@ -519,7 +547,8 @@ export default {
         .attr("fill", fill)
         .on("mousemove", function (d) {
           let transformd = d3.select(this).attr("transform")
-          let id = d3.select(this).attr("class").split("_")[1];
+          let id = d3.select(this).attr("class").split(" ")[d3.select(this).attr("class").split(" ").length - 1];
+          id = id.split("_")[1]
           let curEnt = _this.data.find(function (d) { return d['id'] == id })
 
 
@@ -574,7 +603,9 @@ export default {
       // console.log(val)
       _this.data = val;
     });
-
+    this.$bus.$on('overEntityId', (val) => {
+      _this.overEntityId = val;
+    });
     this.$bus.$on('treeData', (val) => {
       console.log(val)
       _this.treeData = val[0];

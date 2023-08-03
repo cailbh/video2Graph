@@ -32,21 +32,29 @@
           </el-table-column>
           <el-table-column prop="value" label="" width="260">
             <template slot-scope="scope">
-              <div v-if="scope.row.key == 'type'">
+              <div v-if="scope.row.key == 'Type'">
                 <el-radio-group v-model="typeRadio" size="small" @change="selectType">
-                  <el-radio-button label="cell State"></el-radio-button>
-                  <el-radio-button label="hidden State"></el-radio-button>
+                  <el-radio-button label="concept"></el-radio-button>
+                  <el-radio-button label="test"></el-radio-button>
+                  <el-radio-button label="example"></el-radio-button>
                 </el-radio-group>
               </div>
-              <div v-if="scope.row.key == 'lecture style'">
+              <div v-if="scope.row.key == 'Course style'">
                 <div class="block">
                   <el-slider v-model="lectureStyleValue" range>
                   </el-slider>
                 </div>
               </div>
-              <div v-if="scope.row.key == 'name'">
-                <el-input size="small" :placeholder="scope.row.value" v-model="nameinput" clearable>
-                </el-input>
+              <div v-if="scope.row.key == 'Importance score'">
+                <div class="block">
+                  <el-slider id="importanceScoreValue" v-model="importanceScoreValue">
+                  </el-slider>
+                </div>
+              </div>
+              <div v-if="scope.row.key == 'Name'">
+                <!-- <el-input size="small" :placeholder="scope.row.value" v-model="nameinput" clearable>
+                </el-input> -->
+                <div id="editName">{{nameinput}}</div>
               </div>
               <div :class="scope.row.key + ' tableCell'" :height="scope.row.value === '' ? '10' : '0'"
                 disable-transitions>
@@ -55,9 +63,9 @@
             </template>
           </el-table-column>
         </el-table>
-        <div id="cancelDiv" @click="cancelClk">
+        <!-- <div id="cancelDiv" @click="cancelClk">
           <img class="iconUpload" :src="cancelUrl">
-        </div>
+        </div> -->
         <div id="confirmDiv" @click="confirmClk">
           <img class="iconUpload" :src="confirmUrl">
         </div>
@@ -71,17 +79,15 @@ import * as d3 from 'd3'
 import { onMounted, ref } from 'vue';
 import filenames from "@/utils/fileName";
 import domtoimage from 'dom-to-image';
-import TestJson from "@/assets/json/case2_fin.json";
-import TestRelJson from "@/assets/json/case2_fin_rel.json";
+import TestJson from "@/assets/json/case4_fin.json";
+import TestRelJson from "@/assets/json/case4_fin_rel.json";
 import tools from "@/utils/tools.js";
-import { tree } from 'd3';
-import { SourceNode } from 'source-list-map';
 
 export default {
   props: [],
   data() {
     return {
-      typeRadio: "cell State",
+      typeRadio: "concept",
       data: TestJson,
       relData: TestRelJson,
       treeData: null,
@@ -96,14 +102,18 @@ export default {
       nameinput: "Fundamental Graphs",
       // nameinput: "Trees",
       lectureStyleValue: [0, 80],
+      importanceScoreValue: 80,
       tableData: [{
-        key: 'type',
+        key: 'Name',
+        value: '',
+      },{
+        key: 'Type',
         value: '',
       }, {
-        key: 'name',
+        key: 'Course style',
         value: '',
       }, {
-        key: 'lecture style',
+        key: 'Importance score',
         value: '',
       }],
       curEntId: "",
@@ -116,6 +126,7 @@ export default {
       minDRelevance: 0,
       maxDRelevance: 0,
       maxDDuration: 0,
+      importanceLinear:'',
       maxTotalDuration: 0,
       importanceMinColor: "rgb(203, 230, 209)",
       importanceMaxColor: "rgb(22, 144, 207)",
@@ -129,7 +140,7 @@ export default {
       entDivisionDataList: [],
       colorMap: {},
       rootColorMap:{},
-      videoDuration: 570,
+      videoDuration: 668,
       selectRectId: "",
       selectRectClass: "",
       topicLineWidth: 1000,
@@ -191,7 +202,6 @@ export default {
     typeRadio(val) {
     },
     lectureStyleValue(val){
-      console.log(val);
       let mid = (val[0]+val[1])/2;
       d3.select("#editData .el-slider__runway")
       .attr("style","background: linear-gradient(90deg, #ff9c9c "+mid+"%,#6f8be0 "+mid+"%) !important")
@@ -204,19 +214,32 @@ export default {
     curEntId(curEntId) {
       const _this = this;
       let data = _this.data;
+      
       let curEnt = data.find(function (d) { return d['id'] == curEntId; });
       if (curEnt['type'] == '1') {
-        _this.typeRadio = "hidden State";
+        _this.typeRadio = "test";
+      }
+      else if(curEnt['type'] == '0') {
+        _this.typeRadio = "concept";
       }
       else {
-        _this.typeRadio = "cell State";
+        _this.typeRadio = "example";
       }
       _this.nameinput = curEnt['name'];
-      let duration = tools.time2seconds(curEnt['time'][1]) - tools.time2seconds(curEnt['time'][0]);
-      let typeDurScale_linear = d3.scaleLinear([0, duration], [0, 100]);
+      let duration = 0//tools.time2seconds(curEnt['time'][1]) - tools.time2seconds(curEnt['time'][0]);
+      
       let typeData = curEnt["attribute"]["expressions"];
       let typeDur = 0;
       let styleValue = [];
+      for (let i in typeData) {
+        let typeDurition = typeData[i];
+        let totalTypeSeconds = 0;
+        for (let d in typeDurition) {
+          totalTypeSeconds += (tools.time2seconds(typeDurition[d][1]) - tools.time2seconds(typeDurition[d][0]))
+        }
+        duration+=totalTypeSeconds
+      }
+      let typeDurScale_linear = d3.scaleLinear([0, duration], [0, 100]);
       for (let i in typeData) {
         // let color = typeColor[i];
         let typeDurition = typeData[i];
@@ -227,8 +250,11 @@ export default {
         typeDur += totalTypeSeconds;
         styleValue.push(typeDurScale_linear(typeDur))
       }
-
-      _this.lectureStyleValue = styleValue
+      // console.log
+      let importanceColor_linear = d3.scaleLinear().domain([ _this.minDImportance, _this.maxDImportance]).range([0, 1]);
+      _this.importanceScoreValue = importanceColor_linear(curEnt['attribute']['importance'])*100
+      _this.lectureStyleValue = styleValue;
+      // _this.importanceScoreValue = 0;
       _this.drawEntity(curEnt);
       _this.drawSonLine(curEnt);
     }
@@ -869,9 +895,9 @@ export default {
       const _this = this;
       let psvg = d3.select("#sonG");
       let w = psvg.attr("width") - 1;
-      let h = 40;
+      let h = 35;
       psvg.remove();
-      let svg = d3.select("#editEnt").append("g").attr("id", "sonG").attr("width", w + 1).attr("height", h + 2).attr("transform", "translate(1,320)");
+      let svg = d3.select("#editEnt").append("g").attr("id", "sonG").attr("width", w + 1).attr("height", h + 2).attr("transform", "translate(1,280)");
       let color_linear = _this.importanceColor_linear;
       let compute_color = _this.importanceCompute_color;
       let oData = _this.data;
@@ -921,10 +947,10 @@ export default {
         let importanceValue = curEnt['attribute']['importance'];
         let entColor = compute_color(color_linear(importanceValue));
         if (i != 0) {
-          _this.drawRect(svg, cx - 5, 0, 5, h, h / 2, "division_" + curEnt['id'], "entdivisionLine", "rgb(250,250,250)", 5, '', 0);
+          _this.drawRect(svg, cx - 2, 0, 5, h, h / 2, "division_" + curEnt['id'], "entdivisionLine", "rgb(0,250,250)", 50, '', 0);
         }
-        if (dataLi[i]['id'] == data['id']) _this.drawRect(svg, cx, 0, endx - cx, h, h / 2, "editEnt_" + curEnt['id'], "editEnt", entColor, 1, "black", 1)//color[_this.colorMap[son['id']]], 5, 0.1)
-        else _this.drawRect(svg, cx, 0, endx - cx, h, h / 2, "editEnt_" + curEnt['id'], "editEnt", entColor, 1, "rgb(150,150,150)", 1)//color[_this.colorMap[son['id']]], 5, 0.1)
+        if (dataLi[i]['id'] == data['id']) _this.drawRect(svg, cx, 0, endx - cx-2, h, 1, "editEnt_" + curEnt['id'], "editEnt", entColor, 1, "rgba(255,255,255,1)", 1)//color[_this.colorMap[son['id']]], 5, 0.1)
+        else _this.drawRect(svg, cx, 0, endx - cx-2, h, 1, "editEnt_" + curEnt['id'], "editEnt", entColor, 1, "rgba(255,255,255,1)", 3)//color[_this.colorMap[son['id']]], 5, 0.1)
         prex = endx;
       }
       DivisionDataList[DivisionDataList.length - 1]['nextId'] = "-1";
@@ -1132,265 +1158,268 @@ export default {
       _this.drawTxt(svg, x - r - 32, y + r + 50, r * 2 + 64, txts, "grey");
     },
     drawEntity(data) {
-      const _this = this;
-      let psvg = d3.select("#entG");
-      let w = psvg.attr("width");
-      let h = psvg.attr("height");
-      psvg.remove();
-      let svg = d3.select("#editEnt").append("g").attr("id", "entG").attr("width", w).attr("height", h);
-      let color_linear = _this.importanceColor_linear;
-      let compute_color = _this.importanceCompute_color;
-      let totalDurationValue = data['totalDuration'];
-      let rScale = _this.totalDurationScale_linear;
-      let r = rScale(totalDurationValue);
-      let oData = _this.data;
-      let x = svg.attr("width") / 2;
-      let y = 120;
-      let importanceValue = data['attribute']['importance'];
-      let relevanceValue = data['attribute']['relevance'];
-      svg.selectAll().remove();
-
-      if (data['type'] == '1') {
-        let area = tools.calcTriangle(x, y, r);
-        _this.drawTriangle(svg, "rgb(250, 199, 88)", area, "rgb(250, 199, 88)");
-      }
-      else {
-
-        let cy = y;
-        let totalDuration = _this.totalDuration;
-        let timeLineScale_linear = d3.scaleLinear([0, totalDuration], [x - r * Math.sqrt(3) / 2, x + r * Math.sqrt(3) / 2])
-        let timeLineHighScale_linear = d3.scaleLinear([0, _this.maxDDuration], [0, r * (1 + Math.sqrt(3) / 2)])
-        let circleColor = compute_color(color_linear(importanceValue));
-        _this.drawCircle(svg, x, cy, r, circleColor, data, 1, "entCircle", "entCircle_" + data['id']);
-
-        r = r * Math.sqrt(3) / 2;
-        y += r / 2;
-        let path = d3.path();
-
-
-        path.moveTo(x - r, y);
-        let lineLi = [data];
-        let linePoint = [{ 'id': data['id'], 'time': data['time'], 'x': 0, 'y': 0 }];
-        let jgidL = [data['id']];
-        let similarityRelsli = [data["similarityRel"]];
-        while(similarityRelsli.length>0){
-          let similarityRels = similarityRelsli[0];
-          similarityRelsli.splice(0,1);
-          let jg = 0;
-          for (let srel in similarityRels) {
-            let cdata = oData.find(function (d) { return d['id'] == similarityRels[srel] });
-            if(jgidL.indexOf(cdata['id'])==-1){
-              similarityRelsli.push(cdata["similarityRel"])
-              jg=1;
-              lineLi.push(cdata)
-              jgidL.push(cdata['id'])
-              linePoint.push({ 'id': cdata['id'], 'time': cdata['time'], 'x': 0, 'y': 0 })
-            }
-          }
-          // if(jg==0){
-            // break;
-          // }
-        }
-        
-        const sortmt = (a, b) => {
-          return tools.time2seconds(a[0]) - tools.time2seconds(b[0]);
-        }
-        const sortlp = (a, b) => {
-          return tools.time2seconds(a['time'][0]) - tools.time2seconds(b['time'][0]);
-        }
-        console.log(lineLi);
-        lineLi = lineLi.sort(sortlp);
-        linePoint = linePoint.sort(sortlp);
-        let lineData = [[x - r * Math.sqrt(3)/2-4 , y]];
-        for (let t = 0; t < lineLi.length; t++) {
-          let startT = lineLi[t]['time'][0];
-          let duration =lineLi[t]['totalDuration']
-          // let endT = lineLi[t]['time'][1];
-          let startS = tools.time2seconds(startT);
-          let endS = startS +duration;
-          // let startx = timeLineScale_linear((startS - duration * 10));
-          // let endx = timeLineScale_linear((endS + duration * 10));
-          let limst = (x - r * Math.sqrt(3) / 2);
-          let limed = (x + r * Math.sqrt(3) / 2);
-          let startx = (limst<timeLineScale_linear((startS)))?(timeLineScale_linear((startS))):(limst);
-          let endx = (limed>timeLineScale_linear((endS)))?(timeLineScale_linear((endS))):(limed);
-          // let midx = timeLineScale_linear((endS + startS) / 2);
-          let midx = (startx+endx) / 2;
-          let ys = y;
-          let yz = y - timeLineHighScale_linear((duration));
-          linePoint[t]['x'] = midx;
-          linePoint[t]['y'] = y - timeLineHighScale_linear(duration) / 1.7;
-          // if (startx < (lineData[lineData.length - 1][0])) {
-            if (t > 0) {
-              lineData.splice(lineData.length - 1, 1);
-              midx+=t*5;
-              startx = midx-((midx-(lineData[lineData.length - 1][0] + midx) / 2))/2;
-              endx+=t*5;
-              ys = y+(y-lineData[lineData.length - 1][1])/3
-            }
-            console.log(ys)
-          // }
-          lineData.push([startx, ys],[midx, yz],[endx, y])}
-        lineData.push([x + r, y])
-        let curve_generator = d3.line()
-          .x((d) => d[0])
-          .y((d) => {
-            let h = Math.sqrt(Math.pow(r, 2) - Math.pow((d[0] - (x - r)), 2));
-            if ((y - d[1]) > (h + r * Math.sqrt(3) / 2))
-              return y - (h + r * Math.sqrt(3) / 2) + 2;
-            return d[1];
-          })
-          .curve(d3.curveBundle )
-          // .curve(d3.curveCatmullRom  )
-          // .curve(d3.curveBasis)
-        _this.drawTimeLine(svg, curve_generator(lineData), "white", 2, '0', 'sonLine ', 'sonLine ');
-
-
-        for (let p = 0; p < linePoint.length; p++) {
-          _this.drawCircle(svg, linePoint[p]['x'], linePoint[p]['y'], 5, "red", linePoint[p], 0, "linePoint", "linePoint_" + linePoint[p]['id']);
-        }
-
-        // "1": "rgb(145, 204, 117)",
-        //   "2": "rgb(84, 112, 198)",
-        //   "3": "rgb(238, 102, 102)",
-        let typeColor = {
-          "1": "#ff9c9c",
-          "2": "#f4f4d0",
-          "3": "#6f8be0",
-        };
-        let duration = tools.time2seconds(data['time'][0]) - tools.time2seconds(data['time'][1]);
-        let typeData = data['attribute']['expressions'];
-        let sonList = data['son'];
-        let sons = [sonList];
-        while (sons.length > 0) {
-          let curSonList = sons[0];
-          sons.splice(0, 1);
-          if (curSonList.length > 0) {
-            for (let s in curSonList) {
-              let sonData = oData.find(function (d) { return d['id'] == curSonList[s] });
-              let sonTypeData = sonData['attribute']['expressions'];
-
-              for (let t in sonTypeData) {
-                let typeDurition = sonTypeData[t];
-                for (let d in typeDurition) {
-                   typeData[t].push(typeDurition[d])
-                }
-              }
-              sons.push(sonData['son']);
-            }
-          }
-        }
-        var typeStartR = 0//Math.PI/4;
-
-        var typeStepR = Math.PI / 1;
-
-        if (sonList.length > 0) {
-          let typeTotalDur = 0;
-          for (let t in typeData) {
-            let typeDurition = typeData[t];
-            for (let d in typeDurition) {
-              typeTotalDur += (tools.time2seconds(typeDurition[d][1]) - tools.time2seconds(typeDurition[d][0]))
-            }
-          }
-          let typeArcScale_linear = d3.scaleLinear([0, typeTotalDur], [0, Math.PI * 2]);
-          for (let i in typeData) {
-            let color = typeColor[i];
-            let typeDurition = typeData[i];
-            let totalTypeSeconds = 0;
-            for (let d in typeDurition) {
-              totalTypeSeconds += (tools.time2seconds(typeDurition[d][1]) - tools.time2seconds(typeDurition[d][0]))
-            }
-            if(totalTypeSeconds>0)
-            {let typeStepR = typeArcScale_linear(totalTypeSeconds)//Math.PI/2;
-
-            let endAnglet = typeStartR + 1 * typeStepR
-            var dataset = { startAngle: typeStartR, endAngle: endAnglet }; //创建一个弧生成器
-            typeStartR = endAnglet;
-            var arcPath = d3.arc()
-              .innerRadius(r + 10)
-              .outerRadius(r + 25);
-            var pathArc = arcPath(dataset);
-            _this.drawArc(svg, x, y - r / 2, pathArc, color, color, 'type f' + data['id'] + " t" + i);}
-          }
-
-          let sonTotal = 0;
-          let sonNum = 0
-          for (let s in sonList) {
-            let sonData = oData.find(function (d) { return d['id'] == sonList[s] });
-            let sonDur = sonData['totalDuration'];
-            sonTotal += sonDur;
-            sonNum += 1;
-          }
-          let skipArc = Math.PI / (sonNum + 2);
-          let timeSonLinear = d3.scaleLinear([0, sonTotal], [0, Math.PI * 2 - skipArc * sonNum]);
-          let timeSonHeighLinear = d3.scaleLinear([0, sonTotal], [40, 40]);
-
-          let timeSonColor_linear = d3.scaleLinear().domain([0, sonTotal]).range([0, 1]);
-          let timeSonCompute_color = d3.interpolate("white", circleColor);
-          var sonStartR = 0;//-Math.PI/2;
-          for (let s in sonList) {
-            let sonData = oData.find(function (d) { return d['id'] == sonList[s] });
-            let sonDur = sonData['totalDuration'];
-
-            let sonStepR = timeSonLinear(sonDur)//Math.PI/2;
-
-            let endAnglet = sonStartR + sonStepR;
-            var dataset = { startAngle: sonStartR, endAngle: endAnglet }; //创建一个弧生成器
-            sonStartR = endAnglet;
-            let color = 'blue';
-            var arcPath = d3.arc()
-              .innerRadius(r + 28)
-              .outerRadius(r + timeSonHeighLinear(sonDur));
-            var arcMidPath = d3.arc()
-              .innerRadius(0)
-              .outerRadius(r + 32);
-            var pathArc = arcPath(dataset);
-
-            endAnglet = sonStartR + skipArc;
-            var midDataset = { startAngle: sonStartR, endAngle: endAnglet }; //创建一个弧生成器
-
-            let jiantouPath = d3.path();
-            jiantouPath.arc(x, y - r / 2, r + 32, sonStartR - Math.PI / 2, endAnglet - Math.PI / 2);
-
-            sonStartR += skipArc;
-            var pathMidArc = arcMidPath(midDataset);
-            let timeSonColor = compute_color(color_linear(sonData['attribute']['importance']));
-            _this.drawArc(svg, x, y - r / 2, pathArc, timeSonColor, timeSonColor, 'son f' + data['id'] + " s" + sonList[s], '0');
-            if (s != sonList.length - 1) {
-              _this.drawTimeLine(svg, jiantouPath, "rgb(200,200,200)", 3, '9,5', 'midArc ', 'midArc ');
-            }
-          }
-
-        }
-
-
-      }
-      let txts = data['name'].split(" ")
-      let tx = x - r - 30;
-      let ty = y + r +60;
-      let tw = r*2;
-      tx = x;
-      if(data['son'].length==0){
-        tx = x//-r-10;
-        ty = y+r*2;
-      }
-      if(data['id']=="3"){
-        tx = x-10;
-        ty = y+r*2;
-      }
-      if(data['id']=="4"){
-        tx = x+10;
-        ty = y+r*2;
-      }
-      // if(data['type']=='1'){
-      //   tx = x-r/2;
-      //   ty = y+r*2;
-      // }
-
-      _this.drawTxt(svg, tx, ty,tw , txts, "grey",22, `text_${data['id']}`);
-      // let txts = _this.nameinput.split(" ")
-      // _this.drawTxt(svg, x - r - 32, y + r + 50, r * 2 + 64, txts, "grey");
+      // d3.select("#editEnt").remove()
     },
+    // drawEntity(data) {
+    //   const _this = this;
+    //   let psvg = d3.select("#entG");
+    //   let w = psvg.attr("width");
+    //   let h = psvg.attr("height");
+    //   psvg.remove();
+    //   let svg = d3.select("#editEnt").append("g").attr("id", "entG").attr("width", w).attr("height", h);
+    //   let color_linear = _this.importanceColor_linear;
+    //   let compute_color = _this.importanceCompute_color;
+    //   let totalDurationValue = data['totalDuration'];
+    //   let rScale = _this.totalDurationScale_linear;
+    //   let r = rScale(totalDurationValue);
+    //   let oData = _this.data;
+    //   let x = svg.attr("width") / 2;
+    //   let y = 120;
+    //   let importanceValue = data['attribute']['importance'];
+    //   let relevanceValue = data['attribute']['relevance'];
+    //   svg.selectAll().remove();
+
+    //   if (data['type'] == '1') {
+    //     let area = tools.calcTriangle(x, y, r);
+    //     _this.drawTriangle(svg, "rgb(250, 199, 88)", area, "rgb(250, 199, 88)");
+    //   }
+    //   else {
+
+    //     let cy = y;
+    //     let totalDuration = _this.totalDuration;
+    //     let timeLineScale_linear = d3.scaleLinear([0, totalDuration], [x - r * Math.sqrt(3) / 2, x + r * Math.sqrt(3) / 2])
+    //     let timeLineHighScale_linear = d3.scaleLinear([0, _this.maxDDuration], [0, r * (1 + Math.sqrt(3) / 2)])
+    //     let circleColor = compute_color(color_linear(importanceValue));
+    //     _this.drawCircle(svg, x, cy, r, circleColor, data, 1, "entCircle", "entCircle_" + data['id']);
+
+    //     r = r * Math.sqrt(3) / 2;
+    //     y += r / 2;
+    //     let path = d3.path();
+
+
+    //     path.moveTo(x - r, y);
+    //     let lineLi = [data];
+    //     let linePoint = [{ 'id': data['id'], 'time': data['time'], 'x': 0, 'y': 0 }];
+    //     let jgidL = [data['id']];
+    //     let similarityRelsli = [data["similarityRel"]];
+    //     while(similarityRelsli.length>0){
+    //       let similarityRels = similarityRelsli[0];
+    //       similarityRelsli.splice(0,1);
+    //       let jg = 0;
+    //       for (let srel in similarityRels) {
+    //         let cdata = oData.find(function (d) { return d['id'] == similarityRels[srel] });
+    //         if(jgidL.indexOf(cdata['id'])==-1){
+    //           similarityRelsli.push(cdata["similarityRel"])
+    //           jg=1;
+    //           lineLi.push(cdata)
+    //           jgidL.push(cdata['id'])
+    //           linePoint.push({ 'id': cdata['id'], 'time': cdata['time'], 'x': 0, 'y': 0 })
+    //         }
+    //       }
+    //       // if(jg==0){
+    //         // break;
+    //       // }
+    //     }
+        
+    //     const sortmt = (a, b) => {
+    //       return tools.time2seconds(a[0]) - tools.time2seconds(b[0]);
+    //     }
+    //     const sortlp = (a, b) => {
+    //       return tools.time2seconds(a['time'][0]) - tools.time2seconds(b['time'][0]);
+    //     }
+    //     console.log(lineLi);
+    //     lineLi = lineLi.sort(sortlp);
+    //     linePoint = linePoint.sort(sortlp);
+    //     let lineData = [[x - r * Math.sqrt(3)/2-4 , y]];
+    //     for (let t = 0; t < lineLi.length; t++) {
+    //       let startT = lineLi[t]['time'][0];
+    //       let duration =lineLi[t]['totalDuration']
+    //       // let endT = lineLi[t]['time'][1];
+    //       let startS = tools.time2seconds(startT);
+    //       let endS = startS +duration;
+    //       // let startx = timeLineScale_linear((startS - duration * 10));
+    //       // let endx = timeLineScale_linear((endS + duration * 10));
+    //       let limst = (x - r * Math.sqrt(3) / 2);
+    //       let limed = (x + r * Math.sqrt(3) / 2);
+    //       let startx = (limst<timeLineScale_linear((startS)))?(timeLineScale_linear((startS))):(limst);
+    //       let endx = (limed>timeLineScale_linear((endS)))?(timeLineScale_linear((endS))):(limed);
+    //       // let midx = timeLineScale_linear((endS + startS) / 2);
+    //       let midx = (startx+endx) / 2;
+    //       let ys = y;
+    //       let yz = y - timeLineHighScale_linear((duration));
+    //       linePoint[t]['x'] = midx;
+    //       linePoint[t]['y'] = y - timeLineHighScale_linear(duration) / 1.7;
+    //       // if (startx < (lineData[lineData.length - 1][0])) {
+    //         if (t > 0) {
+    //           lineData.splice(lineData.length - 1, 1);
+    //           midx+=t*5;
+    //           startx = midx-((midx-(lineData[lineData.length - 1][0] + midx) / 2))/2;
+    //           endx+=t*5;
+    //           ys = y+(y-lineData[lineData.length - 1][1])/3
+    //         }
+    //         console.log(ys)
+    //       // }
+    //       lineData.push([startx, ys],[midx, yz],[endx, y])}
+    //     lineData.push([x + r, y])
+    //     let curve_generator = d3.line()
+    //       .x((d) => d[0])
+    //       .y((d) => {
+    //         let h = Math.sqrt(Math.pow(r, 2) - Math.pow((d[0] - (x - r)), 2));
+    //         if ((y - d[1]) > (h + r * Math.sqrt(3) / 2))
+    //           return y - (h + r * Math.sqrt(3) / 2) + 2;
+    //         return d[1];
+    //       })
+    //       .curve(d3.curveBundle )
+    //       // .curve(d3.curveCatmullRom  )
+    //       // .curve(d3.curveBasis)
+    //     _this.drawTimeLine(svg, curve_generator(lineData), "white", 2, '0', 'sonLine ', 'sonLine ');
+
+
+    //     for (let p = 0; p < linePoint.length; p++) {
+    //       _this.drawCircle(svg, linePoint[p]['x'], linePoint[p]['y'], 5, "red", linePoint[p], 0, "linePoint", "linePoint_" + linePoint[p]['id']);
+    //     }
+
+    //     // "1": "rgb(145, 204, 117)",
+    //     //   "2": "rgb(84, 112, 198)",
+    //     //   "3": "rgb(238, 102, 102)",
+    //     let typeColor = {
+    //       "1": "#ff9c9c",
+    //       "2": "#f4f4d0",
+    //       "3": "#6f8be0",
+    //     };
+    //     let duration = tools.time2seconds(data['time'][0]) - tools.time2seconds(data['time'][1]);
+    //     let typeData = data['attribute']['expressions'];
+    //     let sonList = data['son'];
+    //     let sons = [sonList];
+    //     while (sons.length > 0) {
+    //       let curSonList = sons[0];
+    //       sons.splice(0, 1);
+    //       if (curSonList.length > 0) {
+    //         for (let s in curSonList) {
+    //           let sonData = oData.find(function (d) { return d['id'] == curSonList[s] });
+    //           let sonTypeData = sonData['attribute']['expressions'];
+
+    //           for (let t in sonTypeData) {
+    //             let typeDurition = sonTypeData[t];
+    //             for (let d in typeDurition) {
+    //                typeData[t].push(typeDurition[d])
+    //             }
+    //           }
+    //           sons.push(sonData['son']);
+    //         }
+    //       }
+    //     }
+    //     var typeStartR = 0//Math.PI/4;
+
+    //     var typeStepR = Math.PI / 1;
+
+    //     if (sonList.length > 0) {
+    //       let typeTotalDur = 0;
+    //       for (let t in typeData) {
+    //         let typeDurition = typeData[t];
+    //         for (let d in typeDurition) {
+    //           typeTotalDur += (tools.time2seconds(typeDurition[d][1]) - tools.time2seconds(typeDurition[d][0]))
+    //         }
+    //       }
+    //       let typeArcScale_linear = d3.scaleLinear([0, typeTotalDur], [0, Math.PI * 2]);
+    //       for (let i in typeData) {
+    //         let color = typeColor[i];
+    //         let typeDurition = typeData[i];
+    //         let totalTypeSeconds = 0;
+    //         for (let d in typeDurition) {
+    //           totalTypeSeconds += (tools.time2seconds(typeDurition[d][1]) - tools.time2seconds(typeDurition[d][0]))
+    //         }
+    //         if(totalTypeSeconds>0)
+    //         {let typeStepR = typeArcScale_linear(totalTypeSeconds)//Math.PI/2;
+
+    //         let endAnglet = typeStartR + 1 * typeStepR
+    //         var dataset = { startAngle: typeStartR, endAngle: endAnglet }; //创建一个弧生成器
+    //         typeStartR = endAnglet;
+    //         var arcPath = d3.arc()
+    //           .innerRadius(r + 10)
+    //           .outerRadius(r + 25);
+    //         var pathArc = arcPath(dataset);
+    //         _this.drawArc(svg, x, y - r / 2, pathArc, color, color, 'type f' + data['id'] + " t" + i);}
+    //       }
+
+    //       let sonTotal = 0;
+    //       let sonNum = 0
+    //       for (let s in sonList) {
+    //         let sonData = oData.find(function (d) { return d['id'] == sonList[s] });
+    //         let sonDur = sonData['totalDuration'];
+    //         sonTotal += sonDur;
+    //         sonNum += 1;
+    //       }
+    //       let skipArc = Math.PI / (sonNum + 2);
+    //       let timeSonLinear = d3.scaleLinear([0, sonTotal], [0, Math.PI * 2 - skipArc * sonNum]);
+    //       let timeSonHeighLinear = d3.scaleLinear([0, sonTotal], [40, 40]);
+
+    //       let timeSonColor_linear = d3.scaleLinear().domain([0, sonTotal]).range([0, 1]);
+    //       let timeSonCompute_color = d3.interpolate("white", circleColor);
+    //       var sonStartR = 0;//-Math.PI/2;
+    //       for (let s in sonList) {
+    //         let sonData = oData.find(function (d) { return d['id'] == sonList[s] });
+    //         let sonDur = sonData['totalDuration'];
+
+    //         let sonStepR = timeSonLinear(sonDur)//Math.PI/2;
+
+    //         let endAnglet = sonStartR + sonStepR;
+    //         var dataset = { startAngle: sonStartR, endAngle: endAnglet }; //创建一个弧生成器
+    //         sonStartR = endAnglet;
+    //         let color = 'blue';
+    //         var arcPath = d3.arc()
+    //           .innerRadius(r + 28)
+    //           .outerRadius(r + timeSonHeighLinear(sonDur));
+    //         var arcMidPath = d3.arc()
+    //           .innerRadius(0)
+    //           .outerRadius(r + 32);
+    //         var pathArc = arcPath(dataset);
+
+    //         endAnglet = sonStartR + skipArc;
+    //         var midDataset = { startAngle: sonStartR, endAngle: endAnglet }; //创建一个弧生成器
+
+    //         let jiantouPath = d3.path();
+    //         jiantouPath.arc(x, y - r / 2, r + 32, sonStartR - Math.PI / 2, endAnglet - Math.PI / 2);
+
+    //         sonStartR += skipArc;
+    //         var pathMidArc = arcMidPath(midDataset);
+    //         let timeSonColor = compute_color(color_linear(sonData['attribute']['importance']));
+    //         _this.drawArc(svg, x, y - r / 2, pathArc, timeSonColor, timeSonColor, 'son f' + data['id'] + " s" + sonList[s], '0');
+    //         if (s != sonList.length - 1) {
+    //           _this.drawTimeLine(svg, jiantouPath, "rgb(200,200,200)", 3, '9,5', 'midArc ', 'midArc ');
+    //         }
+    //       }
+
+    //     }
+
+
+    //   }
+    //   let txts = data['name'].split(" ")
+    //   let tx = x - r - 30;
+    //   let ty = y + r +60;
+    //   let tw = r*2;
+    //   tx = x;
+    //   if(data['son'].length==0){
+    //     tx = x//-r-10;
+    //     ty = y+r*2;
+    //   }
+    //   if(data['id']=="3"){
+    //     tx = x-10;
+    //     ty = y+r*2;
+    //   }
+    //   if(data['id']=="4"){
+    //     tx = x+10;
+    //     ty = y+r*2;
+    //   }
+    //   // if(data['type']=='1'){
+    //   //   tx = x-r/2;
+    //   //   ty = y+r*2;
+    //   // }
+
+    //   _this.drawTxt(svg, tx, ty,tw , txts, "grey",22, `text_${data['id']}`);
+    //   // let txts = _this.nameinput.split(" ")
+    //   // _this.drawTxt(svg, x - r - 32, y + r + 50, r * 2 + 64, txts, "grey");
+    // },
     drawTxt(svg, x, y, width, txts, fill, fontsize = 12, idN) {
       let tx = x;
       let ty = y;
@@ -1632,14 +1661,20 @@ export default {
       _this.getTreeData();
       _this.updata();
 
+    this.$bus.$on('selectE', (val) => {
+     console.log(111,val);
+     _this.curEntId = val;
+    });
     });
   },
   mounted() {
     const _this = this
     _this.tableData.find(function (d) { return d['key'] == 'name' })['value'] = 'Computer Network';
-    this.$bus.$on('selectEnt', (val) => {
-     console.log(val);
-     _this.curEntId = val;
+    console.log(23213)
+    
+    this.$bus.$on('importanceLinear', (val) => {
+      console.log(val)
+      _this.importanceLinear = val;
     });
   },
   // beforeDestroy() {

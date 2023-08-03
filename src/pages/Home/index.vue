@@ -28,6 +28,7 @@
         <!-- <transition name="sceneTran"> -->
 
         <div id="editPanel" class="panel"  v-if='showEdit==true'>
+        <!-- <div id="editPanel" class="panel"> -->
           <EditPanel></EditPanel>
         </div>
         <!-- </transition> -->
@@ -52,7 +53,7 @@ export default {
       timer: null,
       showVideo: true,
       showGraph: true,
-      showEdit: false,
+      showEdit: true,
       selectEntId:"0",
       selectEnt: "0",
       toolState:'',

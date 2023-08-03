@@ -14,6 +14,14 @@ module.exports = {
                     '^/api': ''
                 }
             },
+            '/uti': {
+                // target: 'http://192.168.3.154:81',
+                target: 'D:/Cailibuhong/video2Graph/video2Graph/src/utils',
+                changeOrigin: true,
+                pathRewrite: {
+                    '^/uti': ''
+                }
+            },
             '/we/*':{
               target: 'http://t.weather.sojson.com/api/weather/city/',   // 要代理的接口地址
               changeOrigin: true,                            // 允许跨域

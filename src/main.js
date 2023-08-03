@@ -7,6 +7,7 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 
+import {createWorker, createScheduler,RecognizeResult,PSM,OEM}  from "tesseract.js"
 import VueResource from 'vue-resource'
 import axios from "axios";
 axios.defaults.headers.post['Content-Type'] = 'application/json';

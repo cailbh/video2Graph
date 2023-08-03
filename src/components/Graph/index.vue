@@ -2,9 +2,14 @@
 <!-- eslint-disable no-unused-vars -->
 
 <template>
-  <div class="graph" ref="graphDiv">
+  <div class="graph" ref="graphDiv" >
     <!-- <div class="panelHead">ConceptMap</div> -->
+    <div id="loadLoadingPanel" class="" v-loading="loadLoading" v-show="loadLoading">
+    </div>    
     <div id="graphTimeAxisPanel" class="">
+    </div>
+    <div id="editConfirm" v-show="editConfirmShow" @click="editConfirm">
+      <img class="editConfirm" :src="editConfirmUrl" @click="editConfirm">
     </div>
     <div id="graphPanel" class="panelBody">
     </div>
@@ -14,8 +19,25 @@
       <div class="panelHead"></div>
     </div>
 
+    <div v-show="editDivShow" ref="editDiv" id="editDiv" class="panel">
+      <div id="editAdd" @click="addNode">
+        <img class="editIcons1" :src="editAddUrl" @click="addNode">
+        Add sibling
+      </div>
+      <div id="editAddN" @click="addNodeN">
+        <img class="editIcons2" :src="editAddNUrl" @click="addNodeN">
+        Add in next level
+      </div>
+      <div id="editDel" @click="delNode">
+        <img class="editIcons editDelIcons" :src="editDelUrl" @click="delNode">
+        Delete
+      </div>
+    </div>
+
+    <div id="tipDiv">
+      <img class="tip" :src="tipUrl">
+    </div>
     <div id="zoomInDiv" @click="zoomInLayoutClk">
-      <img class="icons" :src="zoomInUrl">
     </div>
     <div id="zoomOutDiv" @click="zoomOutLayoutClk">
       <img class="icons" :src="zoomOutUrl">
@@ -23,30 +45,51 @@
     <div id="editToolDiv" @click="editToolClk">
       <img class="icons" :src="editToolUrl">
     </div>
+    <div id="VideoEditPanel" ref="VideoEditPanel" class="" v-show="VideoEditPanelShow">
+    </div>
   </div>
 </template>
   
 <script>
 import * as d3 from 'd3'
+import { Loading } from 'element-ui'
 import { onMounted, ref } from 'vue';
 import filenames from "@/utils/fileName";
 import domtoimage from 'dom-to-image';
-import TestJson from "@/assets/json/case2_fin.json";
-import TestRelJson from "@/assets/json/case2_fin_rel.json";
+import TestJson from "@/assets/json/case4_fin.json";
+import TestRelJson from "@/assets/json/case4_fin_rel.json";
 import tools from "@/utils/tools.js";
-
+import ocrad from "@/utils/ocrad.js";
+import {createWorker} from "@/utils/tesseract.min.js";
+import Tesseract from '@/utils/tesseract.min.js';
+// let worker= createWorker({
+//     // langPath:"@/assets/data"
+//     workerPath: '/uti/worker.min.js',
+//     // corePath: './tesseract-core.wasm.js',
+//     // langPath: 'D:/Cailibuhong/video2Graph/video2Graph/src/utils/tesseract'
+//   });;
+// console.log(worker)
+// worker.load()
+// worker.loadLanguage('eng')
+// worker.initialize('eng')
 export default {
   props: ["videoTime"],
   data() {
     return {
       data: TestJson,
+      editConfirmShow:false,
       gData: "TestJson",
       relData: TestRelJson,
       assistGTransformX: 10,
       assistGTransformY: 100,
+      recognizeText:"",
+      loadLoading: false,
       drawEntityLocation: [],
+      VideoEditPanelShow:false,
       showEntityList: [],
-      overEntityId:'',
+      switchL: [],
+      overEntityId: '',
+      overTargetEntityId: '',
       showEntityRelIdList: [],
       showEntityRelIdOverState: '',
       rootEntityList: [],
@@ -55,6 +98,8 @@ export default {
       groupsSvg: null,
       arcG: null,
       curEntId: '',
+      insertEntId: '',
+      editDivShow: false,
       minDImportance: 0,
       maxDImportance: 0,
       minDRelevance: 0,
@@ -66,7 +111,7 @@ export default {
       timeAxisDownX: 0,
       timeAxisDownW: 60,
       maxTotalDuration: 0,
-      videoDuration: 672,
+      videoDuration: 668,
       totalDuration: 1000,
       importanceColor_linear: null,
       importanceCompute_color: null,
@@ -78,6 +123,11 @@ export default {
       zoomInUrl: require("@/assets/img/zoomIn.png"),
       zoomOutUrl: require("@/assets/img/zoomOut.png"),
       editToolUrl: require("@/assets/img/edit.png"),
+      tipUrl: require("@/assets/img/tip.png"),
+      editAddUrl: require("@/assets/img/edit_Add.png"),
+      editAddNUrl: require("@/assets/img/edit_AddN.png"),
+      editDelUrl: require("@/assets/img/edit_Delete.png"),
+      editConfirmUrl: require("@/assets/img/已看.png"),
       layoutShow: 2,
       graphGTransformK: 1,
       graphGTransformX: 10,
@@ -90,6 +140,10 @@ export default {
       importanceMaxColor: "rgb(22, 144, 207)",
       stepX: 150,
       stepY: 100,
+      btnRel: false,
+      btnSim: false,
+      btnAso: false,
+      btnEdi: false,
       circleInterval: 55,
       width: 0,
       height: 0,
@@ -153,11 +207,28 @@ export default {
         "rgb(168,168,255)",
         "rgb(200,200,200)",
       ],
+      editVideoJage:false,
+      editVideoSP:[],
+      editVideoEP:[],
     };
   },
 
   watch: {
     type(val) {
+    },
+    switchL: {
+      deep: true,
+      handler(val) {
+        this.btnRel = val[0];
+        this.btnSim = val[1];
+        this.btnAso = val[2];
+        this.btnEdi = val[3];
+        this.updataRel()
+      }
+    },
+    recognizeText(val){
+      const _this =this;
+      _this.$bus.$emit("recognizeText", [1,val]);
     },
     timeAxisX(val) {
       const _this = this;
@@ -166,7 +237,8 @@ export default {
     curEntId(val) {
       const _this = this;
       _this.overEntityId = val;
-      _this.$bus.$emit("selectEnt", val);
+      console.log(val)
+      _this.$bus.$emit("selectE", val);
       let entityLocationData = _this.drawEntityLocation;
 
       let relData = _this.relData;
@@ -220,18 +292,19 @@ export default {
 
 
     },
-    overEntityId(val){
+    overEntityId(val) {
       const _this = this;
-      
+
+      _this.$bus.$emit("overEntityId", val);
       let relList = [];
       let relRootList = [];
       let relData = _this.relData;
       let oData = _this.drawEntityLocation;
       let basicRel = relData['basicRel'];
-      d3.selectAll('.timeAxisEnt').attr("stroke-width",0).attr("opacity",0.4).attr("stroke",function(){
+      d3.selectAll('.timeText').attr("opacity", 0)
+      d3.selectAll('.timeAxisEnt').attr("stroke-width", 0).attr("opacity", 0.4).attr("stroke", function () {
         let cid = d3.select(this).attr("id").split("_")[1];
         let nd = oData.find(function (d) { return d['id'] == cid });
-        console.log(2222,nd)
         return nd['colorD']
       });
       for (let re = 0; re < basicRel.length; re++) {
@@ -251,14 +324,15 @@ export default {
           relRootList.push(cNode['rootIndex']);
         }
       };
-      console.log(1111111111111111111111111111111,relList);
       relList.forEach((self, indx, arr) => {
 
-        d3.select(`#timeAxisEnt_${self}`).attr("stroke",'white').attr("stroke-width",2).attr("opacity",1);
+        d3.select(`#timeAxisEnt_${self}`).attr("stroke", 'white').attr("stroke-width", 2).attr("opacity", 1);
+        d3.select(`#timeText_${self}_0`).attr("opacity", 1);
       })
-        d3.select(`#timeAxisEnt_${val}`).attr("stroke-width",2).attr("opacity",1);
+      d3.select(`#timeAxisEnt_${val}`).attr("stroke-width", 2).attr("opacity", 1);
+      d3.select(`#timeText_${val}_0`).attr("opacity", 1);
     },
-    showEntityRelIdList(val){
+    showEntityRelIdList(val) {
       this.updataRel();
     },
     groupsSvg: {
@@ -302,7 +376,6 @@ export default {
     },
     graphGMoveX(val) {
       const _this = this;
-      console.log(val);
       let data = _this.drawEntityLocation;
       let stjg = 0;
       let enjg = 0;
@@ -326,13 +399,13 @@ export default {
         }
       })
       let ew = enode['timeW'];
-      if(snode == ''){
-        _this.timeAxisX =0
+      if (snode == '') {
+        _this.timeAxisX = 0
       }
       else
-      _this.timeAxisX = snode['timeX'];
+        _this.timeAxisX = snode['timeX'];
       _this.timeAxisW = enode['timeX'] - snode['timeX'] + enode['timeW']
-      if(ew==undefined){
+      if (ew == undefined) {
         _this.timeAxisW = width - snode['timeX']
       }
     },
@@ -347,32 +420,168 @@ export default {
     }
   },
   methods: {
+    addNode() {
+      const _this = this;
+      _this.editConfirmShow = true,
+      _this.VideoEditPanelShow = true,
+      _this.editDivShow = false;
+      _this.$bus.$emit("recognizeText", [1,"Please select on the video"]);
+      d3.select("#VideoEditPanel").select("svg").remove()
+      var svg = d3.select("#VideoEditPanel").append("svg")
+        .attr("width", "946")
+        .attr("height", "553");
+      svg.on("mousedown",function(d){
+        _this.editVideoSP = [d.layerX,d.layerY];
+        _this.editVideoJage = true;
+      }).on("mousemove",function(d){
+        if(_this.editVideoJage){
+        let sP = _this.editVideoSP;
+        _this.editVideoEP = [d.layerX,d.layerY];
+        let eP =  [d.layerX,d.layerY];
+        let eX  = sP[0]>eP[0]?sP[0]:eP[0];
+        let eY  = sP[1]>eP[1]?sP[1]:eP[1];
+        let sX  = sP[0]<eP[0]?sP[0]:eP[0];
+        let sY  = sP[1]<eP[1]?sP[1]:eP[1];
+        _this.drawRect(svg,sX , sY, Math.abs(eX-sX), Math.abs(eY - sY), 0,0,"rgba(0,0,0,0)",1, "red", `videoRect`)}
+      }).on("mouseup",function(d){
+        _this.editVideoJage = false;
+        
+        let sP = _this.editVideoSP;
+        let eP = [d.layerX,d.layerY];;
+
+        let eX  = sP[0]>eP[0]?sP[0]:eP[0];
+        let eY  = sP[1]>eP[1]?sP[1]:eP[1];
+        let sX  = sP[0]<eP[0]?sP[0]:eP[0];
+        let sY  = sP[1]<eP[1]?sP[1]:eP[1];
+        
+        var player = document.getElementById("playVideo");   //获取video的Dom节点
+        player.setAttribute("crossOrigin", "anonymous");  //添加srossOrigin属性，解决跨域问题
+        var canvas = document.createElement("canvas");
+        
+        canvas.width = player.clientWidth;
+        canvas.height = player.clientHeight;
+        // canvas = canvas.getContext("2d")
+        canvas.getContext("2d").drawImage(player , 0, 0, canvas.width, canvas.height);//截
+        const data = canvas.getContext("2d").getImageData(sX , sY,eX-sX, eY-sY);
+        // const data = canvas.getContext("2d").getImageData(0, 0, canvas.width, canvas.height);
+        var canvass = document.createElement("canvas");
+        canvass.width =eX-sX;
+        canvass.height = eY-sY;
+        canvass.getContext("2d").putImageData(data, 0,0)
+        var dataURL = canvass.toDataURL("image/png");  //将图片转成base64格式
+        var img = document.createElement('img');
+        img.src = dataURL
+        Tesseract.recognize(
+          canvass,
+          'eng',
+          { logger: m => console.log(m) }
+        ).then((d) => {
+          console.log(d.data.text);
+          _this.$bus.$emit("recognizeText", [1,d.data.text]);
+        })
+        
+        // document.getElementById("VideoEditPanel").appendChild(img);   //显示在页面中
+        // var string = ocrad(canvass);
+        // console.log(string)
+        // alert(string);
+      })
+    },
+    // VideoEditPanelShow(val) {
+    //   const _this = this;
+    //   if (val) {
+    //     let width = _this.$refs.VideoEditPanel.offsetWidth;
+    //     let height = document.getElementById("VideoEditPanel").clientHeight;
+    //     d3.select("#VideoEditPanel").select("svg").remove()
+    //     var svg = d3.select("#VideoEditPanel").append("svg")
+    //       .attr("width", width)
+    //       .attr("height", height);
+    //   }
+    // },
+    addNodeN() {
+      const _this = this;
+      _this.editDivShow = false;
+
+    },
+    delNode() {
+      const _this = this;
+      _this.editDivShow = false;
+    },
     editToolClk() {
       const _this = this;
       if (_this.curToolState == 'edit') _this.curToolState = 'unEdit';
       else if (_this.curToolState != 'edit') _this.curToolState = 'edit';
       this.$emit("toolState", this.curToolState);
     },
-    updataRel(){
+    editConfirm(){
+      console.log("confirm")
+      const _this = this;
+      _this.loadLoading = true;
+      setTimeout(() => {
+        _this.loadLoading = false;
+        }, 2000);
+      _this.editDivShow = false;
+      _this.editConfirmShow = false;
+      _this.VideoEditPanelShow = false;
+      _this.$bus.$emit("recognizeText", [0,""]);
+    },
+    updataRel() {
       const _this = this;
       let relData = _this.relData;
       let oData = _this.drawEntityLocation;
       let showJageData = _this.showEntityList;
       let showRel = _this.showEntityRelIdList;
       let basicRel = relData['basicRel'];
-      for (let r = 0; r < basicRel.length; r++) {
-        let sorceId = basicRel[r][0];
-        let targetId = basicRel[r][1];
-        let idN = "basicRel" + sorceId + "_" + targetId;
-        console.log(sorceId,showRel,showRel.includes(sorceId))
-        if((showRel.includes(sorceId))||(showRel.includes(targetId))){
-          d3.select(`#${idN}`).attr('opacity',1).attr('stroke','darkslateblue')
+
+      if (_this.btnRel) {
+        if (_this.btnSim) {
+          d3.selectAll('.similarityRel').attr('opacity', 1);
         }
-        else{
-          d3.select(`#${idN}`).attr('opacity',0)
-          
+        else if (!_this.btnSim) {
+          d3.selectAll('.similarityRel').attr('opacity', 0);
         }
-      };
+        if (_this.btnAso) {
+          d3.selectAll('.basicRel').attr('opacity', 1);
+        }
+        else if (!_this.btnAso) {
+          d3.selectAll('.basicRel').attr('opacity', 0);
+        }
+        // d3.selectAll('.similarityRel').attr('opacity', 1);
+        // d3.selectAll('.basicRel').attr('opacity', 1);
+      }
+      else if (!_this.btnRel) {
+        d3.selectAll('.similarityRel').attr('opacity', 0);
+        d3.selectAll('.basicRel').attr('opacity', 0);
+      }
+      if (!_this.btnRel || !_this.btnAso) {
+        for (let r = 0; r < basicRel.length; r++) {
+          let sorceId = basicRel[r][0];
+          let targetId = basicRel[r][1];
+          let idN = "basicRel" + sorceId + "_" + targetId;
+          if (_this.overTargetEntityId == '') {
+            if ((showRel.includes(sorceId)) || (showRel.includes(targetId))) {
+              d3.select(`#${idN}`).attr('opacity', 1).attr('stroke', 'grey')
+            }
+            else {
+              d3.select(`#${idN}`).attr('opacity', 0)
+            }
+          }
+          else {
+
+            if ((showRel.includes(sorceId + '')) || (showRel.includes(targetId + ''))) {
+              d3.select(`#${idN}`).attr('opacity', 1).attr('stroke', 'grey')
+            }
+            else {
+              d3.select(`#${idN}`).attr('opacity', 0)
+            }
+            if ((showRel.includes(sorceId + '')) && (targetId == _this.overTargetEntityId)) {
+              d3.select(`#${idN}`).attr('opacity', 1).attr('stroke', 'darkslateblue')
+            }
+            else if ((showRel.includes(targetId + '')) && (sorceId == _this.overTargetEntityId)) {
+              d3.select(`#${idN}`).attr('opacity', 1).attr('stroke', 'darkslateblue')
+            }
+          }
+        };
+      }
     },
     drawRelationshipLine(svg) {
       const _this = this;
@@ -413,8 +622,8 @@ export default {
           // if(targetNode['id'] == "30"){
           //   flag = true;
           // }
-          let rsourceint = (sorceNode['sonFlag']) ? (20) : (2);
-          let rtargetint = (targetNode['sonFlag']) ? (20) : (2);
+          let rsourceint = (sorceNode['sonFlag']) ? (49) : (2);
+          let rtargetint = (targetNode['sonFlag']) ? (49) : (2);
           let startY = (flag) ? (sorceNode['y'] - sorceNode['r'] - rsourceint) : (sorceNode['y'] + sorceNode['r'] + rsourceint);
           let endY = (flag) ? (targetNode['y'] - targetNode['r'] - rtargetint) : (targetNode['y'] + targetNode['r'] + rtargetint);
 
@@ -438,6 +647,8 @@ export default {
             cnx2 += 250;
             cny2 = cny * 1.3;
           }
+          if((sorceId == '14')&&(targetId == '7')){
+            cny*=1.4}
           // let midP = [(startP[0]+endP[0])/2,(startP[1])>(endP[1])?(startP[1]-100):(endP[1]-100)];
           path.moveTo(startX, startY);
           path.bezierCurveTo(midX, cny, midX, cny, endX, endY);
@@ -481,15 +692,16 @@ export default {
 
           // let h1Scale_linear = d3.scaleLinear([0, _this.width], [(sorceNode['y']>targetNode['y'])?(sorceNode['y']*2):(targetNode['y']*2),parseInt(height)])
           let h = (((endX - startX) / 14) > (parseInt(height) - 10)) ? (parseInt(height) - 10) : ((endX - startX) / 14);
-          let hScale_linear = d3.scaleLinear([0, _this.width / 2], [0, h / 3 * 2])
+          let hScale_linear = d3.scaleLinear([0, _this.width / 2], [0, (h-80) / 3 * 2])
           let cny = (flag) ? (midY - hScale_linear(endX)) : (midY + hScale_linear(endX));
-          if (sorceNode['id'] == '7') { cny -= 20 }
+          // if (sorceNode['id'] == '7') { cny -= 20 }
           if (cny < -150) {
             startY = sorceNode['y'] + sorceNode['r'] + rsourceint
             endY = targetNode['y'] + targetNode['r'] + rtargetint
             cny = height - cny - 300;
           }
-
+          if(targetId=="5"||sorceId=="5"){cny+=250}
+          if(targetId=="6"||sorceId=="6"){cny+=150}
           path.moveTo(startX, startY);
           path.lineTo(startX, cny);
           path.lineTo(endX, cny);
@@ -601,14 +813,14 @@ export default {
           let oData = _this.drawEntityLocation;
           let basicRel = relData['basicRel'];
           let daId = data[(i)]['id'];
-          let jg=0;
+          let jg = 0;
           for (let re = 0; re < basicRel.length; re++) {
 
             let sorceId = basicRel[re][0];
             let targetId = basicRel[re][1];
             let cNode = '';
-            if ((sorceId == daId)||(targetId == daId)) {
-              jg=1;
+            if ((sorceId == daId) || (targetId == daId)) {
+              jg = 1;
             }
           };
           let sonFlag = 1;
@@ -635,9 +847,9 @@ export default {
             controlP2x = x - r - interval - interval / 1;
             curLinex = r + interval;
           }
-          
-          if((jg==1)&&(data[i]['type']==0)){
-            curLinex+=r*1.5
+
+          if ((jg == 1) && (data[i]['type'] == 0) && (data[(i)]['son'].length == 0)) {
+            curLinex += r * 1.5
           }
           _this.drawEntity(circleG, x, y, r, data[i])
           path.bezierCurveTo(controlP1x, prey, controlP2x, y, x - curLinex, y)
@@ -672,8 +884,11 @@ export default {
         let x = entityLocationData[i]['x'];
         let y = entityLocationData[i]['y'];
         let r = entityLocationData[i]['r'];
-        if(entityLocationData[i]['type']==0){
-        _this.drawEntityTimeAxis(circleG, entityLocationData[i]);}
+
+        let showEntity = _this.showEntityList.find(function (d) { return d['id'] == entityLocationData[i]['id'] });
+        if (entityLocationData[i]['type'] == 0 && (showEntity['show'] == true)) {
+          _this.drawEntityTimeAxis(circleG, entityLocationData[i]);
+        }
         if ((entityLocationData[i]['layout'] == '0' && (entityLocationData[i]['name'] != 'Test'))) {
           colorIndex = colorrootIndex;
           colorrootIndex++;
@@ -722,11 +937,11 @@ export default {
     updataTimeAxisDur(svg, x, width) {
       const _this = this;
       let margin = _this.margin;
-      let totalWidth = _this.width - margin.left - margin.right;
+      let totalWidth = _this.width //margin.left - margin.right;
       let y = 0;
-      let h = 160;
+      let h = 200;
       _this.drawRect(svg, 0, y, x, h, 3, 3, 'white', 0.3, '', "timeAxisRect1")
-      let curRect = _this.drawRect(svg, x, y-0, width, h-5, 3, 3, 'rgba(0,0,0,0)', 1, 'rgb(145, 180, 189)', 'winRect',2);
+      let curRect = _this.drawRect(svg, x, y - 0, width, h - 5, 3, 3, 'rgba(0,0,0,0)', 1, 'rgb(145, 180, 189)', 'winRect', 2);
       // --------------------------------------
       // curRect.on('mousemove', function (e) {
       //   d3.select(this).attr("cursor", 'pointer');
@@ -792,10 +1007,14 @@ export default {
       var feMerge = filter.append("feMerge");
       feMerge.append("feMergeNode").attr("in", "lowerLayer");
       feMerge.append("feMergeNode").attr("in", "upperLayer");
+      let total = 0
       for (let i = 0; i < oriData.length; i++) {
         let curEnt = oriData[i];
         let tp = {}
         tp['od'] = i;
+        tp['du'] =total;
+        total+=curEnt['totalDuration'];
+        console.log(curEnt)
         if ((curEnt['type'] == "1")) {
           triLi.push(tp);
         }
@@ -816,7 +1035,7 @@ export default {
           tp[t] = totalTypeSeconds;
         }
         for (let t in tp) {
-          if (t != 'od') {
+          if ((t != 'od')&&(t!='du')) {
             tp[t] /= totalDur;
             if (totalDur == 0) {
               tp[t] = 0;
@@ -825,32 +1044,30 @@ export default {
         }
         resData.push(tp)
       }
-
       let data = resData;
-      console.log(data)
       var stack = d3.stack()
         .keys(['1', '2', '3'])
         .order(d3.stackOrderInsideOut)
         .offset(d3.stackOffsetWiggle);
 
-      let yRangeWidth = 80;
-      let w = parseInt(svg.attr("width"))+60
+      let yRangeWidth = 70;
+      let w = parseInt(svg.attr("width")) + 30
       let xStep = (w) / oriData.length;
-      let yScale = d3.scaleLinear().domain([-1, 1]).range([0, 80]);
+      let xScale = d3.scaleLinear().domain([0,total]).range([0,w])
+      let yScale = d3.scaleLinear().domain([-1, 1]).range([0, 70]);
       var area = d3.area()
         .curve(d3.curveBasis)
         .x(function (d) {
-          return d.data.od * xStep +15;
+          return 15+xScale(d.data.du)+d.data.od * 10//xStep + 15;
         })
         .y0(function (d) {
-          return 120+yRangeWidth - yScale(d[0]);
+          return 153 + yRangeWidth - yScale(d[0]);
         })
         .y1(function (d) {
-          return 120+yRangeWidth - yScale(d[1]);
+          return 153 + yRangeWidth - yScale(d[1]);
         });
-      console.log(data)
       let stackData = stack(data)
-      console.log(data, stackData)
+      console.log("stack",resData,stackData)
       let lenThreshold = 0.4;
       let iconLi = {}
       for (let s in stackData) {
@@ -880,27 +1097,27 @@ export default {
       svg.selectAll("path")
         .data(stackData)
         .join("path")
-        .attr("id",function(d){return d.key})
-        .attr("class","river")
+        .attr("id", function (d) { return d.key })
+        .attr("class", "river")
         .attr("d", function (d) {
           return area(d)
         })
         .attr("fill", function (d, i) {
           return typeColor[d.key]
         })
-        .on("mouseover",function(d){
+        .on("mouseover", function (d) {
           d3.selectAll(".river").style("filter", "url()")
           d3.select(this).style("filter", "url(#coolShadow)")
         })
 
       for (let t in triLi) {
         let area = tools.calcTriangle((triLi[t]['od']) * xStep, -30, 14);
-        _this.drawTriangle(svg, "rgb(250, 199, 88)", area, "rgb(250, 199, 88)");
+        _this.drawTriangle(svg, "rgb(250, 199, 88)", area, "rgb(250, 199, 88)",1,15,"entE",`entE_${data['id']}`);
         _this.drawTxt(svg, (triLi[t]['od']) * xStep, -23, "T", "white", 0, "middle", 18)
       }
       for (let t in exeLi) {
         let area = tools.calcTriangle((exeLi[t]['od']) * xStep, -30, 14);
-        _this.drawTriangle(svg, "rgb(250, 199, 88)", area, "rgb(250, 199, 88)");
+        _this.drawTriangle(svg, "rgb(250, 199, 88)", area, "rgb(250, 199, 88)",1,15,"entE",`entE_${data['id']}`);
         _this.drawTxt(svg, (exeLi[t]['od']) * xStep, -23, "E", "white", 0, "middle", 18)
       }
     },
@@ -911,8 +1128,8 @@ export default {
       let addData = tools.deepClone(_this.drawEntityLocation);
       let margin = _this.margin;
       let prex = margin.left;
-      let prey = margin.top / 2;
-      let width = svg.attr("width")// _this.width - margin.left - margin.right;
+      let prey = 50;
+      let width = svg.attr("width") -20 //margin.left - margin.right;
       let height = _this.height - margin.top - margin.bottom;
       let widthScale = d3.scaleLinear([0, sumTotalDuration], [0, width]);
       data.forEach((self, indx, arr) => {
@@ -921,42 +1138,168 @@ export default {
         let id = self['id']
         let duration = tools.time2seconds(timeList[1]) - tools.time2seconds(timeList[0]);
         // console.log(timeList,tools.time2seconds(timeList[0]))
-        let evWidth = widthScale(duration)-4;
+        let evWidth = widthScale(duration) - 4;
 
         let evTWidth = widthScale(totalDurationValue);
         let lay = parseInt(self['layout']);
         let evHight = 80 - 20 * lay;
         let x = prex;
         let y = prey + 20 * lay;
-        prex += evWidth+4;
+        prex += evWidth + 4;
         let cr = 3;
         // if(self['type']==0){
-        if(1){
+        if (1) {
           if (lay == 0) {
-            _this.drawRect(svg, x-2, y - 20, evTWidth, 100, 6, 6, self['color'], 0.3, 'white', `timeAxisEntB_${indx}`,1.5, 'timeAxisEntB')
+            _this.drawRect(svg, x-1, y - 59, 3, 42, 0, 0, self['color'], 0.4, 'white', `timeAxisEntBl_${indx}`, 0, 'timeAxisEntBl')
+
+            _this.drawTxt(svg, x+23, y  - 23, 10, [self['time'][0].split(":").splice(1).join(":")], self['color'], 15, `timeDurText_${id}`, 'timeDuyrText');
+            _this.drawRect(svg, x - 2, y - 20, evTWidth, 100, 6, 6, self['color'], 0.3, 'white', `timeAxisEntB_${indx}`, 1.5, 'timeAxisEntB')
           }
-          _this.drawRect(svg, x, y, evWidth, evHight, 3, 3, self['color'], 0.4, self['colorD'], `timeAxisEnt_${id}`,1.5, 'timeAxisEnt')
+          _this.drawRect(svg, x, y, evWidth, evHight, 3, 3, self['color'], 0.4, self['colorD'], `timeAxisEnt_${id}`, 1.5, 'timeAxisEnt')
+          _this.drawTxt(svg, x + evWidth / 2, y + evHight + 20, 10, [self['name'].split(" ").join(" ")], "grey", 16, `timeText_${id}`, 'timeText');
         }
-        else{
+        else {
           if (lay == 0) {
-            _this.drawRect(svg, x-2, y - 20, evTWidth, 100, 6, 6, self['color'], 0.3, 'white', `timeAxisEntB_${id}`,1.5, 'timeAxisEnt')
+            _this.drawRect(svg, x - 2, y - 20, evTWidth, 100, 6, 6, self['color'], 0.3, 'white', `timeAxisEntB_${id}`, 1.5, 'timeAxisEnt')
           }
-          let area = [[x+cr,y+evHight-cr],[x-cr+evWidth,y+evHight-cr],[x+evWidth/2,y]];
-          _this.drawTriangle(svg, self['color'], area, self['color'],1,cr*2);
+          let area = [[x + cr, y + evHight - cr], [x - cr + evWidth, y + evHight - cr], [x + evWidth / 2, y]];
+          _this.drawTriangle(svg, self['color'], area, self['color'], 1, cr * 2,"entE",`entE_${data['id']}`);
         }
         addData[indx]['timeX'] = x;
         addData[indx]['timeW'] = evWidth
       })
+
+      d3.selectAll('.timeText').attr("opacity", 0)
       _this.drawEntityLocation = addData;
-      console.log(11111111111111, width, sumTotalDuration, data, _this.drawEntityLocation)
     },
-    drawTriangle(svg, color, points, stroke, opacity = 1,strokeW=15) {
+    drawTriangle(svg, color, points, stroke, opacity = 1, strokeW = 15,classNa,idNa) {
+      const _this = this;
       svg.append("polygon")
         .attr("points", points)
         .attr("fill", color)
+        .attr("id", idNa)
+        .attr("class", classNa)
         .attr("stroke-linejoin", "round")
         .attr("opacity", opacity)
         .attr("stroke", stroke)
+        .on("mouseover", function (d) {
+          // d3.select(this).attr("r", r * 1.1)
+          let classN = d3.select(this).attr("class");
+          let idN = d3.select(this).attr("id").split("_")[1]
+          _this.overEntityId = idN
+          let showRel = _this.showEntityRelIdList
+          if (!showRel.includes(parseInt(idN))) {
+            showRel.push(parseInt(idN))
+            _this.showEntityRelIdOverState = 0;
+          }
+          else {
+            _this.showEntityRelIdOverState = 1;
+          }
+          _this.showEntityRelIdList = showRel;
+          if (classN == 'linePoint') {
+            d3.select(this).attr("opacity", 1).attr("r", 5)
+          }
+          // else {
+          //   d3.selectAll(".f" + data['id'])
+          //     .attr("transform", function (d) {
+          //       let transformd = d3.select(this).attr("transform")
+          //       return transformd.split(" ")[0] + " scale(1.1)"
+          //     })
+
+          //   d3.selectAll(".basicRel")
+          //     .attr("class", function (d) {
+          //       let classN = d3.select(this).attr("class");
+          //       let classNList = classN.split(" ");
+          //       let jg = 0;
+          //       for (let i = 0; i < classNList.length - 1; i++) {
+          //         if ('source' + data['id'] == classNList[i]) { jg = 1; }
+          //         if ('target' + data['id'] == classNList[i]) { jg = 1; }
+          //       }
+          //       if (jg == 1) {
+          //         // classN += " activeS";
+          //       }
+          //       return classN;
+          //     })
+          // }
+        })
+        .on("mouseleave", function (d) {
+          // d3.select(this).attr("r", r)
+
+          _this.overEntityId = ""//_this.curEntId;
+          let classN = d3.select(this).attr("class");
+
+          let idN = d3.select(this).attr("id").split("_")[1]
+          let showRel = _this.showEntityRelIdList
+          if (_this.showEntityRelIdOverState == 1) {
+            showRel.push(parseInt(idN))
+          }
+          else {
+            showRel.splice(showRel.indexOf(parseInt(idN)), 1)
+          }
+          _this.showEntityRelIdList = showRel;
+
+          if (classN == 'linePoint') {
+            d3.select(this).attr("opacity", 0).attr("r", 5)
+          }
+          // else {
+          //   d3.selectAll(".f" + data['id'])
+          //     .attr("transform", function (d) {
+          //       let transformd = d3.select(this).attr("transform")
+          //       return transformd.split(" ")[0] + " scale(1)"
+          //     })
+          //   d3.select("#graphPanel").selectAll("path")
+          //     .attr("class", function (d) {
+          //       let thisSelect = d3.select(this)
+          //       let classN = thisSelect.attr("class");
+          //       let classNList = classN.split(" ")
+          //       if (classNList[classNList.length - 1] == "activeS") {
+          //         classN = "";
+          //         for (let i = 0; i < classNList.length - 1; i++) {
+          //           classN += " " + classNList[i];
+          //         }
+          //       }
+          //       return classN
+          //     })
+          // }
+        })
+        .on("click", function (d) {
+
+          let idN = d3.select(this).attr("id").split("_")[1]
+          let showRel = _this.showEntityRelIdList;
+          //  - _this.showEntityRelIdOverState;
+          if (!showRel.includes(parseInt(idN))) {
+            showRel = [(parseInt(idN))]
+            _this.showEntityRelIdOverState = 1;
+          }
+          else if (showRel.includes(parseInt(idN))) {
+            // showRel.filter(item=>{return item==parseInt(idN)})
+            _this.showEntityRelIdOverState = 0;
+            showRel.splice(showRel.indexOf(parseInt(idN)), 1)
+          }
+          _this.showEntityRelIdList = showRel;
+
+          // d3.select(this).attr("r", r);
+          // d3.selectAll(".f" + data['id'])
+          //   .attr("transform", function (d) {
+          //     let transformd = d3.select(this).attr("transform")
+          //     return transformd.split(" ")[0] + " scale(1)"
+          //   })
+          let thisId = this.id.split("_")[1];
+          _this.curEntId = thisId;
+          let thisData = _this.drawEntityLocation.find(function (a) { return a['id'] == thisId })
+          let thisTime = thisData['time'];
+          _this.click_Ent(thisTime);
+          let psvg = d3.select("#entG");
+          let dw = psvg.attr("width");
+          let dh = psvg.attr("height");
+          psvg.remove();
+          let svg = d3.select('#editEnt').append("g").attr("id", "entG").attr("width", dw).attr("height", dh);
+          _this.drawEntity(svg, dw/2, 100, 50, thisData,1)
+          // if (thisData['type'] == 0 ) {
+            // _this.drawEntityTimeAxis(svg,thisData,[dw/2,100,10]);
+        // }
+          // console.log(thisTime,thisId,thisData)
+        })
         .attr("stroke-width", strokeW);
     },
     drawpolygon(svg, color, areas, stroke, opacity = 1) {
@@ -967,12 +1310,21 @@ export default {
         .attr("stroke", stroke)
         .attr("stroke-width", "1.5px");
     },
-    drawEntityTimeAxis(svg, entData) {
+    drawEntityTimeAxis(svg, entData,copy=0) {
 
       const _this = this;
       let x = entData['x'];
       let r = entData['r'];
       let y = entData['y'] + r / 2;
+      if(copy!=0){
+        x = copy[0];
+        r = copy[2];
+        y = copy[1]+r/2;
+      }
+      let path1 = d3.path();
+      let jg1 = 0;
+      let path2 = d3.path();
+      let jg2 = 0;
       let daId = entData['id']
       let entDataO = _this.drawEntityLocation;
       let sumTotalDuration = _this.sumTotalDuration;
@@ -985,7 +1337,7 @@ export default {
       let relRootList = [];
       let psNum = 0.5;
       if ((sons.length > 0)) {
-        inter = 16
+        inter = 14
       }
 
       let relData = _this.relData;
@@ -1006,10 +1358,8 @@ export default {
           cNode = oData.find(function (d) { return d['id'] == sorceId });
           relList.push(sorceId);
           relRootList.push(cNode['rootIndex']);
-          console.log(sorceId, targetId, daId, cNode)
         }
       };
-      console.log(relList, relRootList)
       // if(entData[]) 
       let wline = 0;
       let sumTotalDurationF = 0;
@@ -1050,70 +1400,133 @@ export default {
         var dataset = { startAngle: timeStartR, endAngle: endAnglet }; //创建一个弧生成器
         timeStartR = endAnglet;
         let color = 'blue';
-        let rh = r*0.7;
+        let rh = 30;
         let h = rh;
         let nh = 0;
         if (relRootList.length != 0) {
-          h = rh*0.3 + rh*0.6 - 3 * layout;
-          nh = rh*0.3;
+          h = rh * 0.32 + rh * 0.6 - 3 * layout;
+          nh = rh * 0.3;
         }
         if (!relRootList.includes(self['rootIndex'])) {
-          h = rh*0.7;
-          nh = h*0 + h*0.6;
+          h = rh * 0.7;
+          nh = h * 0 + h * 0.6;
         }
-        else{
-          dataset.startAngle+=0.003;
-          dataset.endAngle-=0.003; 
+        else {
+          dataset.startAngle += 0.003;
+          dataset.endAngle -= 0.003;
 
         }
         var arcPath = d3.arc()
           .innerRadius(r + inter + nh)
           .outerRadius(r + inter + h);
         var pathArc = arcPath(dataset);
-        console.log(self, relList, relList.includes(self['id']))
         let arc;
         if (relRootList.length != 0) {
+          let jiantouPath = d3.path();
+          jiantouPath.arc(x, y - r / 2, r + h + inter, - Math.PI, 0);
+
+          // _this.drawTimeLine(_this.arcG, jiantouPath, "rgb(200,200,200)", 1, '9,5', 'timeLayout ', 'timeLayout ');
+
           if (relRootList.includes(self['rootIndex'])) {
             if (relList.includes(parseInt(self['id']))) {
-             arc= _this.drawArc(svg, x, y - r / 2, pathArc, self['color'], self['color'], `timeAxisFor f${entData['id']} ${self['id']}`, '0', 0, 1);
+            if((copy!=0) &&(jg1==0)){
+              jg1=1
+              path1.moveTo(2, 25)
+              path1.lineTo(150,25)
+              let ang = dataset.startAngle+Math.PI/2
+              _this.drawTxt(svg, 70, 20, 100, ["Associated Concept"], "grey", 15, `texts_1`);
+              // path1.lineTo((x+10),(y-r/2+10))
+              path1.lineTo((x-(r + inter + h)*Math.cos(ang)),(y-r/2-(r + inter + h)*Math.sin(ang)))
+              _this.drawTimeLine(svg, path1, "rgb(200,200,200)", 2, '9,5', 'mm ', 'mm ');
+            }
+              arc = _this.drawArc(svg, x, y - r / 2, pathArc, self['color'], self['color'], `timeAxisFor f${entData['id']} ${self['id']}`, '0', 0, 1);
             }
             else {
+              // path1.lineTo(0,0) 
               arc = _this.drawArc(svg, x, y - r / 2, pathArc, "white", self['color'], `timeAxisFor f${entData['id']} ${self['id']}`, '0', 0.0, 0.4);
             }
           }
-          else{
-             arc = _this.drawArc(svg, x, y - r / 2, pathArc, self['color'], self['color'], `timeAxisFor f${entData['id']} ${self['id']}`, '0', 0, 0.2);
-        
-          }
-         arc.on("mouseover",function(d){
-            let classN = d3.select(this).attr("fill",'red');
-            let tId = classN.split(" ")[2];
+          else {
+            arc = _this.drawArc(svg, x, y - r / 2, pathArc, self['color'], self['color'], `timeAxisFor f${entData['id']} ${self['id']}`, '0', 0, 0.2);
 
+          }
+          if(daId == self['id']){
+            let color = d3.select(`#entCircle_${self['id']}`).attr("fill")
+            let da = tools.deepClone(dataset);
+            da.startAngle = (dataset.endAngle+dataset.startAngle)/2-0.001;
+            da.endAngle = (dataset.endAngle+dataset.startAngle)/2+0.0001;
+            let arcPa = d3.arc()
+            .innerRadius(r + inter + (nh+h)/2)
+            .outerRadius(r + inter + (nh+h)/2);
+            let pathA = arcPa(da);
+            if((copy!=0) &&(jg2==0)){
+              jg2=1
+              path2.moveTo(400, 125)
+              path2.lineTo(290,125)
+              let ang = da.startAngle+0.001+Math.PI/2
+              _this.drawTxt(svg, 350, 120, 100, ["Current Concept"], "grey", 15, `texts_1`);
+              // path1.lineTo((x+10),(y-r/2+10))
+              path2.lineTo((x-(r + inter + h)*Math.cos(ang)),(y-r/2-(r + inter + h)*Math.sin(ang)))
+              _this.drawTimeLine(svg, path2, "rgb(200,200,200)", 2, '9,5', 'mm ', 'mm ');
+            }
+            _this.drawArc(svg, x, y - r / 2, pathA, color, self['color'], `timeAxisself f${self['id']}`, '0', 6, 1);
+          }
+            if(copy!=0){
+              // _this.drawTimeLine(svg, path1, "rgb(200,200,200)", 3, '9,5', 'mm ', 'mm ');
+            }
+          arc.on("mouseover", function (d) {
+            let classN = d3.select(this).attr("class");
+            let sId = (classN.split(" ")[1] + "").slice(1);
+            let tId = classN.split(" ")[2];
+            _this.showEntityRelIdList = [sId]
+            _this.overEntityId = sId;
+            _this.overTargetEntityId = tId;
           })
-         }
+          
+          arc.on("mouseleave", function (d) {
+            let classN = d3.select(this).attr("class");
+            let sId = (classN.split(" ")[1] + "").slice(1);
+            let showRel = _this.showEntityRelIdList;
+            _this.overTargetEntityId = '';
+            _this.overEntityId = ""//_this.curEntId;
+            if (_this.showEntityRelIdOverState == 1) {
+              showRel.push(parseInt(sId))
+            }
+            else {
+              showRel.splice(showRel.indexOf(parseInt(sId)), 1)
+            }
+          })
+        }
       })
     },
-    drawEntity(svg, x, y, r, data) {
+    drawEntity(svg, x, y, r, data,copy=0) {
       const _this = this;
       let color_linear = _this.importanceColor_linear;
       let compute_color = _this.importanceCompute_color;
       let rScale = _this.relevanceScale_linear;
       let oData = _this.data;
+      let path1 = d3.path();
+      let path2 = d3.path();
+      let jg2=0;
+      let ang2=0;
+      let path3 = d3.path();
+      let jg3=0;
+      let ang3=0;
       let importanceValue = data['attribute']['importance'];
-      let relevanceValue = data['attribute']['relevance'];
-      // let r = rScale(relevanceValue)
-      // { 'id': data[i]['id'], "x": x, "r": r, "layout": lay, "y": y, "sonFlag": sonFlag }
+      // let relevanceValuale(relevanceValue)
+      // { 'id': dae = data['attribute']['relevance'];
+      // let r = rScta[i]['id'], "x": x, "r": r, "layout": lay, "y": y, "sonFlag": sonFlag }
 
 
       if (data['type'] == '1') {
         let area = tools.calcTriangle(x, y, r);
-        _this.drawTriangle(svg, "rgb(250, 199, 88)", area, "rgb(250, 199, 88)");
+        _this.drawTriangle(svg, "rgb(250, 199, 88)", area, "rgb(250, 199, 88)",1,15,"entT",`entT_${data['id']}`);
 
         _this.drawTxt(svg, x, y + 8, 20, ["T"], 'white', 28, "T")
       }
       else if (data['type'] == '2') {
         let area = tools.calcTriangle(x, y, r);
-        _this.drawTriangle(svg, "rgb(250, 199, 88)", area, "rgb(250, 199, 88)");
+        _this.drawTriangle(svg, "rgb(250, 199, 88)", area, "rgb(250, 199, 88)",1,15,"entE",`entE_${data['id']}`);
 
         _this.drawTxt(svg, x, y + 8, 20, ["E"], 'white', 28, "E")
       }
@@ -1239,7 +1652,6 @@ export default {
         // .curve(d3.curveBasis)
         _this.drawTimeLine(svg, curve_generator(lineData), "white", 2, '0', 'sonLine ', 'sonLine ');
 
-
         for (let p = 0; p < linePoint.length; p++) {
           _this.drawCircle(svg, linePoint[p]['x'], linePoint[p]['y'], 5, "red", linePoint[p], 0, "linePoint", "linePoint_" + linePoint[p]['id']);
         }
@@ -1305,6 +1717,10 @@ export default {
                 .outerRadius(r + 25);
               var pathArc = arcPath(dataset);
               _this.drawArc(svg, x, y - r / 2, pathArc, color, color, 'type f' + data['id'] + " t" + i);
+            }
+          if((copy!=0)&&(jg2==0)){
+            jg2=1;
+              ang2 = dataset.startAngle+Math.PI/2
             }
           }
           let sonTotal = 0;
@@ -1381,13 +1797,42 @@ export default {
             if (s != sonList.length - 1) {
 
               // console.log
-              _this.drawTimeLine(_this.arcG, jiantouPath, "rgb(200,200,200)", 3, '9,5', 'midArc ', 'midArc ');
+              _this.drawTimeLine(svg, jiantouPath, "rgb(200,200,200)", 3, '9,5', 'midArc ', 'midArc ');
               // _this.drawTimeLine(_this.arcG, path, "white", 2,'0', 'sonLine ', 'sonLine ');
               // _this.drawArc(_this.arcG, x, y - r / 2, pathMidArc, "rgb(200,200,200)", "white", 'son f' + data['id'], "9,5", 3);
             }
+            
+          if((copy!=0)){
+            jg3=1;
+              ang3 = (dataset.endAngle+dataset.startAngle)/2+Math.PI/2
+            }
           }
-
         };
+        
+        if((copy!=0)){
+              // jg2=1
+              path1.moveTo(10, 155)
+              path1.lineTo(120,155)
+              // let ang = da.startAngle+0.001+Math.PI/2
+              _this.drawTxt(svg, 60, 120, 80, ["Concept","Time","Distribution"], "grey", 15, `texts_1`);
+              path1.lineTo(lineData[0][0],lineData[0][1])
+              // path2.lineTo((x-(r + inter + h)*Math.cos(ang)),(y-r/2-(r + inter + h)*Math.sin(ang)))
+              _this.drawTimeLine(svg, path1, "rgb(200,200,200)", 2, '9,5', 'mm ', 'mm ');
+              if(jg2==1){
+              path2.moveTo(550, 35)
+              path2.lineTo(320,35)
+              _this.drawTxt(svg, 360, 20, 80, ["Course Style"], "grey", 15, `texts_1`);
+              path2.lineTo((x-(r +25)*Math.cos(ang2)),(y-r/2-(r +25)*Math.sin(ang2)))
+              _this.drawTimeLine(svg, path2, "rgb(200,200,200)", 2, '9,5', 'mm ', 'mm ');}
+            }
+              if(jg3==1){
+              path3.moveTo(550, 235)
+              path3.lineTo(320,235)
+              let ang3 = Math.PI*(1/2+1-0.05)
+              _this.drawTxt(svg, 360, 200, 80, ["Subconcept","Distribution"], "grey", 15, `texts_1`);
+              path3.lineTo((x-(r +32)*Math.cos(ang3)),(y-r/2-(r +32)*Math.sin(ang3)))
+              _this.drawTimeLine(svg, path3, "rgb(200,200,200)", 2, '9,5', 'mm ', 'mm ');
+            }
       }
       let txts = data['name'].split(" ")
       let tx = x - r - 30;
@@ -1398,14 +1843,14 @@ export default {
         tx = x//-r-10;
         ty = y + r * 2;
       }
-      if (data['id'] == "3") {
-        tx = x - 10;
-        ty = y + r * 2;
-      }
-      if (data['id'] == "4") {
-        tx = x + 10;
-        ty = y + r * 2;
-      }
+      // if (data['id'] == "3") {
+      //   tx = x - 10;
+      //   ty = y + r * 2;
+      // }
+      // if (data['id'] == "4") {
+      //   tx = x + 10;
+      //   ty = y + r * 2;
+      // }
       // if(data['type']=='1'){
       //   tx = x-r/2;
       //   ty = y+r*2;
@@ -1424,7 +1869,7 @@ export default {
         .attr("stroke-linejoin", "round")
         .attr("fill", fill)
         .attr("opacity", opacity);
-        return arc;
+      return arc;
     },
     drawCircle(svg, x, y, r, fill, data, opacity, className, idName) {
       const _this = this;
@@ -1441,12 +1886,13 @@ export default {
           d3.select(this).attr("r", r * 1.1)
           let classN = d3.select(this).attr("class");
           let idN = d3.select(this).attr("id").split("_")[1]
+          _this.overEntityId = idN
           let showRel = _this.showEntityRelIdList
-          if(!showRel.includes(parseInt(idN))){ 
+          if (!showRel.includes(parseInt(idN))) {
             showRel.push(parseInt(idN))
             _this.showEntityRelIdOverState = 0;
           }
-          else{
+          else {
             _this.showEntityRelIdOverState = 1;
           }
           _this.showEntityRelIdList = showRel;
@@ -1470,7 +1916,7 @@ export default {
                   if ('target' + data['id'] == classNList[i]) { jg = 1; }
                 }
                 if (jg == 1) {
-                  classN += " activeS";
+                  // classN += " activeS";
                 }
                 return classN;
               })
@@ -1478,15 +1924,17 @@ export default {
         })
         .on("mouseleave", function (d) {
           d3.select(this).attr("r", r)
+
+          _this.overEntityId = ""//_this.curEntId;
           let classN = d3.select(this).attr("class");
-          
+
           let idN = d3.select(this).attr("id").split("_")[1]
           let showRel = _this.showEntityRelIdList
-          if(_this.showEntityRelIdOverState == 1){ 
+          if (_this.showEntityRelIdOverState == 1) {
             showRel.push(parseInt(idN))
           }
-          else{
-            showRel.splice(showRel.indexOf(parseInt(idN)),1)
+          else {
+            showRel.splice(showRel.indexOf(parseInt(idN)), 1)
           }
           _this.showEntityRelIdList = showRel;
 
@@ -1519,14 +1967,14 @@ export default {
           let idN = d3.select(this).attr("id").split("_")[1]
           let showRel = _this.showEntityRelIdList;
           //  - _this.showEntityRelIdOverState;
-          if(!showRel.includes(parseInt(idN))){ 
+          if (!showRel.includes(parseInt(idN))) {
             showRel = [(parseInt(idN))]
             _this.showEntityRelIdOverState = 1;
           }
-          else if(showRel.includes(parseInt(idN))){ 
+          else if (showRel.includes(parseInt(idN))) {
             // showRel.filter(item=>{return item==parseInt(idN)})
             _this.showEntityRelIdOverState = 0;
-            showRel.splice(showRel.indexOf(parseInt(idN)),1)
+            showRel.splice(showRel.indexOf(parseInt(idN)), 1)
           }
           _this.showEntityRelIdList = showRel;
 
@@ -1538,35 +1986,51 @@ export default {
             })
           let thisId = this.id.split("_")[1];
           _this.curEntId = thisId;
-          let thisData = oData.find(function (a) { return a['id'] == thisId })
+          let thisData = _this.drawEntityLocation.find(function (a) { return a['id'] == thisId })
           let thisTime = thisData['time'];
           _this.click_Ent(thisTime);
+          let psvg = d3.select("#entG");
+          let dw = psvg.attr("width");
+          let dh = psvg.attr("height");
+          psvg.remove();
+          let svg = d3.select('#editEnt').append("g").attr("id", "entG").attr("width", dw).attr("height", dh);
+          _this.drawEntity(svg, dw/2, 100, r, thisData,1)
+          // if (thisData['type'] == 0 ) {
+            _this.drawEntityTimeAxis(svg,thisData,[dw/2,100,r]);
+        // }
           // console.log(thisTime,thisId,thisData)
         })
         .on("contextmenu", function (d, i) {
           d.preventDefault();
 
-          let thisId = this.id.split("_")[1];
-          let thisShowEntityData = _this.showEntityList.find(function (d) { return d['id'] == thisId });
-          let thisSons = thisShowEntityData['son'];
-          if (thisSons.length != 0) {
-            let sons = tools.deepClone(thisSons);
-            let showJage = false;
-            let i = 0
-            while ((sons.length > 0)) {
-              let s = sons[0];
-              sons.splice(0, 1);
-              let curson = _this.showEntityList.find(function (d) { return d['id'] == s + '' })
-              if (i == 0) {
-                i++;
-                showJage = !curson['show']
-              }
-              // ['show'] = !_this.showEntityList.find(function (d) { return d['id'] == thisSons[s] })['show']
-              curson['show'] = showJage;
-              let curgson = curson['son'];
-              if (!showJage) {
-                for (let gs = 0; gs < curgson.length; gs++) {
-                  sons.push(curgson[gs]);
+          if (_this.btnEdi) {
+            _this.editDivShow = true;
+            _this.$refs.editDiv.style.top = `${d.clientY}px`;
+            _this.$refs.editDiv.style.left = `${d.clientX}px`;
+          }
+          else {
+            let thisId = this.id.split("_")[1];
+            let thisShowEntityData = _this.showEntityList.find(function (d) { return d['id'] == thisId });
+            let thisSons = thisShowEntityData['son'];
+            if (thisSons.length != 0) {
+              let sons = tools.deepClone(thisSons);
+              let showJage = false;
+              let i = 0
+              while ((sons.length > 0)) {
+                let s = sons[0];
+                sons.splice(0, 1);
+                let curson = _this.showEntityList.find(function (d) { return d['id'] == s + '' })
+                if (i == 0) {
+                  i++;
+                  showJage = !curson['show']
+                }
+                // ['show'] = !_this.showEntityList.find(function (d) { return d['id'] == thisSons[s] })['show']
+                curson['show'] = showJage;
+                let curgson = curson['son'];
+                if (!showJage) {
+                  for (let gs = 0; gs < curgson.length; gs++) {
+                    sons.push(curgson[gs]);
+                  }
                 }
               }
             }
@@ -1575,11 +2039,11 @@ export default {
         });
       // .on("")
     },
-    drawRect(svg, x, y, w, h, rx, ry, fill, opacity, stroke, id = 'rect',strokeW = 1.5,classN = 'rect') {
+    drawRect(svg, x, y, w, h, rx, ry, fill, opacity, stroke, id = 'rect', strokeW = 1.5, classN = 'rect') {
       d3.select(`#${id}`).remove()
       let rect = svg.append("rect")
         .attr("id", id)
-        .attr("class",classN)
+        .attr("class", classN)
         .attr("x", x)
         .attr("y", y)
         .attr("rx", rx)
@@ -1592,7 +2056,7 @@ export default {
         .attr("stroke-width", `${strokeW}px`);
       return rect;
     },
-    drawTxt(svg, x, y, width, txts, fill, fontsize = 12, idN) {
+    drawTxt(svg, x, y, width, txts, fill, fontsize = 12, idN, classN = "text") {
       let tx = x;
       let ty = y;
       let preWidth = 0;
@@ -1604,6 +2068,7 @@ export default {
           .attr("y", ty)
           .attr("x", tx)
           .attr("id", `${idN}_${t}`)
+          .attr("class", `${classN}`)
           .attr("fill", fill)
           .attr("font-size", fontsize)
           .style("text-anchor", "middle")
@@ -1634,7 +2099,7 @@ export default {
           let classN = thisSelect.attr("class");
           let idN = thisSelect.attr("id");
           if (classN.split(" ")[0] == "basicRel") {
-            d3.select(this).attr("class", classN + " activeS");
+            // d3.select(this).attr("class", classN + " activeS");
           }
         })
         .on('mouseleave', function (d) {
@@ -1736,6 +2201,7 @@ export default {
       let currentMaxColor = _this.importanceMaxColor;
       let currentMinColor = _this.importanceMinColor;
       _this.importanceColor_linear = d3.scaleLinear().domain([minDImportance, maxDImportance]).range([0, 1]);
+      _this.$bus.$emit("importanceLinear", [minDImportance, maxDImportance]);
       _this.importanceCompute_color = d3.interpolate(currentMinColor, currentMaxColor);
       _this.relevanceScale_linear = d3.scaleLinear([minDRelevance, maxDRelevance], [20, 50])
       _this.totalDurationScale_linear = d3.scaleLinear().domain([0, maxTotalDuration]).range([20, 60]);
@@ -1791,6 +2257,12 @@ export default {
       _this.showEntityList = showEntityList;
       _this.updataGraph();
     });
+    this.$bus.$on('topicRectup', (val) => {
+      _this.editConfirm();
+    });
+    this.$bus.$on('switchL', (val) => {
+      _this.switchL = val;
+    });
 
     // this.$refs.moveGraphLeft.addEventListener("mouseover", _this.moveGraphLeft); // 监听点击事件
     // this.$refs.moveGraphRight.addEventListener("mousemove", _this.moveGraphRight); // 监听点击事件
@@ -1804,6 +2276,4 @@ export default {
 } 
 </script>
 
-<style>
-@import './index.css';
-</style>
+<style>@import './index.css';</style>

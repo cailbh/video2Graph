@@ -14,6 +14,30 @@
     <div id="rootTopicLine" ref="rootTopicLine">
       <div id="progressBar" ref="progressBar" @click="processBarCli"></div>
     </div>
+    <div id="videoScriptUp" ref="videoScriptUp">
+
+      <div id="iconVideo1" >
+        <img class="iconUpload" :src="videoUrl1">
+      </div>
+      <div id="iconVideo2" >
+        <img class="iconUpload" :src="videoUrl2">
+      </div>
+
+      <div id="iconVideo3">
+        <img class="iconUpload" :src="videoUrl3">
+      </div>
+
+      <div id="iconVideo4">
+        <img class="iconUpload" :src="videoUrl4">
+      </div>     
+       
+      <div id="timeDurText">
+        {{ timeNow }}/{{ overTime }}
+      </div>
+      <div id="iconVideo5" ref="iconVideo5">
+        <img class="iconUpload" :src="videoUrl5">
+      </div>
+    </div>
     <div id="videoScript" ref="videoScript">
       <!-- <div id="progressBar" ref="progressBar" @click="processBarCli"></div> -->
     </div>
@@ -38,22 +62,33 @@ export default {
   },
   data() {
     return {
-      scriptsData:scriptsData,
-      scriptsText:[],
-      ketText:[],
+      scriptsData: scriptsData,
+      scriptsText: [],
+      recognizeText:[],
+      ketText: [],
       videoWidth: 100,
       videoHeight: 100,
-      rootTopicLineWidth:100,
-      rootTopicLineHeight:100,
+      rootTopicLineWidth: 100,
+      rootTopicLineHeight: 100,
       data: '',
       relData: '',
       timeDot: 0,
-      videoDuration: 482,
+      videoDuration: 672,
+      // videoDuration: 550,
+      // videoDuration: 668,
+      timeNow: '1',
+      overTime: '1',
       publicPath: process.env.BASE_URL,
       vertexShader: '',
       // url:"../videos/[2.1.1]--机器数及特点视频.mp4",
-      url: "../videos/case1.mp4",
-      videoUrl: require('@/assets/videos/case1.mp4'),
+      // url: "../videos/index.mp4",
+      videoUrl1:require('@/assets/img/暂停.png'),
+      videoUrl2:require('@/assets/img/快进.png'),
+      videoUrl3:require('@/assets/img/音量.png'),
+      videoUrl4:require('@/assets/img/全屏.png'),
+      videoUrl5:require('@/assets/img/addTopic.png'),
+      // videoUrl: require('@/assets/videos/case3.mp4'),
+      videoUrl: require('@/assets/videos/case3.mp4'),
       // 视频封面支持https或require本地地址
       videoCover: require('@/assets/img/tt.jpg'),
 
@@ -79,15 +114,31 @@ export default {
       //   "rgb(200,200,200)",
       // ],
       mcolor: [
-        "rgb(91, 107, 255)",
-        "rgb(6, 214, 160)",
-        "rgb(255, 120, 90)",
-        "rgb(125, 98, 211)",
-        "rgb(255, 113, 212)",
-        "rgb(112, 214, 255)",
-        "rgb(255, 159, 28)",
-        "rgb(255, 77, 109)",
+        "rgb(125, 66, 206)",
+        "rgb(248, 134, 124)",
+        "rgb(50, 198, 191)",
+        "rgb(135, 126, 253)",
+        "rgb(198, 121, 123)",
+        "rgb(252, 177, 49)",
+        "rgb(112, 202, 229)",
+        "rgb(125, 66, 206)",
+        "rgb(248, 134, 124)",
+        "rgb(50, 198, 191)",
+        "rgb(135, 126, 253)",
+        "rgb(198, 121, 123)",
+        "rgb(252, 177, 49)",
+        "rgb(112, 202, 229)",
       ],
+      // mcolor: [
+      //   "rgb(91, 107, 255)",
+      //   "rgb(6, 214, 160)",
+      //   "rgb(255, 120, 90)",
+      //   "rgb(125, 98, 211)",
+      //   "rgb(255, 113, 212)",
+      //   "rgb(112, 214, 255)",
+      //   "rgb(255, 159, 28)",
+      //   "rgb(255, 77, 109)",
+      // ],
       mLightcolor: [
         "#ff9c9c",
         "#cc88b0",
@@ -108,53 +159,91 @@ export default {
       DivisionDataList: [],
       rootDivisionDataList: [],
       entDivisionDataList: [],
+      switchL:[],
+      btnEdi:false,
+      timeDot:""
     };
   },
   watch: {
     timeDur(val) {
       this.timeDot = tools.time2seconds(val[0]);
     },
-    scriptsText(val){
+    scriptsText(val) {
       this.drawScript();
-    }
+    },
+    recognizeText(val){
+      console.log(val)
+      if(val[0] == 1){
+        this.scriptsText = [val[1]]
+      }
+      else{
+        this.addScript(this.timeDot) 
+      }
+    },
+    switchL: {
+      deep: true,
+      handler(val) {
+        this.btnEdi = val[3];
+        this.drawrootTopicLine()
+      }
+    },
   },
   methods: {
     getVideoTime(val) {
       const _this = this;
+      _this.timeNow = tools.seconds2time(val.toFixed(0));
+      _this.overTime = tools.seconds2time(_this.videoDuration);
       let margin = _this.margin;
       let width = this.$refs.progressBar.offsetWidth;
+      let widths = 'calc(100% - 10px)'
+      if(_this.btnEdi){
+        width-=30
+        widths = 'calc(100% - 40px)'
+      }
       let timeLinear = d3.scaleLinear([0, _this.videoDuration], [0, width]);
-      let mid = timeLinear(val)/width*100;
+      let mid = timeLinear(val) / width * 100;
+      // _this.timeDot = val;
       _this.addScript(val);
       d3.select("#progressBar")
-      .attr("style","background: linear-gradient(90deg, rgb(200, 200, 200) "+mid+"%,rgb(244, 244, 244) "+mid+"%) !important")
+        .attr("style", `background: linear-gradient(90deg, rgb(200, 200, 200) ${mid}%,rgb(244, 244, 244) ${mid}%) !important;  width: ${widths}`)
       this.$emit("videoTime", val);
     },
-    processBarCli(e){
-      console.log(e);
+    processBarCli(e) {
       const _this = this;
-      let x = e.layerX; 
+      let x = e.layerX;
       let width = this.$refs.progressBar.offsetWidth;
+      if(_this.btnEdi){
+        width-=30
+      }
       let timeLinear = d3.scaleLinear([0, width], [0, _this.videoDuration]);
       this.timeDot = timeLinear(x);
     },
-    addScript(timeDot){
+    addScript(timeDot) {
       const _this = this;
       let scriptsData = _this.scriptsData;
-      for(let t in scriptsData){
+      for (let t in scriptsData) {
         let timeDur = scriptsData[t]['time'];
         let sTime = tools.time2seconds(timeDur[0]);
         let eTime = tools.time2seconds(timeDur[1]);
-        if((timeDot>sTime)&&(timeDot<eTime)){
+        if ((timeDot > sTime) && (timeDot < eTime)) {
           _this.scriptsText = scriptsData[t]['text']
         }
 
       }
     },
-    drawScript(){
+    drawScriptUp() {
+      let width = this.$refs.videoScriptUp.offsetWidth - margin.left - margin.right;
+      let height = this.$refs.videoScriptUp.offsetHeight - margin.top - margin.bottom;
+      d3.select("#videoScriptUp").select("svg").remove();
+      var svg = d3.select("#videoScriptUp").append("svg")
+        .attr("id", "videoScriptUpSvg")
+        .attr("width", width)
+        .attr("height", height);
+    },
+    drawScript() {
       const _this = this;
       let txts = _this.scriptsText;
-      let margin = _this.margin; 
+      let margin = _this.margin;
       let ketText = _this.ketText;
       let width = this.$refs.videoScript.offsetWidth - margin.left - margin.right;
       let height = this.$refs.videoScript.offsetHeight - margin.top - margin.bottom;
@@ -166,35 +255,34 @@ export default {
       let tx = 30;
       let ty = 50;
       let lay = 0;
-      for(let i =0;i<txts.length;i++){
+      for (let i = 0; i < txts.length; i++) {
         let name = txts[i];
-        let w = name.length *10;
+        let w = name.length * 10;
         let h = 20;
-        let rx=5;
-        let ry=5;
+        let rx = 5;
+        let ry = 5;
         // let color = colorMap[ids[i]];
         // _this.drawRect(g, tx, ty, w, h, rx, ry, color, 0.2, color)
         let textColor = "black";
-        let stopList = ["of","the","and","be","two","x","y","z"];
-        if((ketText.indexOf(name)!=-1)&&(stopList.indexOf(name)==-1)){
+        let stopList = ["of", "the", "and", "be", "two", "x", "y", "z"];
+        if ((ketText.indexOf(name) != -1) && (stopList.indexOf(name) == -1)) {
           textColor = "red";
         }
-        let svgArea = _this.drawTxt(svg, tx, ty, name, textColor, 24,`txts${i}`);
-        console.log(svgArea)
-        tx +=svgArea.width+5;
-        if(tx>(width-200)){
-          let tranx = (width-tx)/2;
-          for(let j = i;j>=lay;j--){
-            d3.select(`#txts${j}`).attr("transform",`translate(${tranx},0)`)
+        let svgArea = _this.drawTxt(svg, tx, ty, name, textColor, 24, `txts${i}`);
+        tx += svgArea.width + 5;
+        if (tx > (width - 30)) {
+          let tranx = (width - tx) / 2;
+          for (let j = i; j >= lay; j--) {
+            d3.select(`#txts${j}`).attr("transform", `translate(${tranx},0)`)
           }
           lay = i;
-          tx=30;
-          ty+=30;
+          tx = 30;
+          ty += 30;
         }
-        if(i==txts.length-1){
-          let tranx = (width-tx)/2;
-          for(let j = i;j>=lay;j--){
-            d3.select(`#txts${j}`).attr("transform",`translate(${tranx},0)`)
+        if (i == txts.length - 1) {
+          let tranx = (width - tx) / 2;
+          for (let j = i; j >= lay; j--) {
+            d3.select(`#txts${j}`).attr("transform", `translate(${tranx},0)`)
           }
         }
       }
@@ -204,11 +292,20 @@ export default {
       const margin = _this.margin;
       const mcolor = _this.mcolor;
 
-      let width = this.$refs.rootTopicLine.offsetWidth - margin.left - margin.right;
+      let width = this.$refs.rootTopicLine.offsetWidth //- margin.left - margin.right;
       let height = this.$refs.rootTopicLine.offsetHeight - margin.top - margin.bottom;
       _this.rootTopicLineWidth = width;
       _this.rootTopicLineHeight = height;
-      console.log(width,height)
+      if(_this.btnEdi){
+        width-=30
+        this.$refs.progressBar.style.width='calc(100% - 40px)'
+        this.$refs.iconVideo5.style.display = 'block'
+      }
+      else{
+      this.$refs.iconVideo5.style.display = 'none'
+        
+        this.$refs.progressBar.style.width='calc(100% - 10px)'
+      }
       d3.select("#rootTopicLine").select("svg").remove();
       var svg = d3.select("#rootTopicLine").append("svg")
         .attr("id", "rootTopicLineSvg")
@@ -227,7 +324,7 @@ export default {
         .attr("stroke", "rgb(200,200,200)")
         .attr("stroke-width", "5px");
 
-      let cxLinear = d3.scaleLinear([0, _this.videoDuration], [margin.left, width])
+      let cxLinear = d3.scaleLinear([0, _this.videoDuration], [0, width])
 
       let data = tools.deepClone(_this.data);
       let DivisionDataList = [];
@@ -245,16 +342,17 @@ export default {
           let cx = cxLinear(time);
           let endx = cxLinear(endTime);
           let color = mcolor[colorIndex];
-          if(data[i]['name']!='Test'){
+          // if (data[i]['name'] != 'Test') {
+          if (1) {
             color = mcolor[colorIndex];
             colorIndex++;
           }
-          else{
-            color ="rgb(250, 199, 88)";
+          else {
+            color = "rgb(250, 199, 88)";
           }
           // _this.colorMap[data[i]['id']] = colorIndex % color.length;
-          _this.drawRect(rootOriLineG, cx - 5, height / 2 - 5, 10, 10, height / 2, "division_" + data[i]["id"], "rootdivisionLine", "rgb(250,250,250)", 0, '', 1)
-          _this.drawRect(tootTopicEntG, cx, margin.top, endx - cx, height - margin.top - margin.bottom, height / 2, "rootEnt_" + data[i]['id'], "rootEnt",color , 2, "rgb(150,150,150)", 0.8)
+          _this.drawRect(rootOriLineG, cx - 1, height / 6, 4, height/3*2, 2, "division_" + data[i]["id"], "rootdivisionLine", "rgb(250,250,250)", 0, '', 1)
+          _this.drawRect(tootTopicEntG, cx, height/6, endx - cx, height/3*2, 1, "rootEnt_" + data[i]['id'], "rootEnt", color, 2, "rgb(250,250,250)", 0.8)
         }
       }
       DivisionDataList[DivisionDataList.length - 1]['nextId'] = "-1";
@@ -304,7 +402,7 @@ export default {
         .on("mouseup", function (d) {
           document.getElementById('rootTopicLineSvg').removeEventListener("mousemove", _this.moveRect); // 
           document.getElementById('editEnt').removeEventListener("mousemove", _this.moveRect); // 
-          // _this.$bus.$emit("graphData", _this.data);
+          _this.$bus.$emit("topicRectup", 1);
 
           // _this.$bus.$emit("treeData", _this.treeData);
         })
@@ -342,19 +440,19 @@ export default {
         document.getElementById('rootTopicLineSvg').removeEventListener("mousemove", _this.moveRect); // 
       }
     },
-    drawTxt(svg, tx, ty, txts, fill, size,idName) {
+    drawTxt(svg, tx, ty, txts, fill, size, idName) {
       svg.append("text")
         .attr("y", ty)
         .attr("x", tx)
-        .attr("id",idName)
+        .attr("id", idName)
         .attr("fill", fill)
         .attr("font-size", size)
         .text(txts)
-        
-        let textArea = document.getElementById(idName).getBBox();
+
+      let textArea = document.getElementById(idName).getBBox();
       return textArea;
-        // .style("text-anchor", anchor)//"middle")
-        // .attr("transform", `rotate(${roat} ${tx} ${ty})`);
+      // .style("text-anchor", anchor)//"middle")
+      // .attr("transform", `rotate(${roat} ${tx} ${ty})`);
     },
   },
   created() {
@@ -362,31 +460,35 @@ export default {
     this.$bus.$on('graphData', (val) => {
       _this.data = val;
       let ketText = [];
-      for(let i=0;i<_this.data.length;i++){
+      for (let i = 0; i < _this.data.length; i++) {
         let names = _this.data[i]['name'].split(" ");
-        for(let n in names){
+        for (let n in names) {
           ketText.push(names[n]);
         }
       }
       _this.ketText = ketText;
-      console.log("12321321321312312",_this.ketText)
       _this.drawrootTopicLine();
     });
-
+    this.$bus.$on('recognizeText', (val) => {
+      _this.recognizeText = val;
+    });
     this.$bus.$on('relData', (val) => {
       _this.relData = val;
     });
     this.$nextTick(() => {
       _this.videoWidth = this.$refs.videoDiv.offsetWidth
       _this.videoHeight = this.$refs.videoDiv.offsetHeight
-      console.log(this.$refs.videoDiv.offsetWidth)
     })
     // let sceneLiving = create.Scene();
     // let sceneTeaching = create.Scene();
 
   },
   mounted() {
-    var _this = this
+    var _this = this;
+    
+    this.$bus.$on('switchL', (val) => {
+      _this.switchL = val;
+    });
   }
 } 
 </script>

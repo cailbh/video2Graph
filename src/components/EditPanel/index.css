@@ -34,7 +34,7 @@
   height: 100%;
   width: 100%;
   padding-left: 30px;
-  padding-right: 30px;
+  padding-right: 10px;
   padding-top: 10px;
 }
 .rootdivisionLine{
@@ -53,11 +53,17 @@
 #editData .el-slider__bar {
   background-color: #f4f4d0;
 }
+#importanceScoreValue .el-slider__runway {
+  background: linear-gradient(90deg, rgb(203, 230, 209) 1%,rgb(22, 144, 207) 100%) !important
+}
+#importanceScoreValue .el-slider__bar {
+  background: rgba(0, 0, 0, 0)
+}
 .el-table_2_column_3{
   text-align: center;
 }
 .el-radio-button__inner{
-  width: 110px;
+  width: 66px;
   height: 30px;
   font-size: 14px !important;
   padding: 9px 0px 0px 0px !important;
@@ -73,7 +79,7 @@
   position: absolute;
   width: 40px;
   bottom: 35px;
-  transform: translateX(270px);
+  transform: translate(190px,23px);
 }
 #toolsButs{
   position: absolute;
@@ -83,4 +89,12 @@
 }
 .toolsBut{
   margin: 5px;
+}
+#editName{
+  font-size: 18px;
+    color: rgb(114, 114, 114);
+}
+.el-table td.el-table__cell div {
+  box-sizing: border-box;
+  margin-right: 3px;
 }

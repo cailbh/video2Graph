@@ -19,7 +19,7 @@
             <template slot-scope="scope">
               <div v-if="scope.row.key == 'Course name'">
                 <div style="float: left;">
-                {{ scope.row.value }}</div>
+                  {{ scope.row.value }}</div>
 
               </div>
               <div v-if="scope.row.key == 'Course section'">
@@ -55,64 +55,86 @@
             </template>
           </el-table-column>
         </el-table>
-                <div id="iconUploadVideoel" @click="videoUpClk">
-                  <img class="iconUpload" :src="upLoadUrl">
-                </div>
+        <div id="iconUploadVideoel" @click="videoUpClk">
+          <img class="iconUpload" :src="upLoadUrl">
+        </div>
       </div>
       <div id="topicControl">
         <el-table :data="topicControl" style="color:rgb(114, 114, 114);width;: 100%">
           <el-table-column prop="key" label="" width="340">
-            
+
             <template slot-scope="scope">
-              <div  v-if="scope.row.key == 'Topic Count Control'">
-                {{scope.row.key}}
+              <div v-if="scope.row.key == 'Topic Count Control'">
+                {{ scope.row.key }}
               </div>
               <div v-if="scope.row.key == 'count'" class="Level">
-                node:&nbsp&nbsp&nbsp{{nodeCount}}
+                node:&nbsp&nbsp&nbsp{{ nodeCount }}
               </div>
             </template>
           </el-table-column>
           <el-table-column prop="value" label="" width="260">
             <template slot-scope="scope">
-              <div  v-if="scope.row.key == 'Topic Count Control'">
-                
-                <el-slider v-model="TopicCount" :step="1" :min="0" :max="10" ></el-slider>
+              <div v-if="scope.row.key == 'Topic Count Control'">
+
+                <el-slider v-model="TopicCount" :step="1" :min="0" :max="10"></el-slider>
 
               </div>
               <div v-if="scope.row.key == 'count'" class="Level">
-                relationships:{{ relCount }}  
+                relationships:{{ relCount }}
               </div>
             </template>
           </el-table-column>
-      </el-table>
+        </el-table>
         <el-table :data="topicControl1" style="transform: translate(0,-27px); color:rgb(114, 114, 114);width;: 100%">
           <el-table-column prop="key" label="" width="240">
-            
+
             <template slot-scope="scope">
-              <div  v-if="scope.row.key == 'Topic Count Control'">
-                {{scope.row.key}}
+              <div v-if="scope.row.key == 'Topic Count Control'">
+                {{ scope.row.key }}
               </div>
               <div v-if="scope.row.key == 'count'" class="Level">
-                node:&nbsp&nbsp&nbsp{{nodeCount}}
+                concepts:&nbsp&nbsp&nbsp{{ nodeCount }}
               </div>
             </template>
           </el-table-column>
           <el-table-column prop="value" label="" width="300">
             <template slot-scope="scope">
-              <div  v-if="scope.row.key == 'Topic Count Control'">
-                
-                <el-slider v-model="TopicCount" :step="1" :min="0" :max="10" ></el-slider>
+              <div v-if="scope.row.key == 'Topic Count Control'">
+
+                <el-slider v-model="TopicCount" :step="1" :min="0" :max="10"></el-slider>
 
               </div>
               <div v-if="scope.row.key == 'count'" class="Level">
-                relationships:&nbsp&nbsp&nbsp{{ relCount }}  
+                relationships:&nbsp&nbsp&nbsp{{ relCount }}
               </div>
             </template>
           </el-table-column>
-      </el-table>
-    </div>
+        </el-table>
+      </div>
       <div id="tools">
-        <el-table :data="toolsData" style="color:rgb(167, 167, 167);width;: 100%">
+        <div class="controlPText1 controlPRow1">Relationships
+          <el-switch size="middle" v-model="switchL[0]" active-text="" inactive-text=""> </el-switch>
+        </div>
+        <div class="controlPText2 controlPRow2">similarity
+          <el-switch size="middle" v-model="switchL[1]" active-text="" inactive-text=""> </el-switch>
+        </div>
+        <div class="controlPText2 controlPRow2">association
+          <el-switch size="middle" v-model="switchL[2]" active-text="" inactive-text=""> </el-switch>
+        </div>
+        <div class="controlPText1 controlPRow1">Editable
+          <el-switch size="middle" v-model="switchL[3]" active-text="" inactive-text=""> </el-switch>
+        </div>
+        <div class="controlPText1 controlPRow1">Layout Level
+          <div class="sliderP">
+            <el-slider
+                  v-model="layoutSelect"
+                  :step="1"
+                  :min="0"
+                  :max="3"
+                  show-stops>
+                </el-slider>
+              </div></div>
+        <!-- <el-table :data="toolsData" style="color:rgb(167, 167, 167);width;: 100%">
           <el-table-column prop="key" label="" width="260">
           </el-table-column>
           <el-table-column prop="value" label="" width="260">
@@ -131,16 +153,11 @@
                   show-stops>
                 </el-slider>
               </div>
-              <!-- <el-tag :type="scope.row.value === '' ? 'primary' : 'success'" disable-transitions>{{ scope.row.tag -->
-              <!-- // }}</el-tag> -->
-              <!-- <div :class="scope.row.name" :height="scope.row.value === '' ? '10' : '0'" disable-transitions>
-                {{ scope.row.value }}
-              </div> -->
             </template>
           </el-table-column>
-      </el-table>
-    </div>
-    <!-- <div id="upLoad2S">
+        </el-table> -->
+      </div>
+      <!-- <div id="upLoad2S">
         <div id="upLoadSlides">
           <div class="upTitle">Slides</div>
           <div class="upImg">
@@ -176,17 +193,17 @@
           </div> -->
     </div>
     <div id="lectureStyleIconDiv">
-        <img class="icons" :src="lectureStyleIconUrl">
-      </div>
-      <div id="banshuDiv">
-        <img class="icons banshu" :src="banshuUrl">
-      </div>
-      <div id="kousuDiv">
-        <img class="icons kousu" :src="kousuUrl">
-      </div>
-      <div id="pptDiv">
-        <img class="icons ppt" :src="pptUrl">
-      </div>
+      <img class="icons" :src="lectureStyleIconUrl">
+    </div>
+    <div id="banshuDiv">
+      <img class="icons banshu" :src="banshuUrl">
+    </div>
+    <div id="kousuDiv">
+      <img class="icons kousu" :src="kousuUrl">
+    </div>
+    <div id="pptDiv">
+      <img class="icons ppt" :src="pptUrl">
+    </div>
   </div>
 </template>
   
@@ -195,8 +212,8 @@ import * as d3 from 'd3'
 import { onMounted, ref } from 'vue';
 import filenames from "@/utils/fileName";
 import domtoimage from 'dom-to-image';
-import TestJson from "@/assets/json/case2_fin.json";
-import TestRelJson from "@/assets/json/case2_fin_rel.json";
+import TestJson from "@/assets/json/case4_fin.json";
+import TestRelJson from "@/assets/json/case4_fin_rel.json";
 import tools from "@/utils/tools.js";
 import { select } from 'd3';
 
@@ -206,9 +223,14 @@ export default {
     return {
       data: TestJson,
       selectSession: "3.3",
-      TopicCount:"4",
-      nodeCount:"23",
-      relCount:"12",
+      TopicCount: 6,
+      // nodeCount: "29",
+      // relCount: "2",
+      nodeCount: "36",
+      relCount: "26",
+      // nodeCount: "37",
+      // relCount: "27",
+
       // nodeCount:"5",
       // relCount:"10",
       // nodeCount:"5",
@@ -225,52 +247,57 @@ export default {
       tableData: [{
         key: 'Course name',
         // nameinput: "Random Variables",
-      // nameinput: "Fundamental Graphs",
-      // nameinput: "Trees",
-        // value: 'Random Variables   ',
+        // nameinput: "Fundamental Graphs",
+        // nameinput: "Trees",
+        value: 'Random Variables   ',
         // value: 'Fundamental Graphs   ',
-        value: 'asdsadasds  Trees   ',
+        // value: 'Statistics   ',
+        // value: 'asdsadasds  Trees   ',
       }, {
         key: 'Course section',
         value: '',
       }, {
         key: 'Instructor',
-        // value: 'Erik Kole, Dr.',
+        // value: 'Guenther Walther',
+        // value: 'Erik Kole Dr.',
         // value: 'Cristian Felix',
         value: 'Alexander S. Kulikov',
       }, {
         key: 'Video duration',
-        // value: '11m 12s',
+        value: '11m 12s',
         // value: '9m 10s',
-        value: '8m 01s',
+        // value: '11m 08s',
+        // value: '8m 01s',
       }, {
         key: 'Lecture Style',
         value: '',
       }
       ],
-      switchL:{
-        "1":true,
-        "2":true,
-        "3":true
+      switchL: {
+        "0": false,
+        "1": false,
+        "2": false,
+        "3": false,
+        "4": false
       },
       lectureStyleIconUrl: require("@/assets/img/lecture style.png"),
       banshuUrl: require("@/assets/img/lecture style banshu.png"),
       kousuUrl: require("@/assets/img/lecture style kousu.png"),
       pptUrl: require("@/assets/img/lecture style ppt.png"),
-      layoutSelect:"3",
+      layoutSelect: 3,
       toolsData: [{
         key: 'Relationships',
         value: '1',
       }, {
         key: 'similarity',
         value: '3',
-      },  {
-        key: 'asociation',
+      }, {
+        key: 'association',
         value: '',
       }, {
         key: 'Editable',
         value: '2',
-      },  {
+      }, {
         key: 'Layout Level',
         value: '',
       }
@@ -290,7 +317,12 @@ export default {
   watch: {
     type(val) {
     },
-
+    switchL:{
+      deep:true,
+      handler(val){
+        this.$bus.$emit("switchL", val);
+      }
+    }
   },
   methods: {
     handleCommand(command) {
@@ -341,6 +373,4 @@ export default {
 } 
 </script>
 
-<style>
-@import './index.css';
-</style>
+<style>@import './index.css';</style>
