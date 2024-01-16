@@ -86,11 +86,13 @@
     scrollbar-width: none;
     /* float: left; */
     position:absolute;
-    top: 744px;
-    right: 595px;
+    top: 733px;
+    right: 604px;
     width: 489px;
-    height: 697px;
+    height: 685px;
     z-index: 1000;
+
+    
   }
   #overviewPanel{
     scrollbar-width: none;

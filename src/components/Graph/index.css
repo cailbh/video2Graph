@@ -140,10 +140,10 @@
 }
 #assistGraphPanel{
   position: absolute;
-  top: 744px;
-  right: 595px;
+  top: 733px;
+  right: 604px;
   width: 489px;
-  height: 697px;
+  height: 685px;
   /*var(--graphDivHeightStyle);*/
   /* top: 0px; */
   background-color: #fff;
@@ -166,7 +166,7 @@
 }
 #VideoEditPanel{
   position: absolute;
-  top: 744px;
+  top: 733px;
   left: 678px;
   width: 946px;
   height: 553px;
@@ -277,18 +277,30 @@
     /* background: rgba(64, 158, 255, 0.3); */
 }
 #slidesUp{
-  width: 100%;
-    height: 50%;
+    width: calc(100% - 10px);
+    height: calc(50% - 40px);
     z-index: 100;
+    left: 5px;
     float: left;
     position: absolute;
-    top: 0;
+    top: 60px;
 }
 #slidesDown{
-  width: 100%;
-    height: 50%;
+    width: calc(100% - 10px);
+    height: calc(50% - 40px);
+    z-index: 100;
+    left: 5px;
+    float: left;
+    position: absolute;
+    bottom: 5px;
+}
+
+#slidesBack{
+    width: 100%;
+    height: calc(100% - 50px);
     z-index: 100;
     float: left;
     position: absolute;
-    bottom: 0;
+    background-color: #fff;
+    top: 50px;
 }

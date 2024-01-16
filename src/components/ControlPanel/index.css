@@ -159,9 +159,9 @@
   border-radius: 30px;
   border: solid rgb(244, 244, 244) 1px;
   /* background: linear-gradient(90deg, #6f8be0 20%,#ff9c9c 20%,#ff9c9c 65%,rgb(240, 239, 197) 65%) */
-  background: linear-gradient(90deg, #6f8be0 15%,#ff9c9c 15%,#ff9c9c 60%,rgb(240, 239, 197) 60%)
+  /* background: linear-gradient(90deg, #6f8be0 15%,#ff9c9c 15%,#ff9c9c 60%,rgb(240, 239, 197) 60%) */
   /* background: linear-gradient(90deg, #ff9c9c 25%,rgb(240, 239, 197) 25%,rgb(240, 239, 197) 55%) */
-  /* background: linear-gradient(90deg, #ff9c9c 45%,rgb(240, 239, 197) 45%,rgb(240, 239, 197) 55%) */
+  background: linear-gradient(90deg, #ff9c9c 45%,rgb(240, 239, 197) 45%,rgb(240, 239, 197) 55%)
 }
 #banshuDiv{
   position: absolute;
@@ -171,9 +171,10 @@
   left: 387px;
   /* left: 219px; */
   /* left: -219px; */
-  /* left: 1219px; */
+  left: 1219px;
   z-index: 99999;
-  /* overflow: hidden; */
+  overflow: hidden;
+  
 }
 #kousuDiv{
   position: absolute;
@@ -181,10 +182,10 @@
   height: 25px;
   top: 364px;
   /* left: 264px; */
-  /* left: 246px; */
+  left: 246px;
   /* left: 225px; */
   /* left: 216px; */
-  left: 208px;
+  /* left: 208px; */
   z-index: 99999;
   overflow: hidden;
 }
@@ -197,10 +198,10 @@
   height: 25px;
   top: 364px;
   /* left: 359px; */
-  /* left: 363px; */
+  left: 363px;
   /* left: 336px; */
   /* left: 295px; */
-  left: 275px;
+  /* left: 275px; */
   z-index: 99999;
   /* border-left: 30px solid transparent;
 

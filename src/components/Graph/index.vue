@@ -16,7 +16,8 @@
     <!-- <div id="moveLeft" ref="moveGraphLeft"></div>
                     <div id="moveRight" ref="moveGraphRight"></div> -->
     <div id="assistGraphPanel" class="panel">
-      <div class="panelHead"></div>
+      <div class="panelHead">SupportPanel</div>
+      <div id="slidesBack" v-show="showIMG"></div>
       <img id="slidesUp" :src="slidesUpUrl"  v-show="showIMG">
       <img id="slidesDown" :src="slidesDownUrl" v-show="showIMG">
     </div>
@@ -36,17 +37,17 @@
       </div>
     </div>
 
-    <div id="tipDiv">
+    <!-- <div id="tipDiv">
       <img class="tip" :src="tipUrl">
-    </div>
+    </div> -->
     <div id="zoomInDiv" @click="zoomInLayoutClk">
     </div>
-    <div id="zoomOutDiv" @click="zoomOutLayoutClk">
+    <!-- <div id="zoomOutDiv" @click="zoomOutLayoutClk">
       <img class="icons" :src="zoomOutUrl">
-    </div>
-    <div id="editToolDiv" @click="editToolClk">
+    </div> -->
+    <!-- <div id="editToolDiv" @click="editToolClk">
       <img class="icons" :src="editToolUrl">
-    </div>
+    </div> -->
     <div id="VideoEditPanel" ref="VideoEditPanel" class="" v-show="VideoEditPanelShow">
     </div>
   </div>
