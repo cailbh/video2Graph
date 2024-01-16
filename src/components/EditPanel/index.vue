@@ -77,10 +77,9 @@
 <script>
 import * as d3 from 'd3'
 import { onMounted, ref } from 'vue';
-import filenames from "@/utils/fileName";
 import domtoimage from 'dom-to-image';
-import TestJson from "@/assets/json/case4_fin.json";
-import TestRelJson from "@/assets/json/case4_fin_rel.json";
+import TestJson from "@/assets/json/case1_fin.json";
+import TestRelJson from "@/assets/json/case1_fin_rel.json";
 import tools from "@/utils/tools.js";
 
 export default {
@@ -88,8 +87,8 @@ export default {
   data() {
     return {
       typeRadio: "concept",
-      data: TestJson,
-      relData: TestRelJson,
+      data: TestJson,  //test in the online demo
+      relData: TestRelJson,  //test in the online demo
       treeData: null,
       toolsState: '',
       confirmUrl: require("@/assets/img/confirm.svg"),
@@ -1676,6 +1675,15 @@ export default {
       console.log(val)
       _this.importanceLinear = val;
     });
+
+    
+    // disabled in the online demo
+    // this.$bus.$on('entData', (val) => {
+    //   _this.data = val;
+    // });
+    // this.$bus.$on('relData', (val) => {
+    //   _this.relData = val;
+    // });
   },
   // beforeDestroy() {
   //   clearInterval(this.moveTimer);

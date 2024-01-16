@@ -38,7 +38,6 @@
 </template>
 
 <script>
-import Head from "@/components/Header/index.vue"
 import Video from '@/components/Video/index.vue'
 import Graph from '@/components/Graph/index.vue'
 import ControlPanel from '@/components/ControlPanel/index.vue'
@@ -46,7 +45,7 @@ import EditPanel from '@/components/EditPanel/index.vue'
 import OverviewPanel from '@/components/OverviewPanel/index.vue'
 export default {
   // components: { scene,Head,homeLeft,homeRight,homeBottom,navBar,uiBtns},
-  components: { Head, Video, Graph, ControlPanel,OverviewPanel,EditPanel},
+  components: { Video, Graph, ControlPanel,OverviewPanel,EditPanel},
   /* eslint-disable no-unused-vars */
   data() {
     return {
@@ -106,6 +105,7 @@ export default {
   },
   watch: {
     toolState(val){
+      console.log(val)
       if(val=='edit')
         this.showEdit = true;
       else
@@ -125,6 +125,22 @@ export default {
     },
   },
   methods: {
+    getData(){
+      const _this = this;
+      let data = [];
+      this.$http
+        .post("/api/ent/getData", {}, {})
+        .then((response) => {
+          _this.entData = response.body;
+          _this.$bus.$emit("entData", _this.entData);
+        });
+      this.$http
+        .post("/api/rel/getData", {}, {})
+        .then((response) => {
+          _this.relData = response.body;
+          _this.$bus.$emit("relData", _this.relData);
+        });
+    },
     getSelectEnt(val){
       console.log(val)
       this.selectEntId = val;
@@ -150,8 +166,13 @@ export default {
     var _this = this;
   },
   mounted() {
+    const _this = this;
     this.$el.style.setProperty("--heightStyle", this.windowHeight + "px");
     this.showVideo = true;
+        
+    this.$bus.$on('toolState', (val) => {
+      _this.toolState = val;
+    });
     // this.getData();
   },
   beforeDestroy() {

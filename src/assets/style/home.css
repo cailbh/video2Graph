@@ -90,6 +90,7 @@
     right: 595px;
     width: 489px;
     height: 697px;
+    z-index: 1000;
   }
   #overviewPanel{
     scrollbar-width: none;

@@ -28,6 +28,13 @@ function time2seconds(time) {
   let s = lst[2];
   return parseInt(h) * 3600 + parseInt(m) * 60 + parseInt(s);
 }
+function time2seconds2(time) {
+  console.log(time)
+  let lst = time.split(".");
+  let m = lst[0];
+  let s = lst[1];
+  return parseInt(m) * 60 + parseInt(s);
+}
 function seconds2time(seconds) {
   let m = Math.floor(seconds / 60);
   let s = seconds % 60;
@@ -62,6 +69,9 @@ export default {
    deepClone:(obj)=>{return deepClone(obj);},
    time2seconds:(time)=>{
     return time2seconds(time);
+   },
+   time2seconds2:(time)=>{
+    return time2seconds2(time);
    },
    seconds2time:(seconds)=>{
     return seconds2time(seconds);

@@ -1,0 +1,614 @@
+[
+    {
+        "id": "0",
+        "layout": "0",
+        "name": "Outline",
+        "time": [
+            "00:00:00",
+            "00:00:01"
+        ],
+        "text": "",
+        "attribute": {
+            "importance": 3,
+            "duration": "",
+            "relevance": 3,
+            "expressions": {
+                "1": [
+                    [
+                        "00:00:00",
+                        "00:00:01"
+                    ]
+                ],
+                "2": [
+                    [
+                        "00:00:01",
+                        "00:00:02"
+                    ]
+                ],
+                "3": []
+            }
+        },
+        "timeFatherId": "-1",
+        "timeSonId": "1",
+        "basicRel": [],
+        "similarityRel": [
+            "5"
+        ],
+        "son": [
+            "1",
+            "2"
+        ],
+        "father": [
+            "-1"
+        ],
+        "type": "0",
+        "totalDuration": 76
+    },
+    {
+        "id": "1",
+        "layout": "1",
+        "name": "Chaining Implementation and Analysis",
+        "time": [
+            "00:00:01",
+            "00:00:08"
+        ],
+        "text": "",
+        "attribute": {
+            "importance": 0,
+            "duration": "",
+            "relevance": 0,
+            "expressions": {
+                "1": [
+                    [
+                        "00:00:01",
+                        "00:00:08"
+                    ]
+                ],
+                "2": [
+                    [
+                        "00:00:01",
+                        "00:00:08"
+                    ]
+                ],
+                "3": []
+            }
+        },
+        "timeFatherId": "0",
+        "timeSonId": "2",
+        "basicRel": [],
+        "similarityRel": [],
+        "son": [],
+        "father": [
+            "0"
+        ],
+        "type": "0",
+        "totalDuration": 8
+    },
+    {
+        "id": "2",
+        "layout": "0",
+        "name": "Implementation",
+        "time": [
+            "00:00:08",
+            "00:00:13"
+        ],
+        "text": "",
+        "attribute": {
+            "importance": 2,
+            "duration": "",
+            "relevance": 2,
+            "expressions": {
+                "1": [
+                    [
+                        "00:00:08",
+                        "00:00:13"
+                    ]
+                ],
+                "2": [
+                    [
+                        "00:00:08",
+                        "00:00:13"
+                    ]
+                ],
+                "3": []
+            }
+        },
+        "timeFatherId": "1",
+        "timeSonId": "3",
+        "basicRel": [],
+        "similarityRel": [],
+        "son": [
+            "3",
+            "4"
+        ],
+        "father": [
+            "0"
+        ],
+        "type": "0",
+        "totalDuration": 58
+    },
+    {
+        "id": "3",
+        "layout": "1",
+        "name": "HasKey",
+        "time": [
+            "00:00:13",
+            "00:01:08"
+        ],
+        "text": "",
+        "attribute": {
+            "importance": 2,
+            "duration": "",
+            "relevance": 2,
+            "expressions": {
+                "1": [
+                    [
+                        "00:00:13",
+                        "00:01:08"
+                    ]
+                ],
+                "2": [
+                    [
+                        "00:00:13",
+                        "00:01:08"
+                    ]
+                ],
+                "3": []
+            }
+        },
+        "timeFatherId": "2",
+        "timeSonId": "4",
+        "basicRel": [
+            "7",
+            "8"
+        ],
+        "similarityRel": [],
+        "son": [],
+        "father": [
+            "2"
+        ],
+        "type": "0",
+        "totalDuration": 22
+    },
+    {
+        "id": "4",
+        "layout": "1",
+        "name": "Example",
+        "time": [
+            "00:01:08",
+            "00:02:02"
+        ],
+        "text": "",
+        "attribute": {
+            "importance": 0,
+            "duration": "",
+            "relevance": 0,
+            "expressions": {
+                "1": [
+                    [
+                        "00:01:08",
+                        "00:02:02"
+                    ]
+                ],
+                "2": [
+                    [
+                        "00:01:08",
+                        "00:02:02"
+                    ]
+                ],
+                "3": []
+            }
+        },
+        "timeFatherId": "3",
+        "timeSonId": "5",
+        "basicRel": [],
+        "similarityRel": [],
+        "son": [],
+        "father": [
+            "2"
+        ],
+        "type": "1",
+        "totalDuration": 26
+    },
+    {
+        "id": "5",
+        "layout": "1",
+        "name": "Get",
+        "time": [
+            "00:02:02",
+            "00:02:10"
+        ],
+        "text": "",
+        "attribute": {
+            "importance": 2,
+            "duration": "",
+            "relevance": 2,
+            "expressions": {
+                "1": [
+                    [
+                        "00:02:02",
+                        "00:02:10"
+                    ]
+                ],
+                "2": [
+                    [
+                        "00:02:02",
+                        "00:02:10"
+                    ]
+                ],
+                "3": []
+            }
+        },
+        "timeFatherId": "4",
+        "timeSonId": "6",
+        "basicRel": [],
+        "similarityRel": [
+            "0"
+        ],
+        "son": [
+            "6"
+        ],
+        "father": [
+            "-1"
+        ],
+        "type": "0",
+        "totalDuration": 76
+    },
+    {
+        "id": "6",
+        "layout": "1",
+        "name": "Example",
+        "time": [
+            "00:02:10",
+            "00:02:50"
+        ],
+        "text": "",
+        "attribute": {
+            "importance": 7,
+            "duration": "",
+            "relevance": 7,
+            "expressions": {
+                "1": [
+                    [
+                        "00:02:10",
+                        "00:02:50"
+                    ]
+                ],
+                "2": [
+                    [
+                        "00:02:10",
+                        "00:02:50"
+                    ]
+                ],
+                "3": []
+            }
+        },
+        "timeFatherId": "5",
+        "timeSonId": "7",
+        "basicRel": [
+            "10",
+            "18",
+            "19",
+            "20"
+        ],
+        "similarityRel": [
+            "9"
+        ],
+        "son": [
+            "7",
+            "8"
+        ],
+        "father": [
+            "5"
+        ],
+        "type": "0",
+        "totalDuration": 70
+    },
+    {
+        "id": "7",
+        "layout": "1",
+        "name": "Set",
+        "time": [
+            "00:02:50",
+            "00:03:01"
+        ],
+        "text": "",
+        "attribute": {
+            "importance": 4,
+            "duration": "",
+            "relevance": 4,
+            "expressions": {
+                "1": [
+                    [
+                        "00:02:50",
+                        "00:03:01"
+                    ]
+                ],
+                "2": [
+                    [
+                        "00:02:50",
+                        "00:03:01"
+                    ]
+                ],
+                "3": []
+            }
+        },
+        "timeFatherId": "6",
+        "timeSonId": "8",
+        "basicRel": [
+            "3",
+            "14",
+            "25"
+        ],
+        "similarityRel": [
+            "18"
+        ],
+        "son": [],
+        "father": [
+            "6"
+        ],
+        "type": "0",
+        "totalDuration": 41
+    },
+    {
+        "id": "8",
+        "layout": "1",
+        "name": "Example",
+        "time": [
+            "00:03:01",
+            "00:04:07"
+        ],
+        "text": "",
+        "attribute": {
+            "importance": 6,
+            "duration": "",
+            "relevance": 6,
+            "expressions": {
+                "1": [
+                    [
+                        "00:03:01",
+                        "00:04:07"
+                    ]
+                ],
+                "2": [
+                    [
+                        "00:03:01",
+                        "00:04:07"
+                    ]
+                ],
+                "3": []
+            }
+        },
+        "timeFatherId": "7",
+        "timeSonId": "9",
+        "basicRel": [
+            "3",
+            "10",
+            "14",
+            "26",
+            "15"
+        ],
+        "similarityRel": [
+            "19"
+        ],
+        "son": [],
+        "father": [
+            "6"
+        ],
+        "type": "1",
+        "totalDuration": 27
+    },
+    {
+        "id": "9",
+        "layout": "0",
+        "name": "Asymptotics",
+        "time": [
+            "00:04:07",
+            "00:04:12"
+        ],
+        "text": "",
+        "attribute": {
+            "importance": 2,
+            "duration": "",
+            "relevance": 2,
+            "expressions": {
+                "1": [
+                    [
+                        "00:04:07",
+                        "00:04:12"
+                    ]
+                ],
+                "2": [
+                    [
+                        "00:04:07",
+                        "00:04:12"
+                    ]
+                ],
+                "3": []
+            }
+        },
+        "timeFatherId": "8",
+        "timeSonId": "10",
+        "basicRel": [],
+        "similarityRel": [
+            "6"
+        ],
+        "son": [
+            "10"
+        ],
+        "father": [
+            "-1"
+        ],
+        "type": "0",
+        "totalDuration": 67
+    },
+    {
+        "id": "10",
+        "layout": "1",
+        "name": "Lemma",
+        "time": [
+            "00:04:12",
+            "00:04:26"
+        ],
+        "text": "",
+        "attribute": {
+            "importance": 2,
+            "duration": "",
+            "relevance": 2,
+            "expressions": {
+                "1": [
+                    [
+                        "00:04:12",
+                        "00:04:26"
+                    ]
+                ],
+                "2": [
+                    [
+                        "00:04:12",
+                        "00:04:26"
+                    ]
+                ],
+                "3": []
+            }
+        },
+        "timeFatherId": "9",
+        "timeSonId": "11",
+        "basicRel": [
+            "6",
+            "8"
+        ],
+        "similarityRel": [],
+        "son": [],
+        "father": [
+            "9"
+        ],
+        "type": "1",
+        "totalDuration": 24
+    },
+    {
+        "id": "11",
+        "layout": "1",
+        "name": "Proof",
+        "time": [
+            "00:04:26",
+            "00:05:03"
+        ],
+        "text": "",
+        "attribute": {
+            "importance": 1,
+            "duration": "",
+            "relevance": 1,
+            "expressions": {
+                "1": [
+                    [
+                        "00:04:26",
+                        "00:05:03"
+                    ]
+                ],
+                "2": [
+                    [
+                        "00:04:26",
+                        "00:05:03"
+                    ]
+                ],
+                "3": []
+            }
+        },
+        "timeFatherId": "10",
+        "timeSonId": "12",
+        "basicRel": [],
+        "similarityRel": [],
+        "son": [
+            "12"
+        ],
+        "father": [
+            "-1"
+        ],
+        "type": "0",
+        "totalDuration": 82
+    },
+    {
+        "id": "12",
+        "layout": "1",
+        "name": "Lemma",
+        "time": [
+            "00:05:03",
+            "00:05:07"
+        ],
+        "text": "",
+        "attribute": {
+            "importance": 3,
+            "duration": "",
+            "relevance": 3,
+            "expressions": {
+                "1": [
+                    [
+                        "00:05:03",
+                        "00:05:07"
+                    ]
+                ],
+                "2": [
+                    [
+                        "00:05:03",
+                        "00:05:07"
+                    ]
+                ],
+                "3": []
+            }
+        },
+        "timeFatherId": "11",
+        "timeSonId": "13",
+        "basicRel": [],
+        "similarityRel": [],
+        "son": [
+            "13",
+            "14",
+            "15"
+        ],
+        "father": [
+            "11"
+        ],
+        "type": "0",
+        "totalDuration": 73
+    },
+    {
+        "id": "13",
+        "layout": "1",
+        "name": "Proof",
+        "time": [
+            "00:05:07",
+            "00:06:18"
+        ],
+        "text": "",
+        "attribute": {
+            "importance": 0,
+            "duration": "",
+            "relevance": 0,
+            "expressions": {
+                "1": [
+                    [
+                        "00:05:07",
+                        "00:06:18"
+                    ]
+                ],
+                "2": [
+                    [
+                        "00:05:07",
+                        "00:06:18"
+                    ]
+                ],
+                "3": []
+            }
+        },
+        "timeFatherId": "12",
+        "timeSonId": "14",
+        "basicRel": [],
+        "similarityRel": [],
+        "son": [],
+        "father": [
+            "12"
+        ],
+        "type": "0",
+        "totalDuration": 22
+    }
+]

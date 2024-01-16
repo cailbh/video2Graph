@@ -18,7 +18,8 @@
           <el-table-column prop="value" label="" width="260">
             <template slot-scope="scope">
               <div v-if="scope.row.key == 'Course name'">
-                <div style="float: left;">
+                <!-- <div style="float: left;"> -->
+                <div style="margin-right: 20px;">
                   {{ scope.row.value }}</div>
 
               </div>
@@ -32,6 +33,8 @@
                     <el-dropdown-item command="8.P.1">8.P.1</el-dropdown-item>
                     <el-dropdown-item command="3.1.3">3.1.3</el-dropdown-item>
                     <el-dropdown-item command="3.3">3.3</el-dropdown-item>
+                    <el-dropdown-item command="3.3">3.3</el-dropdown-item>
+                    <el-dropdown-item command="2.3">2.3</el-dropdown-item>
                     <!-- <el-dropdown-item disabled>双皮奶</el-dropdown-item> -->
                     <!-- <el-dropdown-item divided>蚵仔煎</el-dropdown-item> -->
                   </el-dropdown-menu>
@@ -210,10 +213,9 @@
 <script>
 import * as d3 from 'd3'
 import { onMounted, ref } from 'vue';
-import filenames from "@/utils/fileName";
 import domtoimage from 'dom-to-image';
-import TestJson from "@/assets/json/case4_fin.json";
-import TestRelJson from "@/assets/json/case4_fin_rel.json";
+import TestJson from "@/assets/json/case5_fin.json";
+import TestRelJson from "@/assets/json/case5_fin_rel.json";
 import tools from "@/utils/tools.js";
 import { select } from 'd3';
 
@@ -221,13 +223,31 @@ export default {
   props: ["videoTime"],
   data() {
     return {
-      data: TestJson,
-      selectSession: "3.3",
-      TopicCount: 6,
+      data: TestJson,  //test in the online demo
+      // selectSession: "1.3",//c5
+      selectSession: "4.5",//c5
+      selectSession: "3.3",//c3
+      // selectSession: "4.6",//c6
+
+      TopicCount: 6,//c5
+      // TopicCount: 3,//c6
+
+      // TopicCount: 6,
       // nodeCount: "29",
       // relCount: "2",
-      nodeCount: "36",
-      relCount: "26",
+
+      // nodeCount: "23",//c2
+      // relCount: "13",//c2
+
+      nodeCount: "36",//c3
+      relCount: "26",//c3
+
+      // nodeCount: "33",//c5
+      // relCount: "14",//c5
+
+      // nodeCount: "14",//c6
+      // relCount: "4",//c6
+
       // nodeCount: "37",
       // relCount: "27",
 
@@ -249,7 +269,8 @@ export default {
         // nameinput: "Random Variables",
         // nameinput: "Fundamental Graphs",
         // nameinput: "Trees",
-        value: 'Random Variables   ',
+        value: 'Random Variables   ',//
+        // value: 'Data Structures   ',//case5
         // value: 'Fundamental Graphs   ',
         // value: 'Statistics   ',
         // value: 'asdsadasds  Trees   ',
@@ -259,6 +280,7 @@ export default {
       }, {
         key: 'Instructor',
         // value: 'Guenther Walther',
+        // value: 'Siddhant S.',//c5
         // value: 'Erik Kole Dr.',
         // value: 'Cristian Felix',
         value: 'Alexander S. Kulikov',
@@ -267,6 +289,8 @@ export default {
         value: '11m 12s',
         // value: '9m 10s',
         // value: '11m 08s',
+        // value: '7m 18s',//c5
+        // value: '6m 18s',//c6
         // value: '8m 01s',
       }, {
         key: 'Lecture Style',
@@ -321,6 +345,13 @@ export default {
       deep:true,
       handler(val){
         this.$bus.$emit("switchL", val);
+        if(val[3]==true){
+          console.log(val);
+          this.$bus.$emit("toolState",'edit');
+        }
+        else if(val[3]==false){
+          this.$bus.$emit("toolState",'unEdit');
+        }
       }
     }
   },

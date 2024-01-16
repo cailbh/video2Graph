@@ -48,11 +48,11 @@
 
 import * as d3 from 'd3'
 import { onMounted, ref } from 'vue';
-import filenames from "@/utils/fileName";
 import domtoimage from 'dom-to-image';
 import VideoPlay from '@/components/VideoPlay';
 import tools from "@/utils/tools.js";
-import scriptsData from '@/assets/json/case1scriptsData.json'
+// import scriptsData from '@/assets/json/case1scriptsData.json'
+import scriptsData from '@/assets/json/c5.json'
 
 //场景元素div
 export default {
@@ -73,6 +73,8 @@ export default {
       data: '',
       relData: '',
       timeDot: 0,
+      // videoDuration: 378,//c6
+      // videoDuration: 438,//c5
       videoDuration: 672,
       // videoDuration: 550,
       // videoDuration: 668,
@@ -87,8 +89,8 @@ export default {
       videoUrl3:require('@/assets/img/音量.png'),
       videoUrl4:require('@/assets/img/全屏.png'),
       videoUrl5:require('@/assets/img/addTopic.png'),
-      // videoUrl: require('@/assets/videos/case3.mp4'),
       videoUrl: require('@/assets/videos/case3.mp4'),
+      // videoUrl: require('@/assets/videos/case2.mp4'),
       // 视频封面支持https或require本地地址
       videoCover: require('@/assets/img/tt.jpg'),
 
@@ -246,7 +248,7 @@ export default {
       let margin = _this.margin;
       let ketText = _this.ketText;
       let width = this.$refs.videoScript.offsetWidth - margin.left - margin.right;
-      let height = this.$refs.videoScript.offsetHeight - margin.top - margin.bottom;
+      let height = this.$refs.videoScript.offsetHeight - margin.top - margin.bottom+10;
       d3.select("#videoScript").select("svg").remove();
       var svg = d3.select("#videoScript").append("svg")
         .attr("id", "videoScriptSvg")
@@ -264,7 +266,7 @@ export default {
         // let color = colorMap[ids[i]];
         // _this.drawRect(g, tx, ty, w, h, rx, ry, color, 0.2, color)
         let textColor = "black";
-        let stopList = ["of", "the", "and", "be", "two", "x", "y", "z"];
+        let stopList = ["of", "the", "and", "be", "two", "x", "y", "z", "a", "to"];
         if ((ketText.indexOf(name) != -1) && (stopList.indexOf(name) == -1)) {
           textColor = "red";
         }
@@ -489,6 +491,14 @@ export default {
     this.$bus.$on('switchL', (val) => {
       _this.switchL = val;
     });
+    
+    // disabled in the online demo
+    // this.$bus.$on('entData', (val) => {
+    //   _this.data = val;
+    // });
+    // this.$bus.$on('relData', (val) => {
+    //   _this.relData = val;
+    // });
   }
 } 
 </script>

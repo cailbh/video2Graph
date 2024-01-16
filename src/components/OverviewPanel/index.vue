@@ -19,10 +19,9 @@
 <script>
 import * as d3 from 'd3'
 import { onMounted, ref } from 'vue';
-import filenames from "@/utils/fileName";
 import domtoimage from 'dom-to-image';
-import TestJson from "@/assets/json/case1_fin.json";
-import TestRelJson from "@/assets/json/case1_fin_rel.json";
+import TestJson from "@/assets/json/case3_fin.json";
+import TestRelJson from "@/assets/json/case3_fin_rel.json";
 import tools from "@/utils/tools.js";
 import { color } from 'd3';
 
@@ -30,8 +29,8 @@ export default {
   props: ["videoTime"],
   data() {
     return {
-      data: TestJson,
-      relData: TestRelJson,
+      data: TestJson,//test in the online demo
+      relData: TestRelJson,//test in the online demo
       fatherMap: {},
       treeData: [],
       nameTextIds: [],
@@ -161,7 +160,7 @@ export default {
       var svg = d3.select("#overviewPanelDiv").append("svg")
         .attr("width", width)
         .attr("height", height)
-        .attr("transform", "translate(5,-10)");
+        .attr("transform", "translate(5,10)");
       let sunTreeG = svg.append('g')
         .attr("width", width)
         .attr("height", height);
@@ -369,38 +368,51 @@ export default {
     },
     drawSunTree(svg, x, y, data, layout, totalDur, startAngle, endAngle, startHeight, curcolor, father) {
       const _this = this;
+      // totalDur+=15
       var curStartR = tools.deepClone(startAngle);//Math.PI/4;
       let colorList = this.mcolor;
       let stepLayHight = 100;
       if (layout == '-1') {
-        stepLayHight = 400;
+        // stepLayHight = 400;//c3
+        stepLayHight = 450;//c5
       }
       if (layout == '0') {
-        stepLayHight = 80;
+        // stepLayHight = 80;//c3
+        stepLayHight = 120;//c5
       }
       if (layout == '1') {
-        stepLayHight = 30;
+        // stepLayHight = 30;//c3
+        stepLayHight = 20;//c5
+        
       }
       if (layout == '2') {
         stepLayHight = 30;
       }
+      if (layout == '3') {
+        stepLayHight = 1;
+      }
       let endHeight = startHeight + stepLayHight;
       // console.log(endHeight,layout,stepLayHight)
-      let Color_linear = d3.scaleLinear().domain([0, totalDur]).range([0, 1]);
+      let Color_linear = d3.scaleLinear().domain([0, totalDur]).range([0.3, 1]);
       let Compute_color = d3.interpolate("white", curcolor);
       let perDur = 0;
       let curArcScale_linear = d3.scaleLinear([0, totalDur], [startAngle, endAngle]);
-      let curHeightScale_linear = d3.scaleLinear([0, Math.sqrt(totalDur)], [startHeight * 1.2, endHeight]);
+      let curHeightScale_linear = d3.scaleLinear([0, Math.sqrt(totalDur)], [startHeight * 1, endHeight]);
       for (let c in data['children']) {
         _this.fatherMap[data['children'][c]['id']] = father;
         if ((data['children'][c]['name'] != 'Test') || (data['children'][c]['layout'] != '0')) {
           let curTotalDur = data['children'][c]['totalDuration'];
+          // if(curTotalDur<20){curTotalDur=20}
           let endAnglet = curArcScale_linear(perDur + curTotalDur);
           perDur += curTotalDur
           var dataset = { startAngle: curStartR + 0.05, endAngle: endAnglet - 0.05 };
-          let h = ((curHeightScale_linear((Math.sqrt(curTotalDur)))))
+          let h = ((curHeightScale_linear((Math.sqrt(curTotalDur)))));
+          if(h - startHeight >200){h=startHeight + 160}
+          if(h - startHeight <30){h=startHeight +30}
+          console.log(layout)
+          if(layout == "2"){h=startHeight +20}
           var arcPath = d3.arc()
-            .innerRadius(startHeight + 20)
+            .innerRadius(startHeight + 15)
             .outerRadius(h)
           var pathArc = arcPath(dataset);
           let color = "";
@@ -410,7 +422,7 @@ export default {
           else { color = Compute_color(Color_linear(curTotalDur)) }
           _this.colorMap[data['children'][c]['id']] = color;
           _this.drawArc(svg, x, y, pathArc, color, color, `curOverArc fa_${father} na_${data['children'][c]['id']}`, '0', 10);
-          _this.drawSunTree(svg, x, y, data['children'][c], layout + 1, curTotalDur, dataset.startAngle, dataset.endAngle, curHeightScale_linear(Math.sqrt(curTotalDur)), color, data['children'][c]['id']);
+          _this.drawSunTree(svg, x, y, data['children'][c], layout + 1, curTotalDur, dataset.startAngle, dataset.endAngle, h, color, data['children'][c]['id']);
 
           if ((parseInt(layout) < 1)) {
             let name = data['children'][c]['name'];
@@ -613,6 +625,13 @@ export default {
       // _this.drawoverView();
     });
 
+    // disabled in the online demo
+    // this.$bus.$on('entData', (val) => {
+    //   _this.data = val;
+    // });
+    // this.$bus.$on('relData', (val) => {
+    //   _this.relData = val;
+    // });
 
   },
   // beforeDestroy() {

@@ -17,6 +17,8 @@
                     <div id="moveRight" ref="moveGraphRight"></div> -->
     <div id="assistGraphPanel" class="panel">
       <div class="panelHead"></div>
+      <img id="slidesUp" :src="slidesUpUrl"  v-show="showIMG">
+      <img id="slidesDown" :src="slidesDownUrl" v-show="showIMG">
     </div>
 
     <div v-show="editDivShow" ref="editDiv" id="editDiv" class="panel">
@@ -54,10 +56,10 @@
 import * as d3 from 'd3'
 import { Loading } from 'element-ui'
 import { onMounted, ref } from 'vue';
-import filenames from "@/utils/fileName";
 import domtoimage from 'dom-to-image';
-import TestJson from "@/assets/json/case4_fin.json";
-import TestRelJson from "@/assets/json/case4_fin_rel.json";
+import TestJson from "@/assets/json/case1_1_fin.json";
+import ImgMapJson from "@/assets/Case1-Slides/imgMap.json";
+import TestRelJson from "@/assets/json/case1_1_fin_rel.json";
 import tools from "@/utils/tools.js";
 import ocrad from "@/utils/ocrad.js";
 import {createWorker} from "@/utils/tesseract.min.js";
@@ -76,12 +78,16 @@ export default {
   props: ["videoTime"],
   data() {
     return {
-      data: TestJson,
+      data: TestJson,  //test in the online demo
       editConfirmShow:false,
+      showIMG:true,
       gData: "TestJson",
-      relData: TestRelJson,
-      assistGTransformX: 10,
-      assistGTransformY: 100,
+      imgMap:ImgMapJson,
+      relData: TestRelJson, //test in the online demo
+      slidesUpUrl:require("@/assets/Case1-Slides/0.00.png"),
+      slidesDownUrl:require("@/assets/Case1-Slides/0.08.png"),
+      assistGTransformX: -200,
+      assistGTransformY: -200,
       recognizeText:"",
       loadLoading: false,
       drawEntityLocation: [],
@@ -257,12 +263,13 @@ export default {
           else if (targetId == parseInt(val)) {
             trnId = sorceId;
           }
-          if (trnId != '-1') {
-            let curEnt = entityLocationData.find(function (d) { return parseInt(d['id']) == trnId });
-            _this.assistGTransformX = parseInt(-curEnt['x']) + parseFloat(curEnt['r']) + 150;
-            _this.assistGTransformY = parseInt(-curEnt['y']) + parseFloat(curEnt['r']) + 300;
-            _this.updataAssistGraphPanel();
-          }
+
+          // if (trnId != '-1') {
+          //   let curEnt = entityLocationData.find(function (d) { return parseInt(d['id']) == trnId });
+          //   _this.assistGTransformX = parseInt(-curEnt['x']) + parseFloat(curEnt['r']) + 150;
+          //   _this.assistGTransformY = parseInt(-curEnt['y']) + parseFloat(curEnt['r']) + 300;
+          //   _this.updataAssistGraphPanel();
+          // }
         }
 
       };
@@ -280,12 +287,12 @@ export default {
           else if (targetId == parseInt(val)) {
             trnId = sorceId;
           }
-          if (trnId != '-1') {
-            let curEnt = entityLocationData.find(function (d) { return parseInt(d['id']) == trnId });
-            _this.assistGTransformX = parseInt(-curEnt['x']) + parseFloat(curEnt['r']) + 150;
-            _this.assistGTransformY = parseInt(-curEnt['y']) + parseFloat(curEnt['r']) + 300;
-            _this.updataAssistGraphPanel();
-          }
+          // if (trnId != '-1') {
+          //   let curEnt = entityLocationData.find(function (d) { return parseInt(d['id']) == trnId });
+          //   _this.assistGTransformX = parseInt(-curEnt['x']) + parseFloat(curEnt['r']) + 150;
+          //   _this.assistGTransformY = parseInt(-curEnt['y']) + parseFloat(curEnt['r']) + 300;
+          //   _this.updataAssistGraphPanel();
+          // }
         }
 
       };
@@ -360,6 +367,21 @@ export default {
     },
     videoTime(val) {
       const _this = this;
+      let imgMap  =_this.imgMap;
+      for(let i=0;i<imgMap.length-1;i++){
+        console.log(i,imgMap[i+1]);
+        let timeStart = tools.time2seconds2(imgMap[i]);
+        let timeEnd = tools.time2seconds2(imgMap[i+1]);
+        if ((val > timeStart) && (val < timeEnd)) {
+          let u = i-1;
+          let d = i+1;
+          if(u<0){u=0}
+          if(d>imgMap.length-1){d = imgMap.length-1}
+          _this.slidesUpUrl = require(`@/assets/Case1-Slides/${imgMap[u]}.png`);
+        
+          _this.slidesDownUrl = require(`@/assets/Case1-Slides/${imgMap[d]}.png`)
+        }
+      }
       let entityLocationData = _this.drawEntityLocation;
       for (let e = 0; e < entityLocationData.length; e++) {
         let curD = entityLocationData[e];
@@ -507,10 +529,10 @@ export default {
       _this.editDivShow = false;
     },
     editToolClk() {
-      const _this = this;
-      if (_this.curToolState == 'edit') _this.curToolState = 'unEdit';
-      else if (_this.curToolState != 'edit') _this.curToolState = 'edit';
-      this.$emit("toolState", this.curToolState);
+      // const _this = this;
+      // if (_this.curToolState == 'edit') _this.curToolState = 'unEdit';
+      // else if (_this.curToolState != 'edit') _this.curToolState = 'edit';
+      // this.$emit("toolState", this.curToolState);
     },
     editConfirm(){
       console.log("confirm")
@@ -581,7 +603,9 @@ export default {
             }
           }
         };
-      }
+      };
+      
+      _this.updataAssistGraphPanel();
     },
     drawRelationshipLine(svg) {
       const _this = this;
@@ -701,6 +725,7 @@ export default {
             cny = height - cny - 300;
           }
           if(targetId=="5"||sorceId=="5"){cny+=250}
+          if(targetId=="28"||sorceId=="9"){cny-=1050}
           if(targetId=="6"||sorceId=="6"){cny+=150}
           path.moveTo(startX, startY);
           path.lineTo(startX, cny);
@@ -1439,7 +1464,7 @@ export default {
               path1.lineTo((x-(r + inter + h)*Math.cos(ang)),(y-r/2-(r + inter + h)*Math.sin(ang)))
               _this.drawTimeLine(svg, path1, "rgb(200,200,200)", 2, '9,5', 'mm ', 'mm ');
             }
-              arc = _this.drawArc(svg, x, y - r / 2, pathArc, self['color'], self['color'], `timeAxisFor f${entData['id']} ${self['id']}`, '0', 0, 1);
+              arc = _this.drawArc(svg, x, y - r / 2, pathArc, self['color'], self['color'], `timeAxisForSe f${entData['id']} ${self['id']}`, '0', 0, 1);
             }
             else {
               // path1.lineTo(0,0) 
@@ -1478,9 +1503,18 @@ export default {
             let classN = d3.select(this).attr("class");
             let sId = (classN.split(" ")[1] + "").slice(1);
             let tId = classN.split(" ")[2];
+            let type = classN.split(" ")[0];
             _this.showEntityRelIdList = [sId]
             _this.overEntityId = sId;
             _this.overTargetEntityId = tId;
+            _this.showIMG = false;
+            if (type != 'timeAxisFor') {
+              let curEnt = entDataO.find(function (d) { return parseInt(d['id']) == tId });
+              _this.assistGTransformX = parseInt(-curEnt['x']) + parseFloat(curEnt['r'])// + 240;
+              _this.assistGTransformY = parseInt(-curEnt['y']) + parseFloat(curEnt['r'])// + 350;
+              _this.updataAssistGraphPanel();
+            }
+
           })
           
           arc.on("mouseleave", function (d) {
@@ -1489,6 +1523,8 @@ export default {
             let showRel = _this.showEntityRelIdList;
             _this.overTargetEntityId = '';
             _this.overEntityId = ""//_this.curEntId;
+            
+            _this.showIMG = true;
             if (_this.showEntityRelIdOverState == 1) {
               showRel.push(parseInt(sId))
             }
@@ -1974,16 +2010,16 @@ export default {
           else if (showRel.includes(parseInt(idN))) {
             // showRel.filter(item=>{return item==parseInt(idN)})
             _this.showEntityRelIdOverState = 0;
-            showRel.splice(showRel.indexOf(parseInt(idN)), 1)
+            showRel.splice(showRel.indexOf(parseInt(idN)), 1);
           }
           _this.showEntityRelIdList = showRel;
 
           d3.select(this).attr("r", r);
           d3.selectAll(".f" + data['id'])
             .attr("transform", function (d) {
-              let transformd = d3.select(this).attr("transform")
-              return transformd.split(" ")[0] + " scale(1)"
-            })
+              let transformd = d3.select(this).attr("transform");
+              return transformd.split(" ")[0] + " scale(1)";
+            });
           let thisId = this.id.split("_")[1];
           _this.curEntId = thisId;
           let thisData = _this.drawEntityLocation.find(function (a) { return a['id'] == thisId })
@@ -1994,7 +2030,7 @@ export default {
           let dh = psvg.attr("height");
           psvg.remove();
           let svg = d3.select('#editEnt').append("g").attr("id", "entG").attr("width", dw).attr("height", dh);
-          _this.drawEntity(svg, dw/2, 100, r, thisData,1)
+          _this.drawEntity(svg, dw/2, 100, r, thisData,1);
           // if (thisData['type'] == 0 ) {
             _this.drawEntityTimeAxis(svg,thisData,[dw/2,100,r]);
         // }
@@ -2143,7 +2179,7 @@ export default {
         .attr("width", width)
         .attr("height", height)
         .append("g")
-        .attr("transform", `translate(${transX},${transY})`)
+        .attr("transform", `translate(${transX+width/2},${transY+height/2})`)
         .html(content);
     },
     moveGraphLeft(e) {
@@ -2263,7 +2299,13 @@ export default {
     this.$bus.$on('switchL', (val) => {
       _this.switchL = val;
     });
-
+    // disabled in the online demo
+    // this.$bus.$on('entData', (val) => {
+    //   _this.data = val;
+    // });
+    // this.$bus.$on('relData', (val) => {
+    //   _this.relData = val;
+    // });
     // this.$refs.moveGraphLeft.addEventListener("mouseover", _this.moveGraphLeft); // 监听点击事件
     // this.$refs.moveGraphRight.addEventListener("mousemove", _this.moveGraphRight); // 监听点击事件
     // this.$refs.moveGraphLeft.addEventListener("mouseleave", _this.leaveGraphMove); // 监听点击事件
